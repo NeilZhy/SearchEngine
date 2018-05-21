@@ -1,0 +1,284 @@
+ 
+ 
+ 
+ 
+ end - C++ Reference 
+ 
+ 
+ 
+  
+ 
+
+ 
+ 
+ 
+ 
+ 
+      
+ 
+ 
+Search:    
+ 
+ 
+ 
+ 
+  Reference  
+   iterator   
+ end 
+ 
+ 
+    
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ function template 
+  iterator   array   deque   forward_list   list   map   regex   set   string   unordered_map   unordered_set   vector  
+  std:: end   
+  
+ 
+   container (1)   template  class Container   auto end (Container&amp; cont) -  decltype (cont.end());template  class Container   auto end (const Container&amp; cont) -  decltype (cont.end());     array (2)   template  class T, size_t N   T* end (T(&amp;arr)[N]);     
+ 
+   container (1)   template  class Container   auto end (Container&amp; cont) -  decltype (cont.end());template  class Container   auto end (const Container&amp; cont) -  decltype (cont.end());     array (2)   template  class T, size_t N   constexpr T* end (T(&amp;arr)[N]) noexcept;     
+ 
+  Iterator to end 
+ 
+Returns an iterator pointing to the  past-the-end  element in the sequence: 
+ 
+ 
+ (1) Container 
+ The function returns  cont.end() . 
+ (2) Array 
+ The function returns  arr+N . 
+ 
+ 
+If the sequence is  empty , the returned value compares equal to the one returned by   begin   with the same argument. 
+ 
+These function templates are defined in multiple headers: Each of these headers includes the generic templates for all container and array types and not simply a specific overload. The headers are:    iterator   ,    array   ,    deque   ,    forward_list   ,    list   ,   ">map  ,    regex   ,    set   ,    string   ,    unordered_map   ,    unordered_set    and    vector   . 
+ 
+Conversely,   end   is overloaded (with a different definition) in headers    initializer_list    and    valarray   . 
+ 
+ 
+ 
+ Parameters 
+ 
+ cont 
+ An object of a class type for which member  end  is defined. 
+ arr 
+ An array. 
+ 
+ 
+ 
+ 
+ Return Value 
+For  (1) , the same as returned by  cont.end() . 
+For  (2) , a pointer to the element that would follow the last element in the array. 
+ 
+ 
+ 
+ Example 
+      1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20    
+    // std::begin / std::end example 
+ #include  iostream        // std::cout 
+ #include  vector          // std::vector, std::begin, std::end 
+
+ int  main () {
+   int  foo[] = {10,20,30,40,50};
+  std::vector  int   bar;
+
+   // iterate foo: inserting into bar 
+   for  ( auto  it = std::begin(foo); it!=std::end(foo); ++it)
+    bar.push_back(*it);
+
+   // iterate bar: print contents: 
+  std::cout     "bar contains:" ;
+   for  ( auto  it = std::begin(bar); it!=std::end(bar); ++it)
+    std::cout     ' '     *it;
+  std::cout     '\n' ;
+
+   return  0;
+}        
+ 
+ 
+Output: 
+      bar contains: 10 20 30 40 50
+      
+ 
+ 
+ 
+ Data races 
+The argument is accessed but not modified. 
+None of the elements in the sequence are accessed by the call, but the iterator returned can be used to access or modify them. 
+ 
+ 
+ 
+ Exception safety 
+Provides the same level of guarantees as the operation performed on the argument (for standard containers and arrays this is a no-throw guarantee). 
+ 
+ 
+ 
+ See also 
+    begin    Iterator to beginning  (function template)   
+     
+ 
+ 
+ 
+   C++   
+ 
+  Information  
+  Tutorials  
+  Reference  
+  Articles  
+  Forum  
+ 
+ 
+ 
+   Reference   
+ 
+   C library:   
+    cassert  (assert.h)   
+    cctype  (ctype.h)   
+    cerrno  (errno.h)   
+    cfenv  (fenv.h)   
+    cfloat  (float.h)   
+    cinttypes  (inttypes.h)   
+    ciso646  (iso646.h)   
+    climits  (limits.h)   
+    clocale  (locale.h)   
+    cmath  (math.h)   
+    csetjmp  (setjmp.h)   
+    csignal  (signal.h)   
+    cstdarg  (stdarg.h)   
+    cstdbool  (stdbool.h)   
+    cstddef  (stddef.h)   
+    cstdint  (stdint.h)   
+    cstdio  (stdio.h)   
+    cstdlib  (stdlib.h)   
+    cstring  (string.h)   
+    ctgmath  (tgmath.h)   
+    ctime  (time.h)   
+    cuchar  (uchar.h)   
+    cwchar  (wchar.h)   
+    cwctype  (wctype.h)   
+  
+   Containers:   
+    array    
+    deque    
+    forward_list    
+    list    
+    map    
+    queue    
+    set    
+    stack    
+    unordered_map    
+    unordered_set    
+    vector    
+  
+   Input/Output:   
+    fstream    
+    iomanip    
+    ios    
+    iosfwd    
+    iostream    
+    istream    
+    ostream    
+    sstream    
+    streambuf    
+  
+   Multi-threading:   
+    atomic    
+    condition_variable    
+    future    
+    mutex    
+    thread    
+  
+   Other:   
+    algorithm    
+    bitset    
+    chrono    
+    codecvt    
+    complex    
+    exception    
+    functional    
+    initializer_list    
+    iterator    
+    limits    
+    locale    
+    memory    
+    new    
+    numeric    
+    random    
+    ratio    
+    regex    
+    stdexcept    
+    string    
+    system_error    
+    tuple    
+    typeindex    
+    typeinfo    
+    type_traits    
+    utility    
+    valarray    
+  
+ 
+ 
+ 
+    iterator    
+ 
+   iterator   
+   iterator_traits   
+  functions:  
+   advance   
+   back_inserter   
+   begin   
+   distance   
+   end   
+   front_inserter   
+   inserter   
+   make_move_iterator   
+   next   
+   prev   
+  
+  iterator categories:  
+   bidirectional_iterator_tag   
+   forward_iterator_tag   
+   input_iterator_tag   
+   output_iterator_tag   
+   random_access_iterator_tag   
+  
+  predefined iterators:  
+   back_insert_iterator   
+   front_insert_iterator   
+   insert_iterator   
+   istreambuf_iterator   
+   istream_iterator   
+   move_iterator   
+   ostreambuf_iterator   
+   ostream_iterator   
+   reverse_iterator   
+  
+ 
+ 
+  
+ 
+  
+ 
+<ins class="adsbygoogle"
+     style="display:inline-block;width:234px;height:60px"
+     data-ad-client="ca-pub-1444228343479937"
+     data-ad-slot="3817422056"> 
+ 
+
+ 
+
+ 
+ 
