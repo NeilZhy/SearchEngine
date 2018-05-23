@@ -69,7 +69,7 @@ class InvertedIndex
                         line = std::regex_replace(line, regexstr4, fmt);
                         line = std::regex_replace(line, regexstr5, fmt);
                         line = std::regex_replace(line, regexstr6, fmt);
-                        out << line << std::endl;
+                        out << line;
                     }
                 }
                 else // 没有该文件
@@ -79,6 +79,8 @@ class InvertedIndex
             }
             return 0;
         }
+
+        
 
     private:
         std::string _old_path;
