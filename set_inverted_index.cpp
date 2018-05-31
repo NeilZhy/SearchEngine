@@ -23,37 +23,6 @@ const char* const IDF_PATH = "/usr/local/src/cppjieba/dict/idf.utf8";
 const char* const STOP_WORD_PATH = "/usr/local/src/cppjieba/dict/stop_words.utf8";
 
 
-void List(const string& path)
-{
-    DIR* dir = opendir(path.c_str());//打开指定目录
-    dirent* p = NULL;//定义遍历指针
-    while((p = readdir(dir)) != NULL)//开始逐个遍历
-    {
-        if(p->d_type == 8)    //d_type: 8是文件 ，4是目录
-        {
-            string name = p->d_name;
-            if(name[0] == '-')
-            {
-                name[0] = '?';
-                name.pop_back();
-                name.pop_back();
-                name.pop_back();
-                name.pop_back();
-            }
-            cout<<path<<"/"<<name<<endl;
-        }
-        //这里需要注意，linux平台下一个目录中有"."和".."隐藏文件，需要过滤掉
-        else if(p->d_name[0] != '.')//d_name是一个char数组，存放当前遍历到的文件名
-        {
-            string name = path + "/" + string(p->d_name);
-            //cout<<name<<endl;
-            List(name);
-        }
-    }
-    closedir(dir);//关闭指定目录
-}
-
-    //List("/root/github/SearchEngine/www.boost.org");
 
 //cppjieba
 class WordSegmentation//使用结巴分词库进行分词
@@ -101,60 +70,81 @@ class InvertedIndex
         ~InvertedIndex()
          {}
 
-        //去除标签
-        int DetTag()
+        void List(const string& path)
         {
-            if(_old_path == "" || _new_path == "")
+            DIR* dir = opendir(path.c_str());//打开指定目录
+            dirent* p = NULL;//定义遍历指针
+            while((p = readdir(dir)) != NULL)//开始逐个遍历
+            {
+                if(p->d_type == 8)    //d_type: 8是文件 ，4是目录
+                {
+                    string name = p->d_name;
+                    string name_path = path + "/" + name;
+                    if(name[0] == '-')
+                    {
+                        name[0] = '?';
+                        name.pop_back();
+                        name.pop_back();
+                        name.pop_back();
+                        name.pop_back();
+                    }
+                    cout<<path<<"/"<<name<<endl;
+                    DetTag(name_path);
+                }
+                //这里需要注意，linux平台下一个目录中有"."和".."隐藏文件，需要过滤掉
+                else if(p->d_name[0] != '.')//d_name是一个char数组，存放当前遍历到的文件名
+                {
+                    string name = path + "/" + string(p->d_name);
+                    //cout<<name<<endl;
+                    List(name);
+                }
+            }
+            closedir(dir);//关闭指定目录
+        }
+
+        //去除标签
+        int DetTag(const string& old_path)
+        {
+            if(old_path == "")
             {
                 return -1;
             }
+            string new_path = old_path + "1";
 
-            int i = 0;
-            std::string file_name = ".html";
-            std::string replace_name = ".replace";
-            for(i = 0;i <=9;i++)
+            std::ifstream in(old_path);
+            std::ofstream out(new_path);
+            std::string line;
+            std::string fmt = " ";
+
+            //boost::regex regexstr1("<script[^>]*?>.*?</script>");                            //去标签
+            boost::regex regexstr2("<[^>]*>");                            //去标签
+            boost::regex regexstr3("&(lt|#60);");                         //去lt
+            boost::regex regexstr4("&(gt|#62);");                         //去gt
+            boost::regex regexstr5("&(nbsp|#160);");                      //去nbsp
+
+            if(in) // 有该文件
             {
-                file_name = std::to_string(i) + file_name;
-                replace_name = std::to_string(i) + replace_name;
-                std::ifstream in(_old_path + file_name);
-                std::ofstream out(_new_path + replace_name);
-                file_name = ".html";
-                replace_name = ".replace";
-                std::string string_result;
-                std::string filename;
-                std::string line;
-                std::string fmt = " ";
-
-                //boost::regex regexstr1("<script[^>]*?>.*?</script>");                            //去标签
-                boost::regex regexstr2("<[^>]*>");                            //去标签
-                boost::regex regexstr3("&(lt|#60);");                         //去lt
-                boost::regex regexstr4("&(gt|#62);");                         //去gt
-                boost::regex regexstr5("&(nbsp|#160);");                      //去nbsp
-
-                if(in) // 有该文件
+                while (getline (in, line)) // line中不包括每行的换行符
                 {
-                    while (getline (in, line)) // line中不包括每行的换行符
+                    if(line == "<script>")
                     {
-                        if(line == "<script>")
+                        while(getline(in, line))
                         {
-                            while(getline(in, line))
-                            {
-                                if(line == "</script>")
-                                    break;
-                            }
+                            if(line == "</script>")
+                                break;
                         }
-                        //line = boost::regex_replace(line, regexstr1, fmt);
-                        line = boost::regex_replace(line, regexstr2, fmt);
-                        line = boost::regex_replace(line, regexstr3, fmt);
-                        line = boost::regex_replace(line, regexstr4, fmt);
-                        line = boost::regex_replace(line, regexstr5, fmt);
-                        out << line<<std::endl;
                     }
+                    //line = boost::regex_replace(line, regexstr1, fmt);
+                    line = boost::regex_replace(line, regexstr2, fmt);
+                    line = boost::regex_replace(line, regexstr3, fmt);
+                    line = boost::regex_replace(line, regexstr4, fmt);
+                    line = boost::regex_replace(line, regexstr5, fmt);
+                    out << line<<std::endl;
                 }
-                else // 没有该文件
-                {
-                    std::cout <<"no such file" << std::endl;
-                }
+            }
+            else // 没有该文件
+            {
+                std::cout <<"no such file" << std::endl;
             }
             return 0;
         }
@@ -311,7 +301,7 @@ class InvertedIndex
 int main()
 {
     InvertedIndex index("./htmlsource/", "./del_tag_html/");
-    index.DetTag();
+    index.List("/root/git/SearchEngine/www.boost.org");
     index.forward_index();
 
     return 0;
