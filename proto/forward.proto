@@ -1,0 +1,17 @@
+syntax="proto2";
+package lm;
+message Str
+{
+    required string    str = 2;  
+}
+
+message forwar_index {
+    required int32 key = 1;
+    repeated Str value_vector = 2;
+};
+
+message forward_hash
+{
+    repeated forwar_index index = 1;
+};
+

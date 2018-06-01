@@ -1,0 +1,17 @@
+syntax="proto2";
+package inverm;
+message Int
+{
+    required int32   docid = 1;
+}
+
+message invered_index {
+    required string key = 1;
+    repeated Int docid_vector = 2;
+};
+
+message invered_hash
+{
+    repeated invered_index index = 1;
+};
+
