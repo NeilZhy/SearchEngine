@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Math Toolkit 2.5.1 - 1.63.0</title>
+<link rel="stylesheet" href="math.css" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/math.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Math Toolkit 2.5.1">
+<link rel="next" href="overview.html" title="Chapter&#160;1.&#160;Overview">
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/math/doc/html/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/math/doc/html/index.html'" tppabs="https://www.boost.org/doc/libs/release/libs/math/doc/html/index.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+
+<div class="spirit-nav"><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/266  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/266'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/overview.html"><img src="../../../../../1_56_0/libs/msm/next.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/next.png" alt="Next"></a></div>
+<div class="book">
+<div class="titlepage">
+<div>
+<div><h1 class="title">
+<a name="math_toolkit"></a>Math Toolkit 2.5.1</h1></div>
+<div><div class="authorgroup">
+<div class="author"><h3 class="author">
+<span class="firstname">Nikhar</span> <span class="surname">Agrawal</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Anton</span> <span class="surname">Bikineev</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Paul A.</span> <span class="surname">Bristow</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Hubert</span> <span class="surname">Holin</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Marco</span> <span class="surname">Guazzone</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Christopher</span> <span class="surname">Kormanyos</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Bruno</span> <span class="surname">Lalande</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">John</span> <span class="surname">Maddock</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Jeremy W.</span> <span class="surname">Murphy</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Johan</span> <span class="surname">R&#229;de</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Benjamin</span> <span class="surname">Sobotta</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Gautam</span> <span class="surname">Sewani</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Thijs</span> <span class="surname">van den Berg</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Daryle</span> <span class="surname">Walker</span>
+</h3></div>
+<div class="author"><h3 class="author">
+<span class="firstname">Xiaogang</span> <span class="surname">Zhang</span>
+</h3></div>
+</div></div>
+<div><p class="releaseinfo">
+This manual is also available in <a href="javascript:if(confirm('http://sourceforge.net/doc/libs/1_42_0/libs/assign/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://sourceforge.net/doc/libs/1_42_0/libs/assign/'" tppabs="http://sourceforge.net/projects/boost/files/boost-docs/" target="_top">printer
+  friendly PDF format</a>, and as a CD ISBN 0-9504833-2-X 978-0-9504833-2-0,
+  Classification 519.2-dc22. </p></div>
+<div><p class="copyright">Copyright &#169; 2006-2010, 2012-2014 Nikhar Agrawal,
+      Anton Bikineev, Paul A. Bristow, Marco Guazzone, Christopher Kormanyos, Hubert
+      Holin, Bruno Lalande, John Maddock, Jeremy Murphy, Johan R&#229;de, Gautam Sewani,
+      Benjamin Sobotta, Thijs van den Berg, Daryle Walker and Xiaogang Zhang</p></div>
+<div><div class="legalnotice">
+<a name="math_toolkit.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="../../../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div>
+<hr>
+</div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc">
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/266  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/266'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/overview.html">1. Overview</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/441  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/441'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/utils.html">2. Floating Point Utilities</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/InputIterator.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/InputIterator.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/cstdfloat.html">3. Specified-width floating-point typedefs</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/51  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/51'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/constants.html">4. Mathematical Constants</a></span></dt>
+<dt><span class="chapter"><a href="dist.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/dist.html">5. Statistical Distributions and Functions</a></span></dt>
+<dt><span class="chapter"><a href="special.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/special.html">6. Special Functions</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/19  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/19'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/extern_c.html">7. TR1 and C99 external "C" Functions</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/8679  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/8679'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/inverse_complex.html">8. Complex Number Functions</a></span></dt>
+<dt><span class="chapter"><a href="quaternions.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/quaternions.html">9. Quaternions</a></span></dt>
+<dt><span class="chapter"><a href="octonions.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/octonions.html">10. Octonions</a></span></dt>
+<dt><span class="chapter"><a href="gcd_lcm.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/gcd_lcm.html">11. Integer Utilities (Greatest Common Divisor and Least Common Multiple)</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/239  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/239'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/rooting.html">12. Tools: Root Finding &amp; Minimization Algorithms, Polynomial Arithmetic
+  &amp; Evaluation</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/internals.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/internals.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/internals.html">13. Internal Details: Series, Rationals and Continued Fractions, Testing,
+  and Development Tools</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/179  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/179'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/using_udt.html">14. Use with User-Defined Floating-Point Types - Boost.Multiprecision and
+  others</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/policy.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/policy.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/policy.html">15. Policies: Controlling Precision, Error Handling etc</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/242  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/242'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/perf.html">16. Performance</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/89  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/89'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/backgrounders.html">17. Backgrounders</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/issues_.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/issues_.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/status.html">18. Library Status</a></span></dt>
+<dt><span class="chapter"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/Vector.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/Vector.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/indexes.html">19. Indexes</a></span></dt>
+</dl>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: December 22, 2016 at 12:42:58 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/266  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/266'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/overview.html"><img src="../../../../../1_56_0/libs/msm/next.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/next.png" alt="Next"></a></div>
+</body>
+</html>

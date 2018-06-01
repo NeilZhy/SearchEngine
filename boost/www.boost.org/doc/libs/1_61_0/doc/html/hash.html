@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter&#160;13.&#160;Boost.Functional/Hash - 1.61.0</title>
+<link rel="stylesheet" href="../../../1_54_0/libs/date_time/boostbook.css" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
+<link rel="prev" href="function/testsuite.html" title="Testsuite">
+<link rel="next" href="hash/tutorial.html" title="Tutorial">
+<link rel="icon" href="/favicon.ico" type="image/ico"/><link rel="stylesheet" type="text/css" href="../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/doc/html/hash.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/doc/html/hash.html'" tppabs="https://www.boost.org/doc/libs/release/doc/html/hash.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/geometry/cancel.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/geometry/cancel.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/function/testsuite.html"><img src="../../../1_54_0/libs/dynamic_bitset/prev.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_61_0/doc/html/libraries.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_61_0/doc/html/libraries.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/libraries.html"><img src="../../../1_54_0/libs/dynamic_bitset/up.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_61_0/doc/html/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_61_0/doc/html/index.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/index.html"><img src="../../../1_54_0/libs/dynamic_bitset/home.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/tutorial.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/tutorial.html"><img src="../../../1_54_0/libs/dynamic_bitset/next.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="chapter">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="hash"></a>Chapter&#160;13.&#160;Boost.Functional/Hash</h2></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Daniel</span> <span class="surname">James</span>
+</h3></div></div>
+<div><p class="copyright">Copyright &#169; 2005-2008 Daniel
+      James</p></div>
+<div><div class="legalnotice">
+<a name="hash.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="hash.html#hash.intro" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash.html#hash.intro">Introduction</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/tutorial.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/tutorial.html">Tutorial</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/handler_type.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/handler_type.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/custom.html">Extending boost::hash for a custom data type</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/async_result_lt__Handler__gt_.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/async_result_lt__Handler__gt_.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/combine.html">Combining hash values</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/772  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/772'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/portability.html">Portability</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/associated_executor.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/associated_executor.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/disable.html">Disabling The Extensions</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/changes.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/changes.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/changes.html">Change Log</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/783  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/783'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/rationale.html">Rationale</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/reference.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/reference.html">Reference</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/reference.html#hash.reference.specification'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/reference.html#hash.reference.specification"></a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/reference.html#header.boost.functional.hash_hpp'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/reference.html#header.boost.functional.hash_hpp">Header &lt;boost/functional/hash.hpp&gt;</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/get_associated_executor.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/get_associated_executor.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/links.html">Links</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/acknowledgements.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/acknowledgements.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/acknowledgements.html">Acknowledgements</a></span></dt>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="hash.intro"></a><a class="link" href="hash.html#hash.intro" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash.html#hash.intro" title="Introduction">Introduction</a>
+</h2></div></div></div>
+<p>
+      <code class="computeroutput"><a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/circular_buffer/hash.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/circular_buffer/hash.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/boost/hash.html" title="Struct template hash">boost::hash</a></code> is an implementation of
+      the <a href="javascript:if(confirm('http://en.wikipedia.org/wiki/asio_handler_invoke.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/asio_handler_invoke.html'" tppabs="http://en.wikipedia.org/wiki/Hash_function" target="_top">hash function</a>
+      object specified by the <a href="javascript:if(confirm('http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1836.pdf  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1836.pdf'" tppabs="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1836.pdf" target="_top">Draft
+      Technical Report on C++ Library Extensions</a> (TR1). It is the default
+      hash function for <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_61_0/doc/html/unordered.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_61_0/doc/html/unordered.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/unordered.html" title="Chapter&#160;40.&#160;Boost.Unordered">Boost.Unordered</a>, <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/graph/associated_allocator.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/graph/associated_allocator.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/intrusive/unordered_set_unordered_multiset.html" title="Semi-Intrusive unordered associative containers: unordered_set, unordered_multiset">Boost.Intrusive</a>'s
+      unordered associative containers, and <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/any/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/any/index.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/libs/multi_index/doc/index.html" target="_top">Boost.MultiIndex</a>'s
+      hash indicies and <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_61_0/libs/bimap/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_61_0/libs/bimap/index.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/libs/bimap/index.html" target="_top">Boost.Bimap</a>'s
+      <code class="computeroutput"><span class="identifier">unordered_set_of</span></code>.
+    </p>
+<p>
+      As it is compliant with <a href="javascript:if(confirm('http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1836.pdf  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1836.pdf'" tppabs="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1836.pdf" target="_top">TR1</a>,
+      it will work with:
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          integers
+        </li>
+<li class="listitem">
+          floats
+        </li>
+<li class="listitem">
+          pointers
+        </li>
+<li class="listitem">
+          strings
+        </li>
+</ul></div>
+<p>
+      It also implements the extension proposed by Peter Dimov in issue 6.18 of the
+      <a href="javascript:if(confirm('http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/get_associated_allocator.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/get_associated_allocator.html'" tppabs="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1837.pdf" target="_top">Library
+      Extension Technical Report Issues List</a> (page 63), this adds support
+      for:
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          arrays
+        </li>
+<li class="listitem">
+          <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code>
+        </li>
+<li class="listitem">
+          the standard containers.
+        </li>
+<li class="listitem">
+          extending <code class="computeroutput"><a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/circular_buffer/hash.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/circular_buffer/hash.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/boost/hash.html" title="Struct template hash">boost::hash</a></code> for custom
+          types.
+        </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../1_54_0/libs/dynamic_bitset/2921" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        This hash function is designed to be used in containers based on the STL
+        and is not suitable as a general purpose hash function. For more details
+        see the <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/783  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/783'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/rationale.html" title="Rationale">rationale</a>.
+      </p></td></tr>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: May 05, 2016 at 21:18:52 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/geometry/cancel.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/geometry/cancel.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/function/testsuite.html"><img src="../../../1_54_0/libs/dynamic_bitset/prev.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_61_0/doc/html/libraries.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_61_0/doc/html/libraries.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/libraries.html"><img src="../../../1_54_0/libs/dynamic_bitset/up.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_61_0/doc/html/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_61_0/doc/html/index.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/index.html"><img src="../../../1_54_0/libs/dynamic_bitset/home.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_48_0/libs/gil/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_48_0/libs/gil/tutorial.html'" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/html/hash/tutorial.html"><img src="../../../1_54_0/libs/dynamic_bitset/next.png" tppabs="https://www.boost.org/doc/libs/1_61_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

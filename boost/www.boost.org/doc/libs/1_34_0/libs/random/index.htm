@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Boost Random Number Library - 1.34.0</title>
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+
+<body bgcolor="#FFFFFF" text="#000000">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/random/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/random/index.html'" tppabs="https://www.boost.org/doc/libs/release/libs/random/index.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+
+  
+
+  <h1>Boost Random Number Library</h1>
+
+  <p>Random numbers are useful in a variety of applications. The Boost Random
+  Number Library (Boost.Random for short) provides a vast variety of
+  generators and distributions to produce random numbers having useful
+  properties, such as uniform distribution.</p>
+
+  <p>You should read the <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/test_log_output.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/test_log_output.html'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random-concepts.html">concepts
+  documentation</a> for an introduction and the definition of the basic
+  concepts. For a quick start, it may be sufficient to have a look at
+  <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/11756  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/11756'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random_demo.cpp">random_demo.cpp</a>.</p>
+
+  <p>For a very quick start, here's an example:</p>
+  <pre>
+  boost::mt19937 rng;                 // produces randomness out of thin air
+                                      // see pseudo-random number generators
+  boost::uniform_int&lt;&gt; six(1,6)       // distribution that maps to 1..6
+                                      // see random number distributions
+  boost::variate_generator&lt;boost::mt19937&amp;, boost::uniform_int&lt;&gt; &gt;
+           die(rng, six);             // glues randomness with mapping
+  int x = die();                      // simulate rolling a die
+</pre>
+
+  <h2>Library Organization</h2>
+
+  <p>The library is separated into several header files, all within the
+  <code>boost/random/</code> directory. Additionally, a convenience header
+  file which includes all other headers in <code>boost/random/</code> is
+  available as <code><a href=
+  "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/mpl/random.hpp  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/mpl/random.hpp'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random.hpp">boost/random.hpp</a></code>.</p>
+
+  <p>A front-end class template called <code>variate_generate</code> is
+  provided; please read the <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/12540  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/12540'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random-variate.html">documentation</a>
+  about it.</p>
+
+  <ul>
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/12712  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/12712'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/variate_generator.hpp">boost/random/variate_generator.hpp</a></code></li>
+  </ul>Several random number generators are available in the following header
+  files; please read the <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/12748  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/12748'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random-generators.html">documentation</a>
+  about these.
+
+  <ul>
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/12778  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/12778'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/linear_congruential.hpp">boost/random/linear_congruential.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/12531  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/12531'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/additive_combine.hpp">boost/random/additive_combine.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/strings.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/strings.html'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/inversive_congruential.hpp">boost/random/inversive_congruential.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/103  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/103'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/shuffle_output.hpp">boost/random/shuffle_output.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/11907  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/11907'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/mersenne_twister.hpp">boost/random/mersenne_twister.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/12339  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/12339'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/lagged_fibonacci.hpp">boost/random/lagged_fibonacci.hpp</a></code></li>
+  </ul>Similarly, several random number distributions are available in the
+  following header files; please read the <a href=
+  "javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/12506  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/12506'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random-distributions.html">documentation</a> about these.
+
+  <ul>
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/12507  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/12507'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/uniform_smallint.hpp">boost/random/uniform_smallint.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/12530  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/12530'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/uniform_int.hpp">boost/random/uniform_int.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/datasets_auto_registration.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/datasets_auto_registration.html'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/uniform_01.hpp">boost/random/uniform_01.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/run_test.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/run_test.html'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/uniform_real.hpp">boost/random/uniform_real.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/logger.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/logger.html'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/triangle_distribution.hpp">boost/random/triangle_distribution.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/config_disable_alt_stack.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/config_disable_alt_stack.html'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/bernoulli_distribution.hpp">boost/random/bernoulli_distribution.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/8707  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/8707'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/cauchy_distribution.hpp">boost/random/cauchy_distribution.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/8834  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/8834'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/exponential_distribution.hpp">boost/random/exponential_distribution.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/11128  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/11128'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/geometric_distribution.hpp">boost/random/geometric_distribution.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/11845  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/11845'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/normal_distribution.hpp">boost/random/normal_distribution.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/11859  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/11859'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/lognormal_distribution.hpp">boost/random/lognormal_distribution.hpp</a></code></li>
+
+    <li><code><a href=
+    "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/tr1/12024  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/tr1/12024'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/random/uniform_on_sphere.hpp">boost/random/uniform_on_sphere.hpp</a></code></li>
+  </ul>Additionally, non-deterministic random number generators are available
+  in the header <code><a href=
+  "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/mpl/12093  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/mpl/12093'" tppabs="https://www.boost.org/doc/libs/1_34_0/boost/nondet_random.hpp">&lt;boost/nondet_random.hpp&gt;</a></code>.
+  <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/12103  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/12103'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/nondet_random.html">Documentation</a> is also available.
+
+  <p>In order to map the interface of the generators and distribution
+  functions to other concepts, some <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/12224  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/12224'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random-misc.html">decorators</a>
+  are available.</p>
+
+  <h2>Tests</h2>
+
+  <p>An extensive test suite for the pseudo-random number generators and
+  distributions is available as <a href=
+  "javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/random_test.cpp  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/random_test.cpp'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random_test.cpp">random_test.cpp</a>.</p>
+
+  <p>Some <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/12241  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/12241'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random-performance.html">performance results</a> obtained
+  using <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/libs/random/12257  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/libs/random/12257'" tppabs="https://www.boost.org/doc/libs/1_34_0/libs/random/random_speed.cpp">random_speed.cpp</a> are also
+  available.</p>
+
+  <h2>Rationale</h2>
+
+  <p>The methods for generating and evaluating deterministic and
+  non-deterministic random numbers differ radically. Furthermore, due to the
+  inherent deterministic design of present-day computers, it is often
+  difficult to implement non-deterministic random number generation
+  facilities. Thus, the random number library is split into separate header
+  files, mirroring the two different application domains.</p>
+
+  <h2>History and Acknowledgements</h2>
+
+  <p>In November 1999, Jeet Sukumaran proposed a framework based on virtual
+  functions, and later sketched a template-based approach. Ed Brey pointed
+  out that Microsoft Visual C++ does not support in-class member
+  initializations and suggested the <code>enum</code> workaround. Dave
+  Abrahams highlighted quantization issues.</p>
+
+  <p>The first public release of this random number library materialized in
+  March 2000 after extensive discussions on the boost mailing list. Many
+  thanks to Beman Dawes for his original <code>min_rand</code> class,
+  portability fixes, documentation suggestions, and general guidance. Harry
+  Erwin sent a header file which provided additional insight into the
+  requirements. Ed Brey and Beman Dawes wanted an iterator-like
+  interface.</p>
+
+  <p>Beman Dawes managed the formal review, during which Matthias Troyer,
+  Csaba Szepesvari, and Thomas Holenstein gave detailed comments. The
+  reviewed version became an official part of boost on 17 June 2000.</p>
+
+  <p>Gary Powell contributed suggestions for code cleanliness. Dave Abrahams
+  and Howard Hinnant suggested to move the basic generator templates from
+  namespace <code>boost::detail</code> to <code>boost::random</code>.</p>
+
+  <p>Ed Brey asked to remove superfluous warnings and helped with
+  <code>uint64_t</code> handling. Andreas Scherer tested with MSVC. Matthias
+  Troyer contributed a lagged Fibonacci generator. Michael Stevens found a
+  bug in the copy semantics of normal_distribution and suggested
+  documentation improvements.</p>
+  <hr>
+
+  <p><a href="javascript:if(confirm('http://validator.w3.org/check?uri=referer  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://validator.w3.org/check?uri=referer'" tppabs="http://validator.w3.org/check?uri=referer"><img border="0" src=
+  "../../../../../../www.w3.org/doc/libs/1_63_0/libs/multiprecision/10317" tppabs="http://www.w3.org/Icons/valid-html401" alt="Valid HTML 4.01 Transitional"
+  height="31" width="88"></a></p>
+
+  <p>Revised 
+  <!--webbot bot="Timestamp" s-type="EDITED" s-format="%d %B, %Y" startspan -->05
+  December, 2006<!--webbot bot="Timestamp" endspan i-checksum="38516" --></p>
+
+  <p><i>Copyright &copy; 2000-2005 <a href=
+  "javascript:if(confirm('https://www.boost.org/doc/libs/1_56_0/libs/numeric/conversion/jens_maurer.htm  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_56_0/libs/numeric/conversion/jens_maurer.htm'" tppabs="https://www.boost.org/doc/libs/1_34_0/people/jens_maurer.htm">Jens Maurer</a></i></p>
+
+  <p><i>Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_34_0/LICENSE_1_0.txt  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_34_0/LICENSE_1_0.txt'" tppabs="https://www.boost.org/doc/libs/1_34_0/LICENSE_1_0.txt">LICENSE_1_0.txt</a> or
+  copy at <a href=
+  "javascript:if(confirm('http://www.boost.org/LICENSE_1_0.txt  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='http://www.boost.org/LICENSE_1_0.txt'" tppabs="http://www.boost.org/LICENSE_1_0.txt">http://www.boost.org/LICENSE_1_0.txt</a>)</i></p>
+</body>
+</html>

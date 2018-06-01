@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+	<title>questions and answers - 1.66.0</title>
+	<link href="reno.css" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/reno.css" type='text/css' rel='stylesheet'/>
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body>  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/qvm/doc/questions_and_answers.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/qvm/doc/questions_and_answers.html'" tppabs="https://www.boost.org/doc/libs/release/libs/qvm/doc/questions_and_answers.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+
+<div class="body-0">
+<div class="body-1">
+<div class="body-2">
+<div>
+<h1>QVM: Quaternions, Vectors, Matrices</h1>
+</div>
+<!-- Copyright (c) 2008-2016 Emil Dotchevski and Reverge Studios, Inc. -->
+<!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->
+<!-- file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) -->
+<div class="RenoIncludeDIV"><div class="RenoAutoDIV"><h3>Questions and Answers</h3>
+</div>
+<p><b>Q:</b> What is the motivation behind Boost QVM? Why not just use uBLAS/Eigen/CML/GLM/etc?</p>
+<blockquote><p><b>A:</b> The primary domain of Boost QVM is realtime graphics and simulation applications, so it is not a complete linear algebra library. While (naturally) there is some overlap with such libraries, QVM puts the emphasis on 2, 3 and 4 dimensional zero-overhead operations (hence domain-specific features like <span class="RenoLink"><a href="Swizzling.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/Swizzling.html">Swizzling</a></span>).</p></blockquote>
+<p><b>Q:</b> How does the <i>qvm::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/vec.html">vec</a></span></i> (or <i>qvm::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/12534  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/12534'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/mat.html">mat</a></span></i>, or <i>qvm::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/quat.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/quat.html'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/quat.html">quat</a></span></i>) template compare to vector types from other libraries?</p>
+<blockquote><p><b>A:</b> The <i>qvm::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/vec.html">vec</a></span></i> template is not in any way central to the vector operations defined by QVM. The operations are designed to work with any user-defined vector type or with 3rd-party vector types (e.g. <i><span class="RenoLink"><a href="javascript:if(confirm('https://msdn.microsoft.com/doc/libs/1_55_0/libs/test/11302  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='https://msdn.microsoft.com/doc/libs/1_55_0/libs/test/11302'" tppabs="https://msdn.microsoft.com/en-us/library/windows/desktop/bb172627%28v=vs.85%29.aspx">D3DVECTOR</a></span></i>), while the <i>qvm::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/vec.html">vec</a></span></i> template is simply a default return type for expressions that use arguments of different types that would be incompatible outside of QVM. For example, if the <i><span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/1976  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/1976'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/deduce_mat2.html">deduce_mat2</a></span></i> hasn't been specialized, calling <i><span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/9481  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/9481'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/cross.html">cross</a></span></i> with a user-defined type <i>vec3</i> and a user-defined type <i>float3</i> returns a <i>qvm::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/a67cc1b055cf09f371e2eca544884634a1ccc886'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/vec.html">vec</a></span></i>.</p></blockquote>
+<p><b>Q:</b> Why doesn't QVM use [] or () to access vector and matrix elements?</p>
+<blockquote><p><b>A:</b> Because it's designed to work with user-defined types, and the C++ standard requires these operators to be members. Of course if a user-defined type defines <i>operator[]</i> or <i>operator()</i> they are available for use with other QVM functions, but QVM defines its own mechanism for <span class="RenoLink"><a href="accessing_vector_elements.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/accessing_vector_elements.html">accessing vector elements</a></span>, as well as <span class="RenoLink"><a href="Swizzling.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/Swizzling.html">Swizzling</a></span> support.</p></blockquote>
+</div><div class="RenoAutoDIV"><div class="RenoHR"><hr/></div>
+See also: <span class="RenoPageList"><a href="index.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/index.html">Boost QVM</a></span>
+</div>
+<!-- Copyright (c) 2008-2016 Emil Dotchevski and Reverge Studios, Inc. -->
+<!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->
+<!-- file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) -->
+<div id="footer">
+<p>
+<a class="logo" href="javascript:if(confirm('http://jigsaw.w3.org/css-validator/check/referer  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://jigsaw.w3.org/css-validator/check/referer'" tppabs="http://jigsaw.w3.org/css-validator/check/referer"><img class="logo_pic" src="valid-css.png" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/valid-css.png" alt="Valid CSS" height="31" width="88"/></a>
+<a class="logo" href="javascript:if(confirm('http://validator.w3.org/check?uri=referer  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://validator.w3.org/check?uri=referer'" tppabs="http://validator.w3.org/check?uri=referer"><img class="logo_pic" src="valid-xhtml.png" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/qvm/doc/valid-xhtml.png" alt="Valid XHTML 1.0" height="31" width="88"/></a>
+<small>Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.<br/>
+Distributed under the <a href="../../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt">Boost Software License, Version 1.0</a>.</small>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

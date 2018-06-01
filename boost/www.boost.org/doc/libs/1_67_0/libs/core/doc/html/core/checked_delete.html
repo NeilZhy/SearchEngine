@@ -1,0 +1,246 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>checked_delete - 1.67.0</title>
+<link rel="stylesheet" href="../../../../../../release/libs/iostreams/boostbook.css" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Boost.Core">
+<link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Boost.Core">
+<link rel="prev" href="addressof.html" title="addressof">
+<link rel="next" href="demangle.html" title="demangle">
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/addressof.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/addressof.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/addressof.html"><img src="../../../../../../release/libs/beast/prev.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/index.html"><img src="../../../../../../release/libs/beast/up.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/index.html"><img src="../../../../../../release/libs/beast/home.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/1213  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/1213'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/demangle.html"><img src="../../../../../../release/libs/beast/next.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="core.checked_delete"></a><a class="link" href="checked_delete.html" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html" title="checked_delete">checked_delete</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="checked_delete.html#core.checked_delete.overview" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.overview">Overview</a></span></dt>
+<dt><span class="section"><a href="checked_delete.html#core.checked_delete.synopsis" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.synopsis">Synopsis</a></span></dt>
+<dt><span class="section"><a href="checked_delete.html#core.checked_delete.checked_delete" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_delete">checked_delete</a></span></dt>
+<dt><span class="section"><a href="checked_delete.html#core.checked_delete.checked_array_delete" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_array_delete">checked_array_delete</a></span></dt>
+<dt><span class="section"><a href="checked_delete.html#core.checked_delete.checked_deleter" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_deleter">checked_deleter</a></span></dt>
+<dt><span class="section"><a href="checked_delete.html#core.checked_delete.checked_array_deleter" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_array_deleter">checked_array_deleter</a></span></dt>
+<dt><span class="section"><a href="checked_delete.html#core.checked_delete.acknowledgements" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.acknowledgements">Acknowledgements</a></span></dt>
+</dl></div>
+<div class="simplesect">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="idp96183680"></a>Authors</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          Beman Dawes
+        </li>
+<li class="listitem">
+          Dave Abrahams
+        </li>
+<li class="listitem">
+          Vladimir Prus
+        </li>
+<li class="listitem">
+          Rainer Deyke
+        </li>
+<li class="listitem">
+          John Maddock
+        </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.checked_delete.overview"></a><a class="link" href="checked_delete.html#core.checked_delete.overview" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.overview" title="Overview">Overview</a>
+</h3></div></div></div>
+<p>
+        The header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">checked_delete</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+        defines two function templates, <code class="computeroutput"><span class="identifier">checked_delete</span></code>
+        and <code class="computeroutput"><span class="identifier">checked_array_delete</span></code>,
+        and two class templates, <code class="computeroutput"><span class="identifier">checked_deleter</span></code>
+        and <code class="computeroutput"><span class="identifier">checked_array_deleter</span></code>.
+      </p>
+<p>
+        The C++ Standard allows, in 5.3.5/5, pointers to incomplete class types to
+        be deleted with a delete-expression. When the class has a non-trivial destructor,
+        or a class-specific operator delete, the behavior is undefined. Some compilers
+        issue a warning when an incomplete type is deleted, but unfortunately, not
+        all do, and programmers sometimes ignore or disable warnings.
+      </p>
+<p>
+        A particularly troublesome case is when a smart pointer's destructor, such
+        as <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">scoped_ptr</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::~</span><span class="identifier">scoped_ptr</span></code>, is instantiated with an incomplete
+        type. This can often lead to silent, hard to track failures.
+      </p>
+<p>
+        The supplied function and class templates can be used to prevent these problems,
+        as they require a complete type, and cause a compilation error otherwise.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.checked_delete.synopsis"></a><a class="link" href="checked_delete.html#core.checked_delete.synopsis" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.synopsis" title="Synopsis">Synopsis</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span>
+<span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">void</span> <span class="identifier">checked_delete</span><span class="special">(</span><span class="identifier">T</span> <span class="special">*</span> <span class="identifier">p</span><span class="special">);</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">void</span> <span class="identifier">checked_array_delete</span><span class="special">(</span><span class="identifier">T</span> <span class="special">*</span> <span class="identifier">p</span><span class="special">);</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">checked_deleter</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">checked_array_deleter</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.checked_delete.checked_delete"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_delete" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_delete" title="checked_delete">checked_delete</a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="core.checked_delete.checked_delete.template_class_t_void_checked_de"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_delete.template_class_t_void_checked_de" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_delete.template_class_t_void_checked_de" title="template&lt;class T&gt; void checked_delete(T * p);">template&lt;class
+        T&gt; void checked_delete(T * p);</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <span class="bold"><strong>Requires:</strong></span> <code class="computeroutput"><span class="identifier">T</span></code>
+              must be a complete type. The expression <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="identifier">p</span></code> must be well-formed.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Effects:</strong></span> <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="identifier">p</span><span class="special">;</span></code>
+            </li>
+</ul></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.checked_delete.checked_array_delete"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_array_delete" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_array_delete" title="checked_array_delete">checked_array_delete</a>
+</h3></div></div></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="core.checked_delete.checked_array_delete.template_class_t_void_checked_ar"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_array_delete.template_class_t_void_checked_ar" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_array_delete.template_class_t_void_checked_ar" title="template&lt;class T&gt; void checked_array_delete(T * p);">template&lt;class
+        T&gt; void checked_array_delete(T * p);</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <span class="bold"><strong>Requires:</strong></span> <code class="computeroutput"><span class="identifier">T</span></code>
+              must be a complete type. The expression <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="special">[]</span> <span class="identifier">p</span></code>
+              must be well-formed.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Effects:</strong></span> <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="special">[]</span> <span class="identifier">p</span><span class="special">;</span></code>
+            </li>
+</ul></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.checked_delete.checked_deleter"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_deleter" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_deleter" title="checked_deleter">checked_deleter</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">checked_deleter</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="keyword">void</span> <span class="identifier">result_type</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">T</span> <span class="special">*</span> <span class="identifier">argument_type</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">T</span> <span class="special">*</span> <span class="identifier">p</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="core.checked_delete.checked_deleter.void_checked_deleter_t_operator_"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_deleter.void_checked_deleter_t_operator_" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_deleter.void_checked_deleter_t_operator_" title="void checked_deleter&lt;T&gt;::operator()(T * p) const;">void
+        checked_deleter&lt;T&gt;::operator()(T * p) const;</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <span class="bold"><strong>Requires:</strong></span> <code class="computeroutput"><span class="identifier">T</span></code>
+              must be a complete type. The expression <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="identifier">p</span></code> must be well-formed.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Effects:</strong></span> <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="identifier">p</span><span class="special">;</span></code>
+            </li>
+</ul></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.checked_delete.checked_array_deleter"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_array_deleter" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_array_deleter" title="checked_array_deleter">checked_array_deleter</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">checked_array_deleter</span>
+<span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="keyword">void</span> <span class="identifier">result_type</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="identifier">T</span> <span class="special">*</span> <span class="identifier">argument_type</span><span class="special">;</span>
+    <span class="keyword">void</span> <span class="keyword">operator</span><span class="special">()(</span><span class="identifier">T</span> <span class="special">*</span> <span class="identifier">p</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="core.checked_delete.checked_array_deleter.void_checked_array_deleter_t_ope"></a><a class="link" href="checked_delete.html#core.checked_delete.checked_array_deleter.void_checked_array_deleter_t_ope" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.checked_array_deleter.void_checked_array_deleter_t_ope" title="void checked_array_deleter&lt;T&gt;::operator()(T * p) const;">void
+        checked_array_deleter&lt;T&gt;::operator()(T * p) const;</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <span class="bold"><strong>Requires:</strong></span> <code class="computeroutput"><span class="identifier">T</span></code>
+              must be a complete type. The expression <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="special">[]</span> <span class="identifier">p</span></code>
+              must be well-formed.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Effects:</strong></span> <code class="computeroutput"><span class="keyword">delete</span>
+              <span class="special">[]</span> <span class="identifier">p</span><span class="special">;</span></code>
+            </li>
+</ul></div>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.checked_delete.acknowledgements"></a><a class="link" href="checked_delete.html#core.checked_delete.acknowledgements" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/checked_delete.html#core.checked_delete.acknowledgements" title="Acknowledgements">Acknowledgements</a>
+</h3></div></div></div>
+<p>
+        The function templates <code class="computeroutput"><span class="identifier">checked_delete</span></code>
+        and <code class="computeroutput"><span class="identifier">checked_array_delete</span></code>
+        were originally part of <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">utility</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>,
+        and the documentation acknowledged Beman Dawes, Dave Abrahams, Vladimir Prus,
+        Rainer Deyke, John Maddock, and others as contributors.
+      </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2014 Peter Dimov<br>Copyright &#169; 2014 Glen Fernandes<br>Copyright &#169; 2014 Andrey Semashev<p>
+        Distributed under the <a href="../../../../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt" target="_top">Boost
+        Software License, Version 1.0</a>.
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/addressof.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/addressof.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/addressof.html"><img src="../../../../../../release/libs/beast/prev.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/index.html"><img src="../../../../../../release/libs/beast/up.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/functional/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/index.html"><img src="../../../../../../release/libs/beast/home.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/1213  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/1213'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/core/doc/html/core/demangle.html"><img src="../../../../../../release/libs/beast/next.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

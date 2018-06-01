@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter&#160;41.&#160;Boost.TypeIndex 4.1 - 1.65.0</title>
+<link rel="stylesheet" href="../../../1_63_0/libs/dll/boostbook.css" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
+<link rel="prev" href="boost_typeerasure/related.html" title="Related Work">
+<link rel="next" href="boost_typeindex/getting_started.html" title="Getting started">
+<link rel="icon" href="/favicon.ico" type="image/ico"/><link rel="stylesheet" type="text/css" href="../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/doc/html/boost_typeindex.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/doc/html/boost_typeindex.html'" tppabs="https://www.boost.org/doc/libs/release/doc/html/boost_typeindex.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/variant/11229  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/variant/11229'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeerasure/related.html"><img src="../../../../../boost-announce/2016/10/prev.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="libraries.html" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/libraries.html"><img src="../../../../../boost-announce/2016/10/up.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/index.html"><img src="../../../../../boost-announce/2016/10/home.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/getting_started.html"><img src="../../../../../boost-announce/2016/10/next.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="chapter">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="boost_typeindex"></a>Chapter&#160;41.&#160;Boost.TypeIndex 4.1</h2></div>
+<div><p class="copyright">Copyright &#169; 2012-2016 Antony Polukhin</p></div>
+<div><div class="legalnotice">
+<a name="boost_typeindex.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc">
+<dt><span class="section"><a href="boost_typeindex.html#boost_typeindex.motivation" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex.html#boost_typeindex.motivation">Motivation</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/getting_started.html">Getting started</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html#boost_typeindex.getting_started.how_to_use'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/getting_started.html#boost_typeindex.getting_started.how_to_use">How to use</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html#boost_typeindex.getting_started.example_with_boost_any'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/getting_started.html#boost_typeindex.getting_started.example_with_boost_any">Example
+      with Boost.Any</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html#boost_typeindex.getting_started.example_with_boost_variant'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/getting_started.html#boost_typeindex.getting_started.example_with_boost_variant">Example
+      with Boost.Variant</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/boost_1_67_0.tar.bz2  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/boost_1_67_0.tar.bz2'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/config.html">Configuring and building the library</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/indices.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/indices.html'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/how_it_works.html">How it works</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html">Examples</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.getting_human_readable_and_mangl'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.getting_human_readable_and_mangl">Getting
+      human readable and mangled type names</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.storing_information_about_a_type'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.storing_information_about_a_type">Storing
+      information about a type in container </a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.getting_through_the_inheritance_'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.getting_through_the_inheritance_">Getting
+      through the inheritance to receive a real type name </a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.using_runtime_cast_where_rtti_is'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.using_runtime_cast_where_rtti_is">Using
+      runtime_cast where RTTI is unavailable or undesirable </a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.exact_type_matching_storing_type'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.exact_type_matching_storing_type">Exact
+      type matching: storing type with const, volatile and reference qualifiers</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.table_of_raw_name_and_pretty_nam'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.table_of_raw_name_and_pretty_nam">Table
+      of raw_name() and pretty_name() outputs with and without RTTI </a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.c_14_checking_namespace_at_compi'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.c_14_checking_namespace_at_compi">C++14:
+      Checking namespace at compile time </a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/767#boost_typeindex.examples.c_14_checking_lexigraphical_orde'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/examples.html#boost_typeindex.examples.c_14_checking_lexigraphical_orde">C++14:
+      Checking lexigraphical order of provided types </a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html">Boost.TypeIndex Header Reference</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index_hpp">Header &lt;boost/type_index.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.ctti_type_index_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.ctti_type_index_hpp">Header &lt;boost/type_index/ctti_type_index.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast_hpp">Header &lt;boost/type_index/runtime_cast.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.boost_shared_ptr_cast_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.boost_shared_ptr_cast_hpp">Header &lt;boost/type_index/runtime_cast/boost_shared_ptr_cast.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.pointer_cast_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.pointer_cast_hpp">Header &lt;boost/type_index/runtime_cast/pointer_cast.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.reference_cast_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.reference_cast_hpp">Header &lt;boost/type_index/runtime_cast/reference_cast.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.register_runtime_class_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.register_runtime_class_hpp">Header &lt;boost/type_index/runtime_cast/register_runtime_class.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.std_shared_ptr_cast_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.runtime_cast.std_shared_ptr_cast_hpp">Header &lt;boost/type_index/runtime_cast/std_shared_ptr_cast.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.stl_type_index_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.stl_type_index_hpp">Header &lt;boost/type_index/stl_type_index.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.type_index_facade_hpp'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex_header_reference.html#header.boost.type_index.type_index_facade_hpp">Header &lt;boost/type_index/type_index_facade.hpp&gt;</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11196  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11196'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/making_a_custom_type_index.html">Making a custom
+    type_index</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11196  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11196#boost_typeindex.making_a_custom_type_index.basics'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/making_a_custom_type_index.html#boost_typeindex.making_a_custom_type_index.basics">Basics</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11196  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11196#boost_typeindex.making_a_custom_type_index.getting_type_infos_at_runtime'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/making_a_custom_type_index.html#boost_typeindex.making_a_custom_type_index.getting_type_infos_at_runtime">Getting
+      type infos at runtime</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11196  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11196#boost_typeindex.making_a_custom_type_index.using_new_type_infos_all_around_'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/making_a_custom_type_index.html#boost_typeindex.making_a_custom_type_index.using_new_type_infos_all_around_">Using
+      new type infos all around the code</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11283  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11283'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/space_and_performance.html">Space and Performance</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11251  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11251'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/code_bloat.html">Code bloat</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11285  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11285'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/rtti_emulation_limitations.html">RTTI emulation
+    limitations</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11285  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11285#boost_typeindex.rtti_emulation_limitations.define_the_boost_type_index_func'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/rtti_emulation_limitations.html#boost_typeindex.rtti_emulation_limitations.define_the_boost_type_index_func">Define
+      the BOOST_TYPE_INDEX_FUNCTION_SIGNATURE macro</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/11285  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/11285#boost_typeindex.rtti_emulation_limitations.fixing_pretty_name_output'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/rtti_emulation_limitations.html#boost_typeindex.rtti_emulation_limitations.fixing_pretty_name_output">Fixing
+      pretty_name() output</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/boost_1_58_0.tar.bz2  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/boost_1_58_0.tar.bz2'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/mixing_sources_with_rtti_on_and_.html">Mixing
+    sources with RTTI on and RTTI off</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/acknowledgements.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/acknowledgements.html'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/acknowledgements.html">Acknowledgements</a></span></dt>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_typeindex.motivation"></a><a class="link" href="boost_typeindex.html#boost_typeindex.motivation" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex.html#boost_typeindex.motivation" title="Motivation">Motivation</a>
+</h2></div></div></div>
+<p>
+      Sometimes getting and storing information about a type at runtime is required.
+      For such cases a construction like <code class="computeroutput"><span class="special">&amp;</span><span class="keyword">typeid</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span></code> or C++11 class <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">type_index</span></code>
+      is usually used, which is where problems start:
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          <code class="computeroutput"><span class="keyword">typeid</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span></code> and
+          <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">type_index</span></code> require Run Time Type Info
+          (RTTI)
+        </li>
+<li class="listitem">
+          some implementations of <code class="computeroutput"><span class="keyword">typeid</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span></code>
+          erroneously do not strip const, volatile and references from type
+        </li>
+<li class="listitem">
+          some compilers have bugs and do not correctly compare <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">type_info</span></code>
+          objects across shared libraries
+        </li>
+<li class="listitem">
+          only a few implementations of Standard Library currently provide <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">type_index</span></code>
+        </li>
+<li class="listitem">
+          no easy way to store type info without stripping const, volatile and references
+        </li>
+<li class="listitem">
+          no nice and portable way to get human readable type names
+        </li>
+<li class="listitem">
+          no way to easily make your own type info class
+        </li>
+</ul></div>
+<p>
+      Boost.TypeIndex library was designed to work around all those issues.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../boost-announce/2016/10/2921" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        <code class="computeroutput"><span class="identifier">T</span></code> means type here. Think
+        of it as of <code class="computeroutput"><span class="identifier">T</span></code> in <code class="computeroutput"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span></code>
+      </p></td></tr>
+</table></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: August 19, 2017 at 16:57:01 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/variant/11229  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/variant/11229'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeerasure/related.html"><img src="../../../../../boost-announce/2016/10/prev.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="libraries.html" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/libraries.html"><img src="../../../../../boost-announce/2016/10/up.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/index.html"><img src="../../../../../boost-announce/2016/10/home.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/wave/getting_started.html'" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/html/boost_typeindex/getting_started.html"><img src="../../../../../boost-announce/2016/10/next.png" tppabs="https://www.boost.org/doc/libs/1_65_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
