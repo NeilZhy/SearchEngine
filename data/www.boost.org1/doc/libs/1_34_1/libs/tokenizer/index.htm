@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  
+  
+  
+  
+  Boost Tokenizer Overview - 1.34.1
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  
+  Table Of Contents
+   
+  Introduction
+  Containers and Iterators
+  
+    
+      tokenizer
+    
+    
+      token iterator
+    
+  
+  TokenizerFunction Concept
+  TokenizerFunction Models
+  
+    
+      char_separator
+    
+    
+      escaped_list_separator
+    
+    
+      offset_separator
+    
+    Deprecated: char_delimiters_separator
+  
+   
+  Acknowledgements
+  I wish to thank the members of the boost mailing list, whose comments,
+  compliments, and criticisms during both the development and formal review
+  helped make the Tokenizer library what it is. I especially wish to thank
+  Aleksey Gurtovoy for the idea of using a pair of iterators to specify the
+  input, instead of a string. I also wish to thank Jeremy Siek for his idea
+  of providing a container interface for the token iterators and for
+  simplifying the template parameters for the TokenizerFunctions. He and
+  Daryle Walker also emphasized the need to separate interface and
+  implementation. Gary Powell sparked the idea of using the isspace and
+  ispunct as the defaults for char_delimiters_separator. Jeff Garland
+  provided ideas on how to change to order of the template parameters in
+  order to make tokenizer easier to declare. Thanks to Douglas Gregor who
+  served as review manager and provided many insights both on the boost list
+  and in e-mail on how to polish up the implementation and presentation of
+  Tokenizer. Finally, thanks to Beman Dawes who integrated the final version
+  into the boost distribution.
+  
+  
+  Revised 
+  25
+  December, 2006
+  Copyright  2000 Jeremy Siek
+  Copyright  2001 John R. Bandela
+  Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file LICENSE_1_0.txt or
+  copy at http://www.boost.org/LICENSE_1_0.txt)

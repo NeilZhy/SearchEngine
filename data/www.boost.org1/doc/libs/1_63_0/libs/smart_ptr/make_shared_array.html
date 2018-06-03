@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  
+    make_shared and allocate_shared for arrays - 1.63.0
+    
+  
+    
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+    make_shared and allocate_shared 
+      for arrays
+    Introduction
+      Synopsis
+      Common Requirements
+      Free Functions
+      History
+      References
+    Introduction
+    Originally the Boost function templates make_shared and 
+      allocate_shared were for efficient allocation of shared 
+      objects only. There was a need to have efficient allocation of 
+      shared arrays. One criticism of class template shared_array 
+      was always the lack of a make_shared 
+      utility which ensures only a single allocation.
+    The header files <boost/smart_ptr/make_shared_array.hpp> and 
+      <boost/smart_ptr/allocate_shared_array.hpp> provide function 
+      templates, overloads of make_shared and 
+      allocate_shared for array types, to address this need. 
+      make_shared uses the global operator new to 
+      allocate memory, whereas allocate_shared uses an 
+      user-supplied allocator, allowing finer control.
+    Synopsis
+    namespace boost {
+    template<class U> // U is T[]
+    shared_ptr<U> make_shared(size_t size);
+    template<class U, class A> // U is T[]
+    shared_ptr<U> allocate_shared(const A& allocator, size_t size);
+    template<class U> // U is T[N]
+    shared_ptr<U> make_shared();
+    template<class U, class A> // U is T[N]
+    shared_ptr<U> allocate_shared(const A& allocator);
+    template<class U> // U is T[]
+    shared_ptr<U> make_shared(size_t size, const T& value);
+    template<class U, class A>  // U is T[]
+    shared_ptr<U> allocate_shared(const A& allocator, size_t size, const T& value);
+    template<class U> // U is T[N]
+    shared_ptr<U> make_shared(const T& value);
+    template<class U, class A> // U is T[N]
+    shared_ptr<U> allocate_shared(const A& allocator, const T& value);
+    template<class U> // U is T[]
+    shared_ptr<U> make_shared_noinit(size_t size);
+    template<class U, class A> // U is T[]
+    shared_ptr<U> allocate_shared_noinit(const A& allocator, size_t size);
+    template<class U> // U is T[N]
+    shared_ptr<U> make_shared_noinit();
+    template<class U, class A> // U is T[N]
+    shared_ptr<U> allocate_shared_noinit(const A& allocator);
+}
+    Common Requirements
+    template<class U>
+    shared_ptr<U> make_shared(args);
+template<class U, class A>
+    shared_ptr<U> allocate_shared(const A& allocator, args);
+template<class U>
+    shared_ptr<U> make_shared_noinit(args);
+template<class U, class A>
+    shared_ptr<U> allocate_shared_noinit(const A& allocator, args);
+    
+      Requires: U is of the form T[] or 
+        T[N]. A shall be an Allocator, as 
+        described in section 17.6.3.5 [Allocator 
+        requirements] of the C++ Standard. The copy constructor and 
+        destructor of A shall not throw exceptions.
+      Effects: Allocates memory for an object of type U 
+        (or T[size] when U is T[], 
+        where size is determined from args 
+        as specified by the concrete overload). The object is initialized as 
+        specified by the concrete overload. The templates 
+        allocate_shared and allocate_shared_noinit
+        use a copy of allocator to allocate memory. If an 
+        exception is thrown, the functions have no effect.
+      Returns: A shared_ptr instance that stores and 
+        owns the address of the newly constructed object.
+      Postconditions: r.get() != 0 && 
+        r.use_count() == 1, where r is the return 
+        value.
+      Throws: bad_alloc, an exception thrown from 
+        A::allocate, or from the initialization of the 
+        object.
+      Remarks:
+      
+        This implementation performs no more than one memory 
+          allocation. This provides efficiency to equivalent to an intrusive 
+          smart pointer.
+        When an object of an array type T is specified to be 
+          initialized to a value of the same type value, this 
+          shall be interpreted to mean that each array element of the object 
+          is initialized to the corresponding element from 
+          value.
+        When an object of an array type is specified to be 
+          value-initialized, this shall be interpreted to mean that each 
+          array element of the object is value-initialized.
+        Array elements are initialized in ascending order of their 
+          addresses.
+        When a subobject of a non-array type T is specified to 
+          be initialized to a value value, 
+          make_shared shall perform this initialization via the 
+          expression ::new(ptr) T(value), where ptr 
+          has type void* and points to storage suitable to hold 
+          an object of type T.
+        When a subobject of non-array type T is specified to 
+          be initialized to a value value, 
+          allocate_shared shall perform this initialization via 
+          the expression allocator_traits<A2>::construct(a2, ptr, 
+          value), where ptr points to storage suitable to 
+          hold an object of type T and a2 of type A2 
+          is a rebound copy of the allocator allocator passed to
+          allocate_shared such that its value_type 
+          is T.
+        When a subobject of non-array type T is specified to 
+          be value-initialized, make_shared shall perform this 
+          initialization via the expression ::new(ptr) T(), where 
+          ptr has type void* and points to storage 
+          suitable to hold an object of type T.
+        When a subobject of non-array type T is specified to 
+          be value-initialized, allocate_shared shall perform 
+          this initialization via the expression
+          allocator_traits<A2>::construct(a2, ptr), where 
+          ptr points to storage suitable to hold an object 
+          of type T and a2 of type A2 is a rebound 
+          copy of the allocator allocator passed to
+          allocate_shared such that its value_type 
+          is T.
+        When a subobject of non-array type T is specified to 
+          be default-initialized, make_shared_noinit and 
+          allocate_shared_noinit shall perform this 
+          initialization via the expression ::new(ptr) T, where 
+          ptr has type void* and points to storage 
+          suitable to hold an object of type T.
+        When the lifetime of the object managed by the return value ends, 
+          or when the initialization of an array element throws an exception, 
+          the initialized elements should be destroyed in the reverse order 
+          of their construction.
+      
+      Notes: These functions will typically allocate more memory 
+        than sizeof(U) to allow for internal bookkeeping 
+        structures such as the reference counts.
+    
+    Free Functions
+    template<class U> 
+    shared_ptr<U> make_shared(size_t size);
+template<class U, class A> 
+    shared_ptr<U> allocate_shared(const A& allocator, size_t size);
+    
+      Returns: A shared_ptr to a value-initialized 
+        object of type T[size].
+      Remarks: These overloads shall only participate in overload 
+        resolution when U is of the form T[].      
+      Examples:
+      
+        boost::shared_ptr<int[]> a1 = boost::make_shared<int[]>(size);
+boost::shared_ptr<int[][2]> a2 = boost::make_shared<int[][2]>(size);
+      
+    
+    template<class U> 
+    shared_ptr<U> make_shared();
+template<class U, class A> 
+    shared_ptr<U> allocate_shared(const A& allocator);
+    
+      Returns: A shared_ptr to a value-initialized 
+        object of type T[N].
+      Remarks: These overloads shall only participate in overload 
+        resolution when U is of the form T[N].
+      Examples:
+      
+        boost::shared_ptr<int[8]> a1 = boost::make_shared<int[8]>();
+boost::shared_ptr<int[4][2]> a2 = boost::make_shared<int[4][2]>();
+      
+    
+    template<class U> 
+    shared_ptr<U> make_shared(size_t size, const T& value);
+template<class U, class A> 
+    shared_ptr<U> allocate_shared(const A& allocator, size_t size, const T& value);
+    
+      Returns: A shared_ptr to an object of type 
+        T[size], where each array element of type T 
+        is initialized to value.
+      Remarks: These overloads shall only participate in overload 
+        resolution when U is of the form T[].
+      Examples:
+      
+        boost::shared_ptr<int[]> a1 = boost::make_shared<int[]>(size, 1);
+boost::shared_ptr<int[][2]> a2 = boost::make_shared<int[][2]>(size, {1, 2});
+      
+    
+    template<class U> 
+    shared_ptr<U> make_shared(const T& value);
+template<class U, class A> 
+    shared_ptr<U> allocate_shared(const A& allocator, const T& value);
+    
+      Returns: A shared_ptr to an object of type 
+        T[N], where each array element of type T is 
+        initialized to value.
+      Remarks: These overloads shall only participate in overload 
+        resolution when U is of the form T[N].
+      Examples:
+      
+        boost::shared_ptr<int[8]> a1 = boost::make_shared<int[8]>(1);
+boost::shared_ptr<int[4][2]> a2 = boost::make_shared<int[4][2]>({1, 2});
+      
+    
+    template<class U> 
+    shared_ptr<U> make_shared_noinit(size_t size);
+template<class U, class A> 
+    shared_ptr<U> allocate_shared_noinit(const A& allocator, size_t size);
+    
+      Returns: A shared_ptr to a default-initialized 
+        object of type T[size].
+      Remarks: These overloads shall only participate in overload 
+        resolution when U is of the form T[].
+      Examples:
+      
+        boost::shared_ptr<int[]> a1 = boost::make_shared_noinit<int[]>(size);
+boost::shared_ptr<int[][2]> a2 = boost::make_shared_noinit<int[][2]>(size);
+      
+    
+    template<class U> 
+    shared_ptr<U> make_shared_noinit();
+template<class U, class A> 
+    shared_ptr<U> allocate_shared_noinit(const A& allocator);
+    
+      Returns: A shared_ptr to a default-initialized 
+        object of type T[N].
+      Remarks: These overloads shall only participate in overload 
+        resolution when U is of the form T[N].
+      Examples:
+      
+        boost::shared_ptr<int[8]> a1 = boost::make_shared_noinit<int[8]>();
+boost::shared_ptr<int[4][2]> a2 = boost::make_shared_noinit<int[4][2]>();
+      
+    
+    History
+    February 2014. Glen Fernandes updated overloads of make_shared and 
+      allocate_shared to conform to the specification in C++ standard paper 
+      N3870, including resolving C++ standard library 
+      defect report 2070, and reduced the spatial overhead of the internal
+      bookkeeping structures.
+    November 2012. Glen Fernandes contributed implementations of 
+      make_shared and allocate_shared for arrays.
+    References
+    N3870,
+      
+      Extending make_shared to Support Arrays, Revision 1, Peter Dimov 
+      & Glen Fernandes, January, 2014.
+    
+    $Date$
+    Copyright 2012-2014 Glen Fernandes. Distributed under the 
+      Boost Software License, Version 1.0. See accompanying file 
+      LICENSE_1_0.txt or copy at 
+      
+      http://www.boost.org/LICENSE_1_0.txt.
+  

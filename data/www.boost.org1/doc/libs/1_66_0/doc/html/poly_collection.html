@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 27. Boost.PolyCollection - 1.66.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 27. Boost.PolyCollection
+Joaqun M Lpez Muoz
+Copyright  2016, 2017 Joaqun M Lpez Muoz
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Introduction
+An efficient
+    polymorphic data structure
+Tutorial
+Basics
+Deeper
+      into the segmented nature of Boost.PolyCollection
+Insertion
+      and emplacement
+Exceptions
+Algorithms
+Performance
+Container
+      definitions
+Insertion
+      tests
+Processing
+      tests
+Reference
+Polymorphism
+      models
+Polymorphic
+      containers
+Header
+      "boost/poly_collection/exception.hpp"
+      synopsis
+Header
+      "boost/poly_collection/base_collection_fwd.hpp"
+      synopsis
+Header
+      "boost/poly_collection/base_collection.hpp"
+      synopsis
+Header
+      "boost/poly_collection/function_collection_fwd.hpp"
+      synopsis
+Header
+      "boost/poly_collection/function_collection.hpp"
+      synopsis
+Header
+      "boost/poly_collection/any_collection_fwd.hpp"
+      synopsis
+Header
+      "boost/poly_collection/any_collection.hpp"
+      synopsis
+Header
+      "boost/poly_collection/algorithm.hpp"
+      synopsis
+Future work
+Alternative
+      RTTI systems
+Copy traits
+Parallel
+      algorithms
+variant_collection
+Ordered
+      polymorphic collections
+Release notes
+Boost 1.66
+Boost 1.65
+Acknowledgments
+Introduction
+      Dynamic polymorphism in C++ requires that objects (such as instances of classes
+      derived from an abstract base) be accessed through an indirection pointer because
+      their actual type and size are not
+      known at the point of usage. As a consequence, regular containers cannot store
+      polymorphic objects directly: the usual workaround is to have containers of
+      pointers to heap-allocated elements. In modern computer architectures this
+      pattern incurs in two types of inefficiency:
+    
+          The lack of memory contiguity produced by heap allocation degrades CPU
+          cache performance.
+        
+          Executing virtual operations on a sequence of polymorphic objects whose
+          actual types differ from one to the next results in failures in branch prediction
+          and a lower execution speed.
+        
+      When the particular traversal order is not relevant to the user application,
+      Boost.PolyCollection proposes an alternative data structure that restores memory
+      contiguity and packs elements according to their concrete type. Three container
+      class templates are provided:
+    
+          boost::base_collection
+        
+          boost::function_collection
+        
+          boost::any_collection
+        
+      respectively dealing with three different types of dynamic polymorphism available
+      in C++:
+    
+          Classic base/derived or OOP polymorphism.
+        
+          Function wrapping in the spirit of std::function.
+        
+          So-called duck
+          typing as implemented by Boost.TypeErasure.
+        
+      The interface of these containers closely follows that of standard containers.
+      Additionally, the library provides versions of many of the standard library
+      algorithms (including std::for_each)
+      with improved performance and a special feature called type restitution
+      that allows user code to provide clues on the concrete types of the elements
+      stored for further opportunities of increased efficiency related to inlining
+      and devirtualization.
+    
+Note
+        Boost.PolyCollection is a header-only library. C++11 support is required.
+        The library has been verified to work with Visual Studio 2015, GCC 4.8 and
+        Clang 3.3.
+      
+Last revised: December 05, 2017 at 23:51:39 GMT

@@ -1,0 +1,1408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Version 1.47.0
+  
+  
+  
+  
+/*<![CDATA[*/
+  #content .news-description ul {
+    list-style: none;
+  }
+  #content .news-description ul ul {
+    list-style: circle;
+  }
+  /*]]>*/
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+    
+      
+        
+          
+            
+              Version 1.47.0
+            
+            
+              Version 1.47.0
+              July 11th, 2011 22:19 GMT
+              Documentation
+              DownloadsPlatformFile
+unixboost_1_47_0.tar.bz2boost_1_47_0.tar.gz
+windowsboost_1_47_0.7zboost_1_47_0.zip
+              
+                
+  
+    New Libraries
+    
+      
+        
+          Chrono:
+  Useful time
+          utilities, from Vicente J. Botet Escribá.
+        
+      
+      
+        
+          Geometry:
+  Geometry
+          Library, from Barend Gehrels, Bruno Lalande and Mateusz Loskot.
+        
+      
+      
+        
+          Phoenix:
+  Define small
+          unnamed function objects at the actual call site, and more, from Joel de
+          Guzman, Dan Marsden and Thomas Heller.
+        
+      
+      
+        
+          Ratio:
+  Compile time rational
+          arithmetic, from Vicente J. Botet Escribá.
+        
+      
+    
+  
+  
+    Updated Libraries
+    
+      
+        
+          Accumulators:
+          
+            
+              
+                New statistical accumulators: sum_kahan,
+                sum_of_weights_kahan,
+                sum_of_variates_kahan.
+              
+            
+          
+        
+      
+      
+        
+          Asio:
+          
+            
+              
+                Many new features and improvements:
+                
+                  
+                    
+                      Signal handling.
+                    
+                  
+                  
+                    
+                      A debugging aid for asynchronous programs.
+                    
+                  
+                  
+                    
+                      Timeouts on socket iostreams.
+                    
+                  
+                  
+                    
+                      Composed connect operations.
+                    
+                  
+                  
+                    
+                      Rewritten SSL implementation.
+                    
+                  
+                  
+                    
+                      C++0x move support.
+                    
+                  
+                  
+                    
+                      Compatibility with POSIX fork().
+                    
+                  
+                  
+                    
+                      ... and much more. See the Revision
+                      History in the Boost.Asio documentation for more details.
+                    
+                  
+                
+              
+            
+            
+              
+                Tickets addressed: #2879,
+                #3238,
+                #3297,
+                #3307,
+                #3702,
+                #3741,
+                #3900,
+                #3905,
+                #3939,
+                #3958,
+                #4162,
+                #4971,
+                #5124,
+                #5128,
+                #5418,
+                #5453.
+              
+            
+          
+        
+      
+      
+        
+          Config:
+          
+            
+              
+                Fixed bug #1988
+              
+            
+          
+        
+      
+      
+        
+          DateTime:
+          
+            
+              
+                Fixed bugs #4920,
+                #3651,
+                #4845,
+                #4475,
+                #4952,
+                #5345,
+                #5250,
+                #4798,
+                #4754,
+                #4411,
+                #5126,
+                #4780,
+                #2475,
+                #1674.
+              
+            
+          
+        
+      
+      
+        
+          Dynamic Bitset:
+          
+            
+              
+                Fixed bug #5439
+              
+            
+          
+        
+      
+      
+        
+          Foreach:
+          
+            
+              
+                Use rvalue refs on supporting compilers for const rvalue detection.
+              
+            
+          
+        
+      
+      
+        
+          Function:
+          
+            
+              
+                Bug fixes: #3410,
+                #3618,
+                #3912,
+                #4073,
+                #4325,
+                #4717,
+                #4765.
+              
+            
+          
+        
+      
+      
+        
+          Function Types:
+          
+            
+              
+                Bug fixes: #1653,
+                #3162.
+              
+            
+          
+        
+      
+      
+        
+          Graph:
+          
+            
+              
+                Bug fixes.
+              
+            
+            
+              
+                Remove deprecated function kolmogorov_max_flow,
+                use boykov_kolmogorov_max_flow
+                instead.
+              
+            
+            
+              
+                Removed <boost/graph/detail/is_same.hpp> header since its functionality
+                is in Boost.Type_Traits.
+              
+            
+          
+        
+      
+      
+        
+          Iostreams:
+          
+            
+              
+                Support filesystem v3 paths (#4485).
+              
+            
+            
+              
+                Fix a memory leak in chain
+                (#4922).
+              
+            
+          
+        
+      
+      
+        
+          Iterator:
+          
+            
+              
+                Add function_input_iterator
+                (#2893).
+              
+            
+            
+              
+                Bug fixes: #1427,
+                #1517,
+                #3434.
+              
+            
+          
+        
+      
+      
+        
+          Lexical cast:
+          
+            
+              
+                Better performance and less memory usage for many combinations of
+                Source and Target types (#5564,
+                #5417,
+                #4397,
+                #5350,
+                #5576).
+              
+            
+            
+              
+                Documentation updated (#5576,
+                #5494).
+              
+            
+          
+        
+      
+      
+        
+          Logic:
+          
+            
+              
+                Bug fixes: #3093,
+                #3600.
+              
+            
+          
+        
+      
+      
+        
+          Math:
+          
+            
+              
+                Added changesign function to sign.hpp to facilitate addition of nonfinite
+                facets.
+              
+            
+            
+              
+                Addition of nonfinite facets from Johan Rade, with tests, examples
+                of use for C99 format infinity and NaN, and documentation.
+              
+            
+            
+              
+                Added tests and documentation of changesign from Johan Rade.
+              
+            
+          
+        
+      
+      
+        
+          Meta State Machine:
+          
+            
+              
+                Added a stop()
+                method in the back-end.
+              
+            
+            
+              
+                Added partial support for Boost.Phoenix
+                functors in eUML.
+              
+            
+            
+              
+                Added the possibility to choose
+                when state switching occurs.
+              
+            
+            
+              
+                Bugfixes:
+                
+                  
+                    
+                      #5117,
+                      #5253,
+                      #5533,
+                      #5573.
+                    
+                  
+                  
+                    
+                      gcc warnings about unused variables.
+                    
+                  
+                  
+                    
+                      better implementation of favor_compile_time
+                      back-end policy.
+                    
+                  
+                  
+                    
+                      bug with eUML and state construction.
+                    
+                  
+                  
+                    
+                      incorrect eUML event and state macros.
+                    
+                  
+                  
+                    
+                      incorrect event type passed to a direct entry state's on_entry
+                      action.
+                    
+                  
+                  
+                    
+                      more examples.
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          MultiIndex:
+          
+            
+              
+                Fixed an ADL problem in composite_key_compare
+                related with Boost.Ref.
+              
+            
+            
+              
+                Maintenance fixes.
+              
+            
+          
+        
+      
+      
+        
+          Proto:
+          
+            
+              
+                Pre-preprocessed for better compile times.
+              
+            
+            
+              
+                Default preprocessor limits raised:
+                
+                  
+                    
+                      Max expression arity (BOOST_PROTO_MAX_ARITY)
+                      bumped from 5 to 10.
+                    
+                  
+                  
+                    
+                      Max function call arity (BOOST_PROTO_MAX_FUNCTION_CALL_ARITY)
+                      bumped from 5 to 10.
+                    
+                  
+                  
+                    
+                      Max logical operator arity (BOOST_PROTO_MAX_LOGICAL_ARITY)
+                      bumped from 8 to 10.
+                    
+                  
+                
+              
+            
+            
+              
+                Better integration of proto::basic_expr
+                to avoid accidental needless instantiations of proto::expr.
+              
+            
+          
+        
+      
+      
+        
+          Random:
+          
+            
+              
+                Synchronized with the new standard.
+                
+                  
+                    
+                      Many new distributions added: chi_squared_distribution,
+                      negative_binomial_distribution,
+                      fisher_f_distribution,
+                      student_t_distribution,
+                      weibull_distribution,
+                      extreme_value_distribution,
+                      discrete_distribution,
+                      piecewise_constant_distribution,
+                      piecewise_liear_distribution
+                    
+                  
+                  
+                    
+                      Renamed uniform_int
+                      and uniform_real
+                      to uniform_int_distribution
+                      and uniform_real_distribution.
+                    
+                  
+                  
+                    
+                      Added members to all distributions: param_type,
+                      param, stream
+                      operators, comparison operators, min
+                      and max.
+                    
+                  
+                  
+                    
+                      Allow distributions to be used directly with generators without
+                      use of variate_generator.
+                    
+                  
+                  
+                    
+                      Changed the meaning of the parameters of geometric_distribution
+                      and lognormal_distribution.
+                    
+                  
+                  
+                    
+                      Added a second parameter to gamma_distribution.
+                    
+                  
+                  
+                    
+                      Added seed_seq
+                      and added the corresponding constructors and seed overloads the generators.
+                    
+                  
+                  
+                    
+                      Added generate_canonical.
+                    
+                  
+                  
+                    
+                      Renamed the engine tempates. e.g. mersenne_twister
+                      becomes mersenne_twister_engine.
+                    
+                  
+                  
+                    
+                      New engine adapter independent_bits_engine.
+                    
+                  
+                  
+                    
+                      Added new predefined engine typedefs: mt19937_64,
+                      ranlux[24|48][_base],
+                      knuth_b.
+                    
+                  
+                  
+                    
+                      Updated seeding algorithms.
+                    
+                  
+                  
+                    
+                      Added discard
+                    
+                  
+                  
+                    
+                      Use unsigned types instead of signed types in all the predefined
+                      engines.
+                    
+                  
+                
+              
+            
+            
+              
+                Bug fixes:
+                
+                  
+                    
+                      linear_congruential_engine
+                      could assert because the modular arithmetic was not implemented
+                      in all cases. shuffle_output,
+                      now called shuffle_order_engine,
+                      could cause integer overflow. These cases were not triggered
+                      by any predefined engines.
+                    
+                  
+                  
+                    
+                      uniform_small_int
+                      now actually behaves as documented.
+                    
+                  
+                
+              
+            
+            
+              
+                New efficient algorithms for binomial_distribution
+                and poisson_distribution.
+              
+            
+            
+              
+                Moved all features into namespace
+                boost::random
+              
+            
+            
+              
+                Backwards compatibility issues:
+                
+                  
+                    
+                      The seeding algorithms have changed. This was unavoidable for
+                      compatibility with the standard. Not to mention that some of
+                      the existing algorithms were weird and inconsistent.
+                      
+                        
+                          
+                            Seeding with an integer: The behaviour should be unchanged
+                            for most generators except lagged_fibonacci
+                            and subtract_with_carry
+                            (and thus ranlux).
+                          
+                        
+                        
+                          
+                            Seeding a generator with another generator: This has
+                            been enabled by making all all generators models of
+                            SeedSeq.
+                            Therefore, if you seed a Boost.Random generator with
+                            a non Boost.Random generator, your code will no longer
+                            compile. The algorithm has changed, so code using this
+                            seeding method will yield different values.
+                          
+                        
+                        
+                          
+                            Seeding a generator from a pair of iterators: This implicitly
+                            assumed that the elements were 32-bit integers in some
+                            places, but not everywhere. I've added this requirement
+                            everywhere and updated the algorithms accordingly. The
+                            behaviour of generators with a value_type
+                            no more than 32 bits should be unchanged.
+                          
+                        
+                      
+                    
+                  
+                  
+                    
+                      Renaming:
+                      
+                        
+                          
+                            Whenever a class was renamed, there is a wrapper with
+                            the old name. There are also using declarations in namespace
+                            boost for everything that was moved.
+                          
+                        
+                        
+                          
+                            The names of a few accessors in the distributions changed.
+                            Both the old and the new names are allowed.
+                          
+                        
+                      
+                    
+                  
+                  
+                    
+                      geometric_distribution
+                      and lognormal_distribution:
+                      The behaviour is different at runtime. boost::geometric_distribution
+                      and boost::lognormal_distribution provide
+                      the old behaviour, boost::random::geometric_distribution
+                      and boost::random::lognormal_distribution provide
+                      the new behaviour.
+                    
+                  
+                  
+                    
+                      Streaming: gamma_distribution has a new parameter, thus text
+                      saved with the old version will not readable by the new version.
+                    
+                  
+                  
+                    
+                      variate_generator
+                      is now a simple pass through wrapper. Code that assumes that
+                      it will adjust the generator's result type to match the distribution
+                      will no longer work. This is not an issue with any of the distributions
+                      provided by Boost.Random.
+                    
+                  
+                  
+                    
+                      Return types: The result_types
+                      of some generators have changed slightly. Some signed types
+                      have changed to unsigned to match the standard.
+                    
+                  
+                  
+                    
+                      has_fixed_range:
+                      This is now always false, as it doesn't appear to be very useful
+                      and is excessively cumbersome. Anything that was accessing
+                      const_min and
+                      const_max without
+                      first checking has_fixed_range
+                      was incorrect to begin with.
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Range:
+          
+            
+              
+                Fixed the end position irange
+                when step size is greater than 1 (#5544).
+              
+            
+          
+        
+      
+      
+        
+          Spirit:
+          
+            
+              
+                Spirit V2.5, see the 'What's
+                New' section for details.
+              
+            
+          
+        
+      
+      
+        
+          Tokenizer:
+          
+            
+              
+                Fixed bug #4649.
+              
+            
+          
+        
+      
+      
+        
+          Utility:
+          
+            
+              
+                Bug fixes: #4432.
+              
+            
+          
+        
+      
+      
+        
+          Uuid:
+          
+            
+              
+                Fixed tickets: (#5570,
+                #4601,
+                #4991,
+                #5145,
+                #5235).
+              
+            
+          
+        
+      
+      
+        
+          Wave:
+          
+            
+              
+                Wave V2.3.0, see the Changelog
+                for details.
+              
+            
+          
+        
+      
+    
+  
+  
+    Build System
+    
+      
+        
+          The official name of Boost.Build executable was changed to b2. The bootstrap scripts create a copy
+          with the old name bjam
+          to prevent third-party build scripts from failing.
+        
+      
+    
+  
+  
+    Updated Tools
+    
+      
+        
+          BoostBook:
+          
+            
+              
+                Handle doxygen tags: \see, tparam,
+                ref (for classes
+                only).
+              
+            
+            
+              
+                Support note for classes as well as functions.
+              
+            
+          
+        
+      
+      
+        
+          Quickbook:
+          
+            
+              
+                Generate consistent ids for headings.
+              
+            
+            
+              
+                Improved unicode support for windows.
+              
+            
+            
+              
+                Warn about windows paths, as they aren't portable.
+              
+            
+            
+              
+                Reverse deprecation of [br].
+              
+            
+            
+              
+                Support date ranges and comma seperated clauses in copyright attributes.
+              
+            
+            
+              
+                Improved delimeter checking for simple markup (e.g. *bold*).
+              
+            
+            
+              
+                Pass-thru comments in code snippets.
+              
+            
+            
+              
+                __FILENAME__ macro now generates relative paths.
+              
+            
+            
+              
+                Allow quickbook escapes inside comments in syntax highlighted code.
+              
+            
+          
+        
+      
+    
+  
+  
+    Compilers Tested
+    
+      Boost's primary test compilers are:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                LLVM Clang 2.8
+              
+            
+            
+              
+                GCC: 3.4.6, 4.2.4, 4.3.4, 4.3.5, 4.4.1, 4.4.3, 4.4.5, 4.5.1, 4.5.2,
+                4.6.0, 4.6.1
+              
+            
+            
+              
+                GCC, C++0x mode: 4.3.4, 4.4.3, 4.5.2
+              
+            
+            
+              
+                Intel 12.0
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Apple Clang 2.1
+              
+            
+            
+              
+                Intel 11.1
+              
+            
+            
+              
+                GCC: 4.2.1, 4.4.4
+              
+            
+            
+              
+                GCC, C++0x mode: 4.4.4
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                Visual C++ 7.1, 9.0, 10.0
+              
+            
+            
+              
+                GCC, mingw: 4.4.0
+              
+            
+          
+        
+      
+      
+        
+          FreeBSD:
+          
+            
+              
+                GCC 4.2.1, 64 bit
+              
+            
+          
+        
+      
+      
+        
+          QNX:
+          
+            
+              
+                QCC
+              
+            
+          
+        
+      
+    
+    
+      Boost's additional test compilers include:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                Clang from subversion, with GNU libstdc++.
+              
+            
+            
+              
+                LLVM Clang 2.8
+              
+            
+            
+              
+                GCC: 3.4.6, 4.2.4, 4.3.4, 4.3.5, 4.4.3, 4.4.5, 4.5.1, 4.5.2, 4.6.0,
+                4.6.1
+              
+            
+            
+              
+                GCC, C++0x mode: 4.3.4, 4.4.3, 4.5.2
+              
+            
+            
+              
+                pgCC: 11.2
+              
+            
+            
+              
+                Intel: 10.1, 11.0, 11.1, 12.0
+              
+            
+            
+              
+                PathScale: 3.2
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Clang from subversion, with GNU libstdc++.
+              
+            
+            
+              
+                Intel 11.1
+              
+            
+            
+              
+                GCC: 4.4.4
+              
+            
+            
+              
+                GCC, C++0x mode: 4.4.4
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                Visual C++ 7.1, 9.0, 10.0
+              
+            
+            
+              
+                Visual C++ with STLport: 9.0
+              
+            
+            
+              
+                Visual C++, Windows Mobile 5, with STLport: 9.0
+              
+            
+            
+              
+                GCC, mingw: 4.5.2
+              
+            
+            
+              
+                GCC, C++0x mode, mingw: 4.5.2
+              
+            
+          
+        
+      
+      
+        
+          AIX:
+          
+            
+              
+                IBM XL C/C++ Enterprise Edition, V11.1.0.0
+              
+            
+          
+        
+      
+    
+  
+  
+    Acknowledgements
+    
+      Beman Dawes, Eric Niebler,
+      Rene Rivera, Daniel James
+      and Vladimir Prus managed this release.
+    
+  
+              
+            
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+  
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Copyright Rene Rivera 2006-2007.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

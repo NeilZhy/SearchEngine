@@ -1,0 +1,1178 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	Synopsis - 1.65.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+Synopsis
+include <boost/qvm/all.hpp>
+namespace boost
+{
+    namespace qvm
+    {
+        //*** Type traits ***
+        
+        template <class T>
+        struct is_quat
+        {
+            static bool const value=/*unspecified*/;
+        };        
+        
+        template <class Q>
+        struct quat_traits
+        {
+            /*main template members unspecified*/
+        };
+        
+        /*
+        User-defined (possibly partial) specializations:
+        
+        template <>
+        struct quat_traits<Q>
+        {
+            typedef /*user-defined*/ scalar_type;        
+        
+            template <int I> static inline scalar_type read_element( Quaternion const & q );        
+            template <int I> static inline scalar_type & write_element( Quaternion & q );        
+        };
+        */        
+        
+        template <class QuatType,class ScalarType>
+        struct quat_traits_defaults
+        {
+            typedef QuatType quat_type;
+            typedef ScalarType scalar_type;
+        
+            template <int I>
+            static BOOST_QVM_INLINE_CRITICAL
+            scalar_type read_element( quat_type const & x )
+            {
+                return quat_traits<quat_type>::template write_element<I>(const_cast<quat_type &>(x));
+            }
+        };        
+        
+        template <class T>
+        struct is_vec
+        {
+            static bool const value=/*unspecified*/;
+        };        
+        
+        template <class V>
+        struct vec_traits
+        {
+            /*main template members unspecified*/
+        };
+        
+        /*
+        User-defined (possibly partial) specializations:
+        
+        template <>
+        struct vec_traits<V>
+        {
+            static int const dim = /*user-defined*/;        
+            typedef /*user-defined*/ scalar_type;        
+        
+            template <int I> static inline scalar_type read_element( Vector const & v );        
+            template <int I> static inline scalar_type & write_element( Vector & v );        
+        
+            static inline scalar_type read_element_idx( int i, Vector const & v );        
+            static inline scalar_type & write_element_idx( int i, Vector & v );        
+        };
+        */        
+        
+        template <class VecType,class ScalarType,int Dim>
+        struct vec_traits_defaults
+        {
+            typedef VecType vec_type;
+            typedef ScalarType scalar_type;
+            static int const dim=Dim;
+        
+            template <int I>
+            static BOOST_QVM_INLINE_CRITICAL
+            scalar_type write_element( vec_type const & x )
+            {
+                return vec_traits<vec_type>::template write_element<I>(const_cast<vec_type &>(x));
+            }
+        
+            static BOOST_QVM_INLINE_CRITICAL
+            scalar_type read_element_idx( int i, vec_type const & x )
+            {
+                return vec_traits<vec_type>::write_element_idx(i,const_cast<vec_type &>(x));
+            }
+        
+            protected:
+        
+            static BOOST_QVM_INLINE_TRIVIAL
+            scalar_type & write_element_idx( int i, vec_type & m )
+            {
+                /* unspecified */
+            }
+        };        
+        
+        template <class T>
+        struct is_mat
+        {
+            static bool const value=/*unspecified*/;
+        };        
+        
+        template <class M>
+        struct mat_traits
+        {
+            /*main template members unspecified*/
+        };
+        
+        /*
+        User-defined (possibly partial) specializations:
+        
+        template <>
+        struct mat_traits<M>
+        {
+            static int const rows = /*user-defined*/;        
+            static int const cols = /*user-defined*/;        
+            typedef /*user-defined*/ scalar_type;        
+        
+            template <int R,int C> static inline scalar_type read_element( Matrix const & m );        
+            template <int R,int C> static inline scalar_type & write_element( Matrix & m );        
+        
+            static inline scalar_type read_element_idx( int r, int c, Matrix const & m );        
+            static inline scalar_type & write_element_idx( int r, int c, Matrix & m );        
+        };
+        */        
+        
+        template <class MatType,class ScalarType,int Rows,int Cols>
+        struct mat_traits_defaults
+        {
+            typedef MatType mat_type;
+            typedef ScalarType scalar_type;
+            static int const rows=Rows;
+            static int const cols=Cols;
+        
+            template <int Row,int Col>
+            static BOOST_QVM_INLINE_CRITICAL
+            scalar_type write_element( mat_type const & x )
+            {
+                return mat_traits<mat_type>::template write_element<Row,Col>(const_cast<mat_type &>(x));
+            }
+        
+            static BOOST_QVM_INLINE_CRITICAL
+            scalar_type read_element_idx( int r, int c, mat_type const & x )
+            {
+                return mat_traits<mat_type>::write_element_idx(r,c,const_cast<mat_type &>(x));
+            }
+        
+            protected:
+        
+            static BOOST_QVM_INLINE_TRIVIAL
+            scalar_type & write_element_idx( int r, int c, mat_type & m )
+            {
+                /* unspecified */
+            }
+        };
+        //*** Quaternion, vector and matrix types ***
+        
+        template <class T>
+        struct quat
+        {
+            T a[4];
+        
+            template <class R>
+            operator R() const
+            {
+                R r;
+                assign(r,*this);
+                return r;
+            }
+        };
+        
+        template <class Quaternion>
+        struct quat_traits;
+        
+        template <class T>
+        struct quat_traits< quat<T> >
+        {
+            typedef T scalar_type;
+        
+            template <int I> static scalar_type read_element( quat<T> const & x ) { return x.a[I]; }
+            template <int I> static scalar_type & write_element( quat<T> & x ) { return x.a[I]; }
+        };        
+        
+        template <class T,int Dim>
+        struct vec
+        {
+            T a[Dim];
+        
+            template <class R>
+            operator R() const
+            {
+                R r;
+                assign(r,*this);
+                return r;
+            }
+        };
+        
+        template <class Vector>
+        struct vec_traits;
+        
+        template <class T,int Dim>
+        struct vec_traits< vec<T,Dim> >
+        {
+            typedef T scalar_type;
+            static int const dim=Dim;
+        
+            template <int I> static scalar_type read_element( vec<T,Dim> const & x ) { return x.a[I]; }
+            template <int I> static scalar_type & write_element( vec<T,Dim> & x ) { return x.a[I]; }
+        
+            static scalar_type read_element_idx( int i, vec<T,Dim> const & x ) { return x.a[i]; }
+            static scalar_type & write_element_idx( int i, vec<T,Dim> & x ) { return x.a[i]; }
+        };        
+        
+        template <class T,int Rows,int Cols>
+        struct mat
+        {
+            T a[Rows][Cols];
+        
+            template <class R>
+            operator R() const
+                {
+                R r;
+                assign(r,*this);
+                return r;
+                }
+        };
+        
+        template <class Matrix>
+        struct mat_traits;
+        
+        template <class T,int Rows,int Cols>
+        struct mat_traits< mat<T,Rows,Cols> >
+        {
+            typedef T scalar_type;
+            static int const rows=Rows;
+            static int const cols=Cols;
+        
+            template <int Row,int Col> static scalar_type read_element( mat<T,Rows,Cols> const & x ) { return x.a[Row][Col]; }
+            template <int Row,int Col> static scalar_type & write_element( mat<T,Rows,Cols> & x ) { return x.a[Row][Col]; }
+        
+            static scalar_type read_element_idx( int row, int col, mat<T,Rows,Cols> const & x ) { return x.a[row][col]; }
+            static scalar_type & write_element_idx( int row, int col, mat<T,Rows,Cols> & x ) { return x.a[row][col]; }
+        };
+        //*** Accessing quaternion elements ***
+        
+        //Only enabled if:
+        //  is_quat<Q>::value
+        
+        template <class Q> -unspecified-return-type- S( Q & q );
+        template <class Q> -unspecified-return-type- V( Q & q );
+        template <class Q> -unspecified-return-type- X( Q & q );
+        template <class Q> -unspecified-return-type- Y( Q & q );
+        template <class Q> -unspecified-return-type- Z( Q & q );
+        //*** Accessing vector elements ***
+        
+        //Only enabled if:
+        //  is_vec<V>::value
+        
+        template <int I,class V> -unspecified-return-type- A( V & v );
+        template <class V> -unspecified-return-type- A0( V & v );
+        template <class V> -unspecified-return-type- A1( V & v );
+        ...
+        template <class V> -unspecified-return-type- A9( V & v );
+        
+        template <class V> -unspecified-return-type- X( V & v );
+        template <class V> -unspecified-return-type- Y( V & v );
+        template <class V> -unspecified-return-type- Z( V & v );
+        template <class V> -unspecified-return-type- W( V & v );
+        //*** Accessing vector elements by swizzling ***
+        
+        //2D view proxies, only enabled if:
+        //  is_vec<V>::value
+        template <class V> -unspecified-2D-vector-type- XX( V & v );
+        template <class V> -unspecified-2D-vector-type- XY( V & v );
+        template <class V> -unspecified-2D-vector-type- XZ( V & v );
+        template <class V> -unspecified-2D-vector-type- XW( V & v );
+        template <class V> -unspecified-2D-vector-type- X0( V & v );
+        template <class V> -unspecified-2D-vector-type- X1( V & v );
+        template <class V> -unspecified-2D-vector-type- YX( V & v );
+        template <class V> -unspecified-2D-vector-type- YY( V & v );
+        template <class V> -unspecified-2D-vector-type- YZ( V & v );
+        template <class V> -unspecified-2D-vector-type- YW( V & v );
+        template <class V> -unspecified-2D-vector-type- Y0( V & v );
+        template <class V> -unspecified-2D-vector-type- Y1( V & v );
+        template <class V> -unspecified-2D-vector-type- ZX( V & v );
+        template <class V> -unspecified-2D-vector-type- ZY( V & v );
+        template <class V> -unspecified-2D-vector-type- ZZ( V & v );
+        template <class V> -unspecified-2D-vector-type- ZW( V & v );
+        template <class V> -unspecified-2D-vector-type- Z0( V & v );
+        template <class V> -unspecified-2D-vector-type- Z1( V & v );
+        template <class V> -unspecified-2D-vector-type- WX( V & v );
+        template <class V> -unspecified-2D-vector-type- WY( V & v );
+        template <class V> -unspecified-2D-vector-type- WZ( V & v );
+        template <class V> -unspecified-2D-vector-type- WW( V & v );
+        template <class V> -unspecified-2D-vector-type- W0( V & v );
+        template <class V> -unspecified-2D-vector-type- W1( V & v );
+        ...
+        //2D view proxies, only enabled if:
+        //  is_scalar<S>::value
+        template <class S> -unspecified-2D-vector-type- X0( S & s );
+        template <class S> -unspecified-2D-vector-type- X1( S & s );
+        template <class S> -unspecified-2D-vector-type- XX( S & s );
+        ...
+        -unspecified-2D-vector-type- _00();
+        -unspecified-2D-vector-type- _01();
+        -unspecified-2D-vector-type- _10();
+        -unspecified-2D-vector-type- _11();
+        
+        //3D view proxies, only enabled if:
+        //  is_vec<V>::value
+        template <class V> -unspecified-3D-vector-type- XXX( V & v );
+        ...
+        template <class V> -unspecified-3D-vector-type- XXW( V & v );
+        template <class V> -unspecified-3D-vector-type- XX0( V & v );
+        template <class V> -unspecified-3D-vector-type- XX1( V & v );
+        template <class V> -unspecified-3D-vector-type- XYX( V & v );
+        ...
+        template <class V> -unspecified-3D-vector-type- XY1( V & v );
+        ...
+        template <class V> -unspecified-3D-vector-type- WW1( V & v );
+        ...
+        //3D view proxies, only enabled if:
+        //  is_scalar<S>::value
+        template <class S> -unspecified-3D-vector-type- X00( S & s );
+        template <class S> -unspecified-3D-vector-type- X01( S & s );
+        ...
+        template <class S> -unspecified-3D-vector-type- XXX( S & s );
+        template <class S> -unspecified-3D-vector-type- XX0( S & s );
+        ...
+        -unspecified-3D-vector-type- _000();
+        -unspecified-3D-vector-type- _001();
+        -unspecified-3D-vector-type- _010();
+        ...
+        -unspecified-3D-vector-type- _111();
+        
+        //4D view proxies, only enabled if:
+        //  is_vec<V>::value
+        template <class V> -unspecified-4D-vector-type- XXXX( V & v );
+        ...
+        template <class V> -unspecified-4D-vector-type- XXXW( V & v );
+        template <class V> -unspecified-4D-vector-type- XXX0( V & v );
+        template <class V> -unspecified-4D-vector-type- XXX1( V & v );
+        template <class V> -unspecified-4D-vector-type- XXYX( V & v );
+        ...
+        template <class V> -unspecified-4D-vector-type- XXY1( V & v );
+        ...
+        template <class V> -unspecified-4D-vector-type- WWW1( V & v );
+        ...
+        //4D view proxies, only enabled if:
+        //  is_scalar<S>::value
+        template <class S> -unspecified-4D-vector-type- X000( S & s );
+        template <class S> -unspecified-4D-vector-type- X001( S & s );
+        ...
+        template <class S> -unspecified-4D-vector-type- XXXX( S & s );
+        template <class S> -unspecified-4D-vector-type- XX00( S & s );
+        ...
+        -unspecified-4D-vector-type- _0000();
+        -unspecified-4D-vector-type- _0001();
+        -unspecified-4D-vector-type- _0010();
+        ...
+        -unspecified-4D-vector-type- _1111();         
+        //*** Accessing matrix elements ***
+        
+        //Only enabled if:
+        //  is_quat<Q>::value
+        
+        template <int R,int C,class M> -unspecified-return-type- A( M & m );
+        
+        template <class M> -unspecified-return-type- A00( M & m );
+        template <class M> -unspecified-return-type- A01( M & m );
+        ...
+        template <class M> -unspecified-return-type- A09( M & m );
+        template <class M> -unspecified-return-type- A10( M & m );
+        ...
+        template <class M> -unspecified-return-type- A99( M & m );         
+        //*** Quaternion operations ***
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        A & assign( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_quat<R>::value && is_quat<A>::value
+        template <class R,class A>
+        R convert_to( A const & a );
+        
+        //Only enabled if:
+        //  is_quat<R>::value && is_mat<A>::value &&
+        //  mat_traits<A>::rows==3 && mat_traits<A>::cols==3
+        template <class R,class A>
+        R convert_to( A const & m );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        A & operator-=( A & a, B const & b );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        typename deduce_quat<A>::type
+        operator-( A const & a );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value &&
+        template <class A,class B>
+        typename deduce_quat2<A,B>::type
+        operator-( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        A & operator+=( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value &&
+        template <class A,class B>
+        typename deduce_quat2<A,B>::type
+        operator+( A const & a, B const & b );        
+        
+        //Only enabled if: is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        A & operator/=( A & a, B b );        
+        
+        //Only enabled if: is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        typename deduce_quat<A>::type
+        operator/( A const & a, B b );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        A & operator*=( A & a, B const & b );        
+        
+        //Only enabled if: is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        A & operator*=( A & a, B b );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        typename deduce_quat2<A,B>::type
+        operator*( A const & a, B const & b );        
+        
+        //Only enabled if: is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        typename deduce_quat<A>::type
+        operator*( A const & a, B b );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        bool operator==( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        bool operator!=( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B,class Cmp>
+        bool cmp( A const & a, B const & b, Cmp pred );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        typename quat_traits<A>::scalar_type
+        mag_sqr( A const & a );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        typename quat_traits<A>::scalar_type
+        mag( A const & a );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        typename deduce_quat<A>::type
+        normalized( A const & a );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void normalize( A & a );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value
+        template <class A,class B>
+        typename deduce_scalar<A,B>::type
+        dot( A const & a, B const & b );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        typename deduce_quat<A>::type
+        conjugate( A const & a );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        typename deduce_quat<A>::type
+        inverse( A const & a );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value && is_quat<B>::value && is_scalar<C>
+        template <class A,class B,class C>
+        typename deduce_quat2<A,B> >::type
+        slerp( A const & a, B const & b, C c );        
+        
+        template <class T>
+        -unspecified-return-type- zero_quat();        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void set_zero( A & a );        
+        
+        template <class S>
+        -unspecified-return-type- identity_quat();        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void set_identity( A & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && vec_traits<A>::dim==3
+        template <class A>
+        -unspecified-return-type- rot_quat( A const & axis, typename vec_traits<A>::scalar_type angle );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value &&
+        //  is_vec<B>::value && vec_traits<B>::dim==3
+        template <class A>
+        void set_rot( A & a, B const & axis, typename vec_traits<B>::scalar_type angle );        
+        
+        //Only enabled if:
+        //  is_quat<A>::value &&
+        //  is_vec<B>::value && vec_traits<B>::dim==3
+        template <class A,class B>
+        void rotate( A & a, B const & axis, typename quat_traits<A>::scalar_type angle );        
+        
+        template <class Angle>
+        -unspecified-return-type- rotx_quat( Angle const & angle );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void set_rotx( A & a, typename quat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void rotate_x( A & a, typename quat_traits<A>::scalar_type angle );        
+        
+        template <class Angle>
+        -unspecified-return-type- roty_quat( Angle const & angle );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void set_rotz( A & a, typename quat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void rotate_y( A & a, typename quat_traits<A>::scalar_type angle );        
+        
+        template <class Angle>
+        -unspecified-return-type- rotz_quat( Angle const & angle );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void set_rotz( A & a, typename quat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        void rotate_z( A & a, typename quat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class Scalar,class A>
+        -unspecified-return_type- scalar_cast( A const & a );        
+        
+        //Only enabled if: is_quat<A>::value
+        template <class A>
+        -unspecified-return-type- qref( A & a );
+        //*** Vector operations ***
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        A & assign( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<R>::value && is_vec<A>::value &&
+        //  vec_traits<R>::dim==vec_traits<A>::dim
+        template <class R,class A>
+        R convert_to( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        A & operator-=( A & a, B const & b );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <class A>
+        typename deduce_vec<A>::type
+        operator-( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        typename deduce_vec2<A,B,vec_traits<A>::dim>::type
+        operator-( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        A & operator+=( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        typename deduce_vec2<A,B,vec_traits<A>::dim>::type
+        operator+( A const & a, B const & b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        A & operator/=( A & a, B b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        typename deduce_vec<A>::type
+        operator/( A const & a, B b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        A & operator*=( A & a, B b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A>
+        typename deduce_vec<A>::type
+        operator*( A const & a, B b );        
+        
+        //Only enabled if: is_scalar<A>::value && is_vec<B>::value
+        template <class A>
+        typename deduce_vec<B>::type
+        operator*( A a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        bool operator==( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        bool operator!=( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B,class Cmp>
+        bool cmp( A const & a, B const & b, Cmp pred );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        typename vec_traits<A>::scalar_type
+        mag_sqr( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        typename vec_traits<A>::scalar_type
+        mag( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        typename deduce_vec<A>::type
+        normalized( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        void normalize( A & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        typename deduce_scalar<A,B>::type
+        dot( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==3 && vec_traits<B>::dim==3
+        template <class A,class B>
+        typename deduce_vec2<A,B,3>::type
+        cross( A const & a, B const & b );        
+        
+        template <class T,int S>
+        -unspecified-return-type- zero_vec();        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        void set_zero( A & a );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <class A>
+        -unspecified-return-type- vref( A & a );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <class Scalar,class A>
+        -unspecified-return_type- scalar_cast( A const & a );
+        //*** Matrix operations ***
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        A & assign( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<R>::value && is_mat<A>::value &&
+        //  mat_traits<R>::rows==mat_traits<A>::rows &&
+        //  mat_traits<R>::cols==mat_traits<A>::cols
+        template <class R,class A>
+        R convert_to( A const & a );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        A & operator-=( A & a, B const & b );        
+        
+        //Only enabled if: is_mat<A>::value
+        template <class A>
+        typename deduce_mat<A>::type
+        operator-( A const & a );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        typename deduce_mat2<A,B,mat_traits<A>::rows,mat_traits<A>::cols>::type
+        operator-( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        A & operator+=( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        typename deduce_mat2<A,B,mat_traits<A>::rows,mat_traits<A>::cols>::type
+        operator+( A const & a, B const & b );        
+        
+        //Only enabled if: is_mat<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        A & operator/=( A & a, B b );        
+        
+        //Only enabled if: is_mat<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        typename deduce_mat<A>::type
+        operator/( A const & a, B b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        A & operator*=( A & a, B const & b );        
+        
+        //Only enabled if: is_mat<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        A & operator*=( A & a, B b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::cols==mat_traits<B>::rows
+        template <class A,class B>
+        typename deduce_mat2<A,B,mat_traits<A>::rows,mat_traits<B>::cols>::type
+        operator*( A const & a, B const & b );        
+        
+        //Only enabled if: is_mat<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        typename deduce_mat<A>::type
+        operator*( A const & a, B b );        
+        
+        //Only enabled if: is_scalar<A>::value && is_mat<B>::value
+        template <class A,class B>
+        typename deduce_mat<B>::type
+        operator*( A a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        bool operator==( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B>
+        bool operator!=( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_mat<B>::value &&
+        //  mat_traits<A>::rows==mat_traits<B>::rows &&
+        //  mat_traits<A>::cols==mat_traits<B>::cols
+        template <class A,class B,class Cmp>
+        bool cmp( A const & a, B const & b, Cmp pred );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_scalar<B>::value
+        //  mat_traits<A>::rows==mat_traits<A>::cols
+        
+        template <class A,class B>
+        typename deduce_mat<A>::type
+        inverse( A const & a, B det );
+        
+        template <class A>
+        typename deduce_mat<A>::type
+        inverse( A const & a );        
+        
+        template <class T,int D>
+        -unspecified-return-type- zero_mat();
+        
+        template <class T,int R,int C>
+        -unspecified-return-type- zero_mat();        
+        
+        //Only enabled if:
+        //  is_mat<A>::value
+        template <class A>
+        void set_zero( A & a );        
+        
+        template <class S,int D>
+        -unspecified-return-type- identity_mat();        
+        
+        //Only enabled if:
+        //  is_mat<A>::value &&
+        //  mat_traits<A>::cols==mat_traits<A>::rows
+        template <class A>
+        void set_identity( A & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && vec_traits<A>::dim==3
+        template <int Dim,class A,class Angle>
+        -unspecified-return-type
+        rot_mat( A const & axis, Angle angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols &&
+        //  is_vec<B>::value && vec_traits<B>::dim==3
+        template <class A>
+        void set_rot( A & a, B const & axis, typename vec_traits<B>::scalar_type angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols &&
+        //  is_vec<B>::value && vec_traits<B>::dim==3
+        template <class A,class B>
+        void rotate( A & a, B const & axis, typename mat_traits<A>::scalar_type angle );        
+        
+        template <int Dim,class Angle>
+        -unspecified-return-type- rotx_mat( Angle const & angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols
+        template <class A>
+        void set_rotx( A & a, typename mat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols
+        template <class A>
+        void rotate_x( A & a, typename mat_traits<A>::scalar_type angle );        
+        
+        template <int Dim,class Angle>
+        -unspecified-return-type- roty_mat( Angle const & angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols
+        template <class A>
+        void set_roty( A & a, typename mat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols
+        template <class A>
+        void rotate_y( A & a, typename mat_traits<A>::scalar_type angle );        
+        
+        template <int Dim,class Angle>
+        -unspecified-return-type- rotz_mat( Angle const & angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols
+        template <class A>
+        void set_rotz( A & a, typename mat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows>=3 &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols
+        template <class A>
+        void rotate_z( A & a, typename mat_traits<A>::scalar_type angle );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && mat_traits<A>::rows==mat_traits<A>::cols
+        template <class A>
+        mat_traits<A>::scalar_type
+        determinant( A const & a );        
+        
+        template <class T>
+        -unspecified-return-type
+        perspective_lh( T fov_y, T aspect, T zn, T zf );        
+        
+        template <class T>
+        -unspecified-return-type
+        perspective_rh( T fov_y, T aspect, T zn, T zf );        
+        
+        //Only enabled if: is_mat<A>::value
+        template <class A>
+        -unspecified-return-type- mref( A & a );        
+        
+        //Only enabled if: is_mat<A>::value
+        template <class Scalar,class A>
+        -unspecified-return_type- scalar_cast( A const & a );
+        //*** Quaternion-Vector operations ***
+        
+        //Only enabled if:
+        //  is_quat<A>::value &&
+        //  is_vec<B>::value && vec_traits<B>::dim==3
+        template <class A,class B>
+        typename deduce_vec2<A,B,3>::type
+        operator*( A const & a, B const & b );
+        //*** Vector-Matrix operations ***
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_vec<B>::value &&
+        //  mat_traits<A>::cols==vec_traits<B>::dim
+        template <class A,class B>
+        typename deduce_vec2<A,B,mat_traits<A>::rows>::type
+        operator*( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_vec<B>::value &&
+        //  mat_traits<A>::rows==4 && mat_traits<A>::cols==4 &&
+        //  vec_traits<B>::dim==3
+        template <class A,class B>
+        deduce_vec2<A,B,3> >::type
+        transform_vector( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value && is_vec<B>::value &&
+        //  mat_traits<A>::rows==4 && mat_traits<A>::cols==4 &&
+        //  vec_traits<B>::dim==3
+        template <class A,class B>
+        deduce_vec2<A,B,3> >::type
+        transform_point( A const & a, B const & b );
+        //*** Matrix-to-matrix view proxies ***
+        
+        template <int R>
+        -unspecified-return-type- del_row();        
+        
+        template <int C>
+        -unspecified-return-type- del_col();        
+        
+        template <int R,int C>
+        -unspecified-return-type- del_row_col();        
+        
+        template <int R>
+        -unspecified-return-type- neg_row();        
+        
+        template <int C>
+        -unspecified-return-type- neg_col();        
+        
+        template <int R1,int R2>
+        -unspecified-return-type- swap_rows();        
+        
+        template <int C1,int C2>
+        -unspecified-return-type- swap_cols();        
+        
+        -unspecified-return-type- transposed();
+        //*** Vector-to-matrix view proxies ***
+        
+        //Only enabled if: is_vec<A>::value
+        template <iclass A>
+        -unspecified-return-type- col_mat( A & a );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <iclass A>
+        -unspecified-return-type- row_mat( A & a );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <iclass A>
+        -unspecified-return-type- translation_mat( A & a );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <iclass A>
+        -unspecified-return-type- diag_mat( A & a );
+        //*** Matrix-to-vector view proxies ***
+        
+        //Only enabled if: is_mat<A>::value
+        template <int C,class A>
+        -unspecified-return-type- col( A & a );        
+        
+        //Only enabled if: is_mat<A>::value
+        template <int C,class A>
+        -unspecified-return-type- row( A & a );        
+        
+        //Only enabled if: is_mat<A>::value
+        template <class A>
+        -unspecified-return-type- diag( A & a );        
+        
+        //Only enabled if:
+        //  is_mat<A>::value &&
+        //  mat_traits<A>::rows==mat_traits<A>::cols && mat_traits<A>::rows>=3
+        template <class A>
+        -unspecified-return-type- translation( A & a );
+        //*** Generic programming utilities ***
+        
+        template <class Q>
+        struct deduce_quat
+        {
+            typedef Q type;
+        };        
+        
+        template <class A,class B>
+        struct deduce_quat2
+        {
+            typedef /*unspecified*/ type;
+        };        
+        
+        template <
+            class V,
+            int Dim=vec_traits<Vector>::dim>
+        struct deduce_vec
+        {
+            typedef /*unspecified*/ type;
+        };        
+        
+        template <class A,class B,int Dim>
+        struct deduce_vec2
+        {
+            typedef /*unspecified*/ type;
+        };        
+        
+        template <
+            class M,
+            int Rows=mat_traits<Matrix>::rows,
+            int Cols=mat_traits<Matrix>::cols>
+        struct deduce_mat
+        {
+            typedef /*unspecified*/ type;
+        };        
+        
+        template <class A,class B,int Rows,int Cols>
+        struct deduce_mat2
+        {
+            typedef /*unspecified*/ type;
+        };        
+        
+        template <class A,class B>
+        struct deduce_scalar
+        {
+            typedef typename impl<A,B>::type type;
+        };        
+        
+        template <class Scalar>
+        struct scalar_traits
+        {
+            BOOST_QVM_INLINE_CRITICAL
+            static Scalar value( int v )
+            {
+                return Scalar(v);
+            }
+        };        
+        
+        template <class T>
+        struct scalar
+        {
+            typedef /*exact definition unspecified*/ type;
+        };
+        //*** Exception types ***
+        
+        struct error:
+            virtual boost::exception,
+            virtual std::exception
+        {
+        };        
+        
+        struct zero_determinant_error: virtual error { };        
+        struct zero_magnitude_error: virtual error { };
+    }
+}
+//*** Macros ***
+#ifndef BOOST_QVM_FORCE_INLINE
+#define BOOST_QVM_FORCE_INLINE /*platform-specific*/
+#endif
+#ifndef BOOST_QVM_INLINE
+#define BOOST_QVM_INLINE inline
+#endif
+#ifndef BOOST_QVM_INLINE_TRIVIAL
+#define BOOST_QVM_INLINE_TRIVIAL BOOST_QVM_FORCE_INLINE
+#endif
+#ifndef BOOST_QVM_INLINE_CRITICAL
+#define BOOST_QVM_INLINE_CRITICAL BOOST_QVM_FORCE_INLINE
+#endif
+#ifndef BOOST_QVM_INLINE_OPERATIONS
+#define BOOST_QVM_INLINE_OPERATIONS BOOST_QVM_INLINE
+#endif
+#ifndef BOOST_QVM_INLINE_RECURSION
+#define BOOST_QVM_INLINE_RECURSION BOOST_QVM_INLINE_OPERATIONS
+#endif
+#ifndef BOOST_QVM_ASSERT
+#include <boost/assert.hpp>
+#define BOOST_QVM_ASSERT BOOST_ASSERT
+#endif
+#ifndef BOOST_QVM_STATIC_ASSERT
+#include <boost/static_assert.hpp>
+#define BOOST_QVM_STATIC_ASSERT BOOST_STATIC_ASSERT
+#endif
+#ifndef BOOST_QVM_THROW_EXCEPTION
+#include <boost/throw_exception.hpp>
+#define BOOST_QVM_THROW_EXCEPTION BOOST_THROW_EXCEPTION
+#endif
+See also: Boost QVM
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

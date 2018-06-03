@@ -1,0 +1,2882 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Version 1.56.0
+  
+  
+  
+  
+/*<![CDATA[*/
+  #content .news-description ul {
+    list-style: none;
+  }
+  #content .news-description ul ul {
+    list-style: circle;
+  }
+  /*]]>*/
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+    
+      
+        
+          
+            
+              Version 1.56.0
+            
+            
+              Version 1.56.0
+              August 7th, 2014 16:08 GMT
+              Documentation
+              DownloadsPlatformFile
+unixboost_1_56_0.tar.bz2boost_1_56_0.tar.gz
+windowsboost_1_56_0.7zboost_1_56_0.zip
+              
+                
+  
+    Other Downloads
+    
+      
+        
+          Windows
+          binaries
+        
+      
+    
+  
+  
+    Modularization
+    
+      Boost version control has migrated to a system using git submodules. This shouldn't
+      make too much of a difference to users, although the directory structure is
+      now a bit different.
+    
+    
+      Parts of some libraries have been moved into different modules, and several
+      new modules have been extracted from existing code. All header paths should
+      remain the same. The new modules are:
+    
+    
+      
+        
+          Assert:
+  Customizable assert macros.
+          Maintained by Peter Dimov.
+        
+      
+      
+        
+          Core:
+  Core utilities used by other
+          libraries, with minimal dependencies. Maintained by Peter Dimov, Glen Fernandes
+          and Andrey Semashev.
+        
+      
+      
+        
+          Lexical_Cast:
+  General literal
+          text conversions, such as an int represented a string, or vice-versa, from
+          Kevlin Henney.
+        
+      
+      
+        
+          Throw_Exception:
+  A common
+          infrastructure for throwing exceptions from Boost libraries, from Emil
+          Dotchevski.
+        
+      
+      
+        
+          Winapi:
+  Windows API declarations without <windows.h>, for internal
+          Boost use.
+        
+      
+    
+  
+  
+    New Libraries
+    
+      
+        
+          Align:
+  Memory alignment functions,
+          allocators, and adaptors, from Glen Fernandes.
+        
+      
+      
+        
+          Type_Index:
+  Runtime/Compile
+          time copyable type info, from Antony Polukhin.
+        
+      
+    
+  
+  
+    Updated Libraries
+    
+      
+        
+          Acumulators:
+          
+            
+              
+                New accumulators rolling_variance
+                and rolling_moment
+              
+            
+          
+        
+      
+      
+        
+          Any:
+          
+            
+              
+                Fixed rvalue references related issues (#9215, #9462).
+              
+            
+            
+              
+                Dropped support of antique compilers.
+              
+            
+          
+        
+      
+      
+        
+          Asio:
+          
+            
+              
+                Fixed asio::spawn()
+                to work correctly with new Boost.Coroutine interface (#9442,
+                #9928).
+              
+            
+            
+              
+                Ensured that incomplete asio::spawn() coroutines are correctly unwound
+                when cleaned up by the io_service
+                destructor (#9731).
+              
+            
+            
+              
+                Fixed delegation of continuation hook for handlers produced by io_service::wrap()
+                and strand::wrap()
+                (#9741).
+              
+            
+            
+              
+                Changed the Windows I/O completion port backend to use ConnectEx, if available, for connection-oriented
+                IP sockets.
+              
+            
+            
+              
+                Changed the io_service
+                backend for non-Windows (and non-IOCP Windows) platforms to use a
+                single condition variable per io_service
+                instance. This addresses a potential race condition when run_one()
+                is used from multiple threads.
+              
+            
+            
+              
+                Prevented integer overflow when computing timeouts based on some
+                boost::chrono and std::chrono
+                clocks (#9662, #9778).
+              
+            
+            
+              
+                Made further changes to EV_CLEAR
+                handling in the kqueue backend, to address other cases where the
+                close()
+                system call may hang on Mac OS X.
+              
+            
+            
+              
+                Fixed infinite recursion in implementation of resolver_query_base::flags::operator~ (#9548).
+              
+            
+            
+              
+                Made the select reactor
+                more efficient on Windows for large numbers of sockets (#9528).
+              
+            
+            
+              
+                Fixed a Windows-specific type-aliasing issue reported by gcc
+                (#9550).
+              
+            
+            
+              
+                Prevented execution of compile-time-only buffer test to avoid triggering
+                an address sanitiser warning (#8295).
+              
+            
+            
+              
+                Disabled the GetQueuedCompletionStatus
+                timeout workaround on recent versions of Windows.
+              
+            
+            
+              
+                Added support for string-based scope IDs when using link-local multicast
+                addresses.
+              
+            
+            
+              
+                Changed IPv6 multicast group join to use the address's scope ID as
+                the interface, if an interface is not explicitly specified.
+              
+            
+            
+              
+                Fixed multicast test failure on Mac OS X and the BSDs by using a
+                link-local multicast address.
+              
+            
+            
+              
+                Worked around a gcc problem to do with anonymous
+                enums (#10042).
+              
+            
+            
+              
+                Reverted the Windows HANDLE
+                backend change to ignore ERROR_MORE_DATA.
+                Instead, the error will be propagated as with any other (i.e. in
+                an error_code or
+                thrown as a system_error),
+                and the number of bytes transferred will be returned. For code that
+                needs to handle partial messages, the error_code
+                overload should be used (#10034).
+              
+            
+            
+              
+                Fixed an off-by-one error in the signal_set
+                implementation's signal number check (#9324).
+              
+            
+            
+              
+                Changed to use SSE2 intrinsics rather than inline assembly, to allow
+                the Cray compiler to work.
+              
+            
+            
+              
+                Stopped using certain Winsock functions that are marked as deprecated
+                in the latest Visual C++ and Windows SDK.
+              
+            
+            
+              
+                Added a workaround for building the unit tests with gcc
+                on AIX.
+              
+            
+            
+              
+                Various minor documentation improvements (#8295, #9605, #9771).
+              
+            
+          
+        
+      
+      
+        
+          Assign:
+          
+            
+              
+                Resolve some C++11 ambiguities (#3073).
+              
+            
+          
+        
+      
+      
+        
+          Atomic:
+          
+            
+              
+                The library has been redesigned. Besides internal refactoring, various
+                bugs were fixed, including incorrect values of feature test macros
+                and integer overflow handling.
+              
+            
+            
+              
+                Changed values of the memory_order
+                enumeration. The concrete values are not part of the interface, but
+                this change may potentially break ABI, if the enum is used in user's
+                interfaces.
+              
+            
+            
+              
+                Implemented support for 128-bit atomic operations on Windows x64
+                with MSVC. The library assumes presence of the cmpxchg16b
+                instruction in the target CPUs. Some early AMD CPUs don't support
+                this instruction. To target those define the BOOST_ATOMIC_NO_CMPXCHG16B
+                macro.
+              
+            
+            
+              
+                Implemented experimental support for Windows ARM target with MSVC.
+              
+            
+            
+              
+                Implemented experimental support for DEC Alpha target with GCC.
+              
+            
+            
+              
+                Improved support for ARMv6 and later with GCC. Implemented all atomic
+                operations as assembler blocks instead of CAS-based loops. 64-bit
+                operations are supported with ARMv7.
+              
+            
+            
+              
+                Implemented optional support for the BOOST_ATOMIC_FLAG_INIT
+                macro and static initialization of atomic_flag.
+                (#8158)
+              
+            
+            
+              
+                Fixed compilation for SPARCv9 target. (#9446)
+              
+            
+            
+              
+                Fixed compilation for PowerPC target. (#9447)
+              
+            
+            
+              
+                Fixed several compatibility problems with Clang on x86 and x86-64.
+                (#9610, #9842)
+              
+            
+            
+              
+                Removed specialized code for Windows on IA64 platform.
+              
+            
+          
+        
+      
+      
+        
+          Circular Buffer:
+          
+            
+              
+                #9970,#9334 Support for the C++11 allocator model.
+              
+            
+            
+              
+                Dropped support of antique compilers.
+              
+            
+          
+        
+      
+      
+        
+          Concept Check:
+          
+            
+              
+                Fewer warnings (includes #5012).
+              
+            
+          
+        
+      
+      
+        
+          Container:
+          
+            
+              
+                Added DlMalloc-based Extended Allocators.
+              
+            
+            
+              
+                Improved configurability of tree-based ordered associative containers.
+                AVL, Scapegoat and Splay trees are now available to implement set, multiset,
+                map and multimap.
+              
+            
+            
+              
+                Fixed bugs:
+                
+                  
+                    
+                      #9338:
+                      "VS2005 compiler errors in swap() definition
+                      after including container/memory_util.hpp".
+                    
+                  
+                  
+                    
+                      #9637:
+                      "Boost.Container vector::resize() performance
+                      issue".
+                    
+                  
+                  
+                    
+                      #9648:
+                      "string construction optimization - char_traits::copy
+                      could be used ...".
+                    
+                  
+                  
+                    
+                      #9801:
+                      "I can no longer create and iterator_range from
+                      a stable_vector".
+                    
+                  
+                  
+                    
+                      #9915:
+                      "Documentation issues regarding vector constructors
+                      and resize methods - value/default initialization".
+                    
+                  
+                  
+                    
+                      #9916:
+                      "Allocator propagation incorrect in the assignment
+                      operator of most".
+                    
+                  
+                  
+                    
+                      #9931:
+                      "flat_map::insert(ordered_unique_range_t...)
+                      fails with move_iterators".
+                    
+                  
+                  
+                    
+                      #9955:
+                      "Using memcpy with overlapped buffers in vector".
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Context:
+          
+            
+              
+                fcontext_t is opaque pointer to context-data
+              
+            
+            
+              
+                changed signature of make_fcontext()
+              
+            
+            
+              
+                #8826 no executable stack
+              
+            
+            
+              
+                #9437 catch exceptions on iOS and Windows Phone 8
+              
+            
+            
+              
+                #9445 support for x32 ABIs
+              
+            
+            
+              
+                #9522 support for powerpc_64le
+              
+            
+            
+              
+                #9743 bugfix for powerpc_64 le/be
+              
+            
+            
+              
+                #9774 bugfix for x86 on Mac OS X + clang
+              
+            
+          
+        
+      
+      
+        
+          Coroutine:
+          
+            
+              
+                support of symmetric coroutines
+              
+            
+            
+              
+                #9355 fix race condition in protected_stack_allocator
+              
+            
+            
+              
+                #9551 list of supported architectures
+              
+            
+            
+              
+                #9734 wrong check of mmap() return value
+              
+            
+            
+              
+                #9735 no memset() for protected_stack_allocator
+              
+            
+            
+              
+                #9760 coroutine iterator need const operator==
+              
+            
+            
+              
+                #10070 mmap() return value
+              
+            
+            
+              
+                #10157 file descriptor not required in protected_stack_allocator
+              
+            
+          
+        
+      
+      
+        
+          Dynamic Bitset:
+          
+            
+              
+                Support for C++11 move constructors
+              
+            
+            
+              
+                Warning fixes on MSVC 2013
+              
+            
+            
+              
+                Support for C++11 minimal allocators
+              
+            
+            
+              
+                Add noexcept specifications
+              
+            
+          
+        
+      
+      
+        
+          Chrono:
+          
+            
+              
+                #6918
+                Boost Chrono compilation failure on HP uX due to undefined pthread_getcpuclockid
+              
+            
+            
+              
+                #8006
+                Boost::Chrono Assertion at startup - steady_clock::now() - Windows
+              
+            
+            
+              
+                #9337
+                chrono::process_cpu_clock time points wrong by factor 1000 on Linux
+              
+            
+            
+              
+                #9342
+                Regression on process_cpu_clock::timepoint io on V2
+              
+            
+            
+              
+                #9419
+                boost::chrono::floor()/round() and negative durations is wrong
+              
+            
+            
+              
+                #9698
+                boost::chrono::thread_clock not declared in OSX
+              
+            
+            
+              
+                #9720
+                boost::this_thread::sleep_for() sometimes returns immediately on
+                win32
+              
+            
+            
+              
+                #9859
+                Remove references to gcc-mingw
+              
+            
+            
+              
+                #9918
+                chrono compilation error on Solaris, funciton timegm
+              
+            
+            
+              
+                #9811
+                boost/boost/chrono/duration.hpp:355:56: error: call to non-constexpr
+                function 'static std::numeric_limits<float>::_Ty std::numeric_limits<float>::max()'
+                /home/zosun/input_service/inputservices-core-service/other/boost/boost/chrono/duration.hpp:
+                In static member function 'static constexpr double boost::chrono::detail::chrono_numeric_limits<double,
+                true>::lowest()':
+              
+            
+            
+              
+                #10069
+                Overflow in chrono clocks on 32bit
+              
+            
+            
+              
+                #10151
+                timegm function not available on QNX
+              
+            
+          
+        
+      
+      
+        
+          Flyweight:
+          
+            
+              
+                In compilers with variadic template support, boost::flyweight<T> now provides a perfectly forwarding
+                constructor to T::T
+                (previously an emulation was used).
+              
+            
+            
+              
+                flyweight now replicates
+                the initializer-list constructors and assignment operators of its
+                underlying type.
+              
+            
+            
+              
+                Fixed intermodule static initialization problem (ticket #9553).
+              
+            
+            
+              
+                Maintenance fixes.
+              
+            
+          
+        
+      
+      
+        
+          Fusion:
+          
+            
+              
+                Fusion is enabled for use on GPU
+              
+            
+          
+        
+      
+      
+        
+          Geometry:
+          
+            
+              
+                Additional functionality
+                
+                  
+                    
+                      New algorithm buffer for inflating/deflating geometries (buffer
+                      itself already existed but that was only to enlarge a box)
+                    
+                  
+                  
+                    
+                      New algorithm remove_spikes, algorithm to remove spikes from
+                      a ring, polygon or multi_polygon.
+                    
+                  
+                  
+                    
+                      New algorithm point_on_surface, generating a point lying on
+                      the surface (interior) of the polygon
+                    
+                  
+                  
+                    
+                      New algorithm is_simple, returning true if a geometry is simple
+                      according to the OGC standard
+                    
+                  
+                  
+                    
+                      New algorithm is_valid, returning true if a geometry is valid
+                      according to the OGC standard
+                    
+                  
+                  
+                    
+                      New algorithm crosses for checking this spatial relation according
+                      to the OGC standard
+                    
+                  
+                  
+                    
+                      The set operation algorithms (difference, intersection, sym_difference
+                      and union_) now support as input pairs of pointlike or linear
+                      geometries
+                    
+                  
+                  
+                    
+                      The distance and comparable_distance algorithms now support
+                      all pairs of geometry combinations
+                    
+                  
+                  
+                    
+                      The spatial relations which didn't support it (covered_by,
+                      touches, within, etc.) now support as input linear and/or areal
+                      geometries
+                    
+                  
+                  
+                    
+                      The support for boost::variants as input geometries in various
+                      algorithms
+                    
+                  
+                  
+                    
+                      The rtree support for indexing segments
+                    
+                  
+                  
+                    
+                      The rtree nearest() predicate support for arbitrary geometries
+                    
+                  
+                
+              
+            
+            
+              
+                Solved tickets
+                
+                  
+                    
+                      8310
+                      Wrong results with overlapping polygons (fixed using point_on_surface
+                      for disjoint)
+                    
+                  
+                  
+                    
+                      8375
+                      sym_difference of non-closed polygons returns closed polygon
+                    
+                  
+                  
+                    
+                      8376
+                      difference of non-closed polygons returns closed polygon
+                    
+                  
+                  
+                    
+                      9081
+                      Booleans create self-intersecting polygons from non-self-intersecting
+                      polygons
+                    
+                  
+                  
+                    
+                      9245
+                      Check for process errors in make_qbk.py
+                    
+                  
+                  
+                    
+                      9563
+                      (Sym)difference not successful, fixed by rescaling to robust
+                      type
+                    
+                  
+                  
+                    
+                      9628
+                      Wrong result of within() due to the winding strategy not working
+                      correctly for nearly-horizontal segments
+                    
+                  
+                  
+                    
+                      9871
+                      Remove spike in polygon with only a spike
+                    
+                  
+                  
+                    
+                      9947
+                      Missing info about WKT in documentation
+                    
+                  
+                  
+                    
+                      9759
+                      Invalid results of R-tree knn queries for non-cartesian coordinate
+                      systems
+                    
+                  
+                  
+                    
+                      10019
+                      Difference of Linestring and Box returns their intersection
+                    
+                  
+                  
+                    
+                      10077
+                      Wrong types in concept checks in boost/geometry/arithmetic/arithmetic.hpp
+                    
+                  
+                
+              
+            
+            
+              
+                Bug fixes
+                
+                  
+                    
+                      intersects(polygon) could return a self-intersection-point
+                      for its closing point, fixed
+                    
+                  
+                  
+                    
+                      equals() could return invalid results for non-simple linear
+                      geometries according to the OGC standard, fixed
+                    
+                  
+                  
+                    
+                      touches() didn't work properly for CCW areal geomtries, fixed
+                    
+                  
+                  
+                    
+                      rtree nearest queries returned wrong elements for non-cartesian
+                      coordinate systems, fixed
+                    
+                  
+                  
+                    
+                      rtree crashed in some cases when used with Interprocess allocator,
+                      fixed
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Hash:
+          
+            
+              
+                Removed some Visual C++ 6 workarounds.
+              
+            
+            
+              
+                Ongoing work on improving hash_combine,
+                this changes the previously documented algorithm for the function.
+              
+            
+          
+        
+      
+      
+        
+          Interprocess:
+          
+            
+              
+                Fixed bugs:
+                
+                  
+                    
+                      Trac
+                      #9221 ("message_queue deadlock on linux").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9226 ("On some computers, Common Appdata is
+                      empty in registry, so boost interprocess cannot work").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9284 ("WaitForSingleObject(mutex) must handle
+                      WAIT_ABANDONED").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9285 ("CreateMutex returns NULL if fails").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9288 ("timed_wait does not check if it has
+                      expired").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9408 ("Android does not support XSI_SHARED_MEMORY_OBJECTS").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9729 ("crash on managed_external_buffer object
+                      construction").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9767 ("bootstamp generation causes error in
+                      case of corrupt Windows Event Log").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9835 ("Boost Interprocess fails to compile
+                      with Android NDK GCC 4.8, -Werror=unused-variable").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9911 ("get_tmp_base_dir(...) failure").
+                    
+                  
+                  
+                    
+                      Trac
+                      #9946 ("ret_ptr uninitialized in init_atomic_func,
+                      fini_atomic_func").
+                    
+                  
+                  
+                    
+                      Trac
+                      #10011 ("segment_manager::find( unique_instance_t*
+                      ) fails to compile").
+                    
+                  
+                  
+                    
+                      Trac
+                      #10021 ("Interprocess and BOOST_USE_WINDOWS_H").
+                    
+                  
+                  
+                    
+                      GitHub
+                      #2 ("Provide support for the Cray C++ compiler.
+                      The Cray compiler defines __GNUC__").
+                    
+                  
+                  
+                    
+                      GitHub
+                      #3 ("Fix/mingw interprocess_exception throw
+                      in file_wrapper::priv_open_or_create").
+                    
+                  
+                
+              
+            
+            
+              
+                ABI breaking: #9221
+                showed that BOOST_INTERPROCESS_MSG_QUEUE_CIRCULAR_INDEX
+                option of message queue, was completely broken so an ABI break was
+                necessary to have a working implementation.
+              
+            
+            
+              
+                Simplified, refactored and unified (timed_)lock code based on try_lock().
+                There were several bugs when handling timeout expirations.
+              
+            
+            
+              
+                Changed the implementation of condition variables' destructors to
+                allow POSIX semantics (the condition variable can be destroyed after
+                all waiting threads have been woken up)..
+              
+            
+            
+              
+                Added BOOST_INTERPROCESS_SHARED_DIR_PATH
+                option to define the shared directory used to place shared memory
+                objects when implemented as memory mapped files.
+              
+            
+            
+              
+                Added support for BOOST_USE_WINDOWS_H.
+                When this macro is defined Interprocess does not declare used Windows
+                API function and types, includes all needed windows SDK headers and
+                uses types and functions declared by the Windows SDK.
+              
+            
+            
+              
+                Added get_size to
+                windows_shared_memory.
+              
+            
+          
+        
+      
+      
+        
+          Intrusive:
+          
+            
+              
+                Improved Doxygen generated reference and updated and fixed forward-declaration
+                header.
+              
+            
+            
+              
+                ABI breaking: Fixed ABI regression
+                introduced in Boost 1.55 version, mainly noticeable on MSVC compilers.
+              
+            
+            
+              
+                Source breaking: Removed previously
+                deprecated xxx_dont_splay
+                functions from splay containers, splay_set_base_hook
+                and splay_set_member_hookfrom
+                splay containers and bool
+                splay =
+                true extra parameter in splaytree_algorithms functions.
+              
+            
+            
+              
+                Fixed bugs:
+                
+                  
+                    
+                      #8468:
+                      Compile error on visual studio 2010/2012 using vector with
+                      custom allocator and aligned types
+                    
+                  
+                  
+                    
+                      #9332:
+                      "has_member_function_callable_with.hpp compile
+                      error on msvc-12.0".
+                    
+                  
+                  
+                    
+                      #9650:
+                      "intrusive list with stateful value traits".
+                    
+                  
+                  
+                    
+                      #9746:
+                      Modern Sun CC compiler detects error in intrusive library header
+                    
+                  
+                  
+                    
+                      #9940:
+                      bad bug in intrusive list with safe_link (or auto_unlink) hooks
+                    
+                  
+                  
+                    
+                      #9948:
+                      remove use of const_cast in intrusive containers
+                    
+                  
+                  
+                    
+                      #9949:
+                      clear header node hooks upon intrusive container destruction
+                    
+                  
+                  
+                    
+                      #9961:
+                      tests for hooks not derived frorm generic_hook
+                    
+                  
+                
+              
+            
+            
+              
+                Optimized tree rebalancing code to avoid redundant assignments.
+              
+            
+            
+              
+                Added 64 bit prime values for suggested_upper_bucket_count/suggested_lower_bucket_count in
+                64 bit platforms.
+              
+            
+            
+              
+                Deleted workarounds for old SUN_CC compilers, those are now unsupported
+                as modern SunPro compilers are standard-corforming enough.
+              
+            
+          
+        
+      
+      
+        
+          Lexical Cast:
+          
+            
+              
+                Added the try_lexical_convert
+                function, that retuns false
+                in case of failed conversion and does not require output parameter
+                to be Default Constructable (#6700).
+              
+            
+            
+              
+                Fixed conversion of string values with leading zeroes to bool (#9659).
+              
+            
+            
+              
+                Code was changed to produce a smaller binaries and simplify compiler's
+                work (#9046).
+              
+            
+            
+              
+                Boost.LexicalCast library was separated from the Boost.Conversion
+                library.
+              
+            
+            
+              
+                Fixed some warnings (#8991).
+              
+            
+          
+        
+      
+      
+        
+          Log:
+          
+            
+              
+                General changes:
+                
+                  
+                    
+                      For Windows targets, the library now compiles for Windows XP
+                      by default.
+                    
+                  
+                  
+                    
+                      Added indexing operators with attribute_name
+                      arguments to record
+                      and record_view.
+                    
+                  
+                  
+                    
+                      Added operators for non-const object output to basic_formatting_ostream.
+                      (#9389)
+                    
+                  
+                  
+                    
+                      Added support for putting function names and source file names
+                      of named scopes into the formatted strings. (#9263)
+                    
+                  
+                  
+                    
+                      Added support for incomplete and empty markers to the named
+                      scope formatter. (#9123)
+                    
+                  
+                  
+                    
+                      The default presentation for incomplete named scope lists has
+                      changed: trailing scope delimiter is omitted.
+                    
+                  
+                  
+                    
+                      Added a support header for std::regex.
+                    
+                  
+                  
+                    
+                      By default Boost.Log uses Boost.Regex internally as the regular
+                      expressions backend. The backend can be changed by defining
+                      configuration macros.
+                    
+                  
+                
+              
+            
+            
+              
+                Bug fixes:
+                
+                  
+                    
+                      Fixed dump
+                      manipulator output on AVX2-enabled CPUs (e.g. Intel Haswell).
+                    
+                  
+                  
+                    
+                      Fixed compilation of get_attribute
+                      method of loggers.
+                    
+                  
+                  
+                    
+                      Fixed a possible race in locked_backend() function implementation of
+                      synchronous and asynchronous sink frontends.
+                    
+                  
+                  
+                    
+                      Fixed a possible infinite block of the logging threads in the
+                      asynchronous sink enqueue methods when block_on_overflow
+                      strategy was used.
+                    
+                  
+                
+              
+            
+            
+              
+                See changelog
+                for more details.
+              
+            
+          
+        
+      
+      
+        
+          Math:
+          
+            
+              
+                Breaking change: moved a number
+                of non-core headers that are predominantly used for internal maintenance
+                into libs/math/include_private. The headers effected
+                are boost/math/tools/test_data.hpp, boost/math/tools/remez.hpp,
+                boost/math/constants/generate.hpp, boost/math/tools/solve.hpp,
+                boost/math/tools/test.hpp. You can continue to use these
+                headers by adding libs/math/include_private
+                to your compiler's include path.
+              
+            
+            
+              
+                Breaking change: A number of distributions
+                and special functions were returning the maximum finite value rather
+                than raising an overflow_error, this has now been fixed, which means
+                these functions now behave as documented. However, since the default
+                behavior on raising an overflow_error is to throw a std::overflow_error exception, applications
+                which have come to reply rely on these functions not throwing may
+                experience exceptions where they did not before. The special functions
+                involved are gamma_p_inva, gamma_q_inva, ibeta_inva, ibetac_inva,
+                ibeta_invb, ibetac_invb, gamma_p_inv, gamma_q_inv. The distributions
+                involved are pareto_distrib, beta_distrib, geometric_distrib, negative_binomial_distrib,
+                binomial_distrib, chi_squared_distrib, gamma_distrib, inverse_chi_squared_distrib,
+                inverse_gamma_distrib. See #10111.
+              
+            
+            
+              
+                Fix round and trunc functions so they can be used with integer arguments,
+                see #10066.
+              
+            
+            
+              
+                Fix Halley iteration to handle zero derivative (with non-zero second
+                derivative), see #10046.
+              
+            
+            
+              
+                Fix Geometric distribution use of Policies, see #9833.
+              
+            
+            
+              
+                Fix corner cases in the negative binomial distribution, see #9834.
+              
+            
+            
+              
+                Fix compilation failures on Mac OS.
+              
+            
+            
+              
+                Added bernoulli_numbers, changed arbitrary precision tgamma/lgamma
+                to use Sterling's approximation (from Nikhar Agrawal).
+              
+            
+            
+              
+                Added first derivatives of the Bessel functions: cyl_bessel_j_prime,
+                cyl_neumann_prime, cyl_bessel_i_prime, cyl_bessel_k_prime, sph_bessel_prime
+                and sph_neumann_prime (from Anton Bikineev).
+              
+            
+            
+              
+                Fixed buggy Student's t example code, along with docs for testing
+                sample means for equivalence.
+              
+            
+            
+              
+                Documented max_iter
+                parameter in root finding code better, see #9225.
+              
+            
+            
+              
+                Add option to explicitly enable/disable use of __float128 in constants
+                code, see #9240.
+              
+            
+            
+              
+                Cleaned up handling of negative values in Bessel I0 and I1 code (removed
+                dead code), see #9512.
+              
+            
+            
+              
+                Fixed handling of very small values passed to tgamma and lgamma so
+                they don't generate spurious overflows (thanks to Rocco Romeo).
+              
+            
+            
+              
+                #9672 PDF
+                and CDF of a Laplace distribution throwing domain_error Random
+                variate can now be infinite.
+              
+            
+            
+              
+                Fixed several corner cases in rising_factorial, falling_factorial
+                and tgamma_delta_ratio with thanks to Rocco Romeo.
+              
+            
+            
+              
+                Removed constant pow23_four_minus_pi
+                 whose value did not match the name (and was unused by Boost.Math),
+                see #9712.
+              
+            
+          
+        
+      
+      
+        
+          Move:
+          
+            
+              
+                Added BOOST_MOVE_RET.
+              
+            
+            
+              
+                Fixed bug #9482:
+                "MSVC macros not undefined in boost/move/detail/config_end.hpp",
+                #9045:
+                "Wrong macro name on docs",
+                #8420:
+                "move's is_convertible does not compile with aligned
+                data".
+              
+            
+          
+        
+      
+      
+        
+          MPL:
+          
+            
+              
+                boost::mpl::for_each is enabled for use on
+                GPU
+              
+            
+          
+        
+      
+      
+        
+          MultiArray:
+          
+            
+              
+                #5664 operator() checks for Collection concept but requires RandomAccessCollection
+              
+            
+            
+              
+                #4874 compile errors using Visual C++ 2010 in debug mode
+              
+            
+            
+              
+                #3581 MultiArray storage order example incorrect for fortran_storage_ordering
+              
+            
+            
+              
+                #4032 Move MultiArray concepts out of detail namespace
+              
+            
+            
+              
+                #9212 Broken links to C++ standard papers
+              
+            
+            
+              
+                #8368 GCC -Wundef warning about BOOST_MULTI_ARRAY_NO_GENERATORS
+                in multi_array
+              
+            
+          
+        
+      
+      
+        
+          Multi-index Containers:
+          
+            
+              
+                The erase(iterator)
+                member function of hashed indices used to have poor performance under
+                low load conditions due to the requirement that an iterator to the
+                next element must be returned (see ticket #4264). In accordance
+                with the resolution of LWG
+                issue #579, this problem has been fixed while maintaining
+                the interface of erase,
+                at the expense of using one more word of memory per element. In fact,
+                C++ complexity requirements on unordered associative containers have
+                been improved for hashed indices so that
+              
+              
+                
+                  
+                    deletion of a given element is unconditionally constant-time,
+                  
+                
+                
+                  
+                    worst-case performance is not O(n) but O(ndist), where ndist is the number of
+                    non-equivalent elements in the index.
+                  
+                
+              
+              
+                Due to the fact that hashed indices rely on a new data structure,
+                the internal representation of their iterators and local iterators
+                have changed, which affects serialization: their corresponding serialization
+                class
+                version has been bumped from 0 to 1. Old archives involving
+                hashed index (local) iterators can be loaded by Boost 1.56 version
+                of Boost.MultiIndex, but not the other way around.
+              
+            
+            
+              
+                Hashed indices now provide reserve.
+              
+            
+            
+              
+                Hashed indices can now be checked for equality and inequality following
+                the (suitably adapted) C++ standard specification in [unord.req].
+              
+            
+            
+              
+                The public interface of Boost.MultiIndex provide noexcept
+                specifications where appropriate (for compliant compilers).
+              
+            
+            
+              
+                Improved performance of failed insertions into a multi_index_container.
+              
+            
+            
+              
+                Much internal code aimed at supporting MSVC++ 7.0 and prior has been
+                removed. Compilation times without this legacy code might be slightly
+                faster.
+              
+            
+            
+              
+                Fixed a bug with insertion via iterators dereferencing to rvalues
+                (ticket #9665).
+              
+            
+            
+              
+                Made Boost.MultiIndex compatible with BOOST_BIND_NO_PLACEHOLDERS
+                (ticket #9798).
+              
+            
+            
+              
+                Maintenance fixes.
+              
+            
+          
+        
+      
+      
+        
+          Multiprecision:
+          
+            
+              
+                Change floating point to rational conversions to be implicit, see
+                10082.
+              
+            
+            
+              
+                Fix definition of checked_cpp_rational typedef.
+              
+            
+            
+              
+                Fix bug in assignment from string in cpp_int, see 9936.
+              
+            
+            
+              
+                Added new cpp_bin_float backend for binary floating point.
+              
+            
+            
+              
+                Fix bug in assignment from string in cpp_int, see 9936.
+              
+            
+            
+              
+                Added MSVC-specific #include for compiler intrinsics, see 9336.
+              
+            
+            
+              
+                Fixed various typos in docs, see 9432.
+              
+            
+            
+              
+                Fixed gmp_rational to allow move-copy from an already copied-from
+                object, see 9497.
+              
+            
+            
+              
+                Added list of values for numeric_limits.
+              
+            
+          
+        
+      
+      
+        
+          Odeint:
+          
+            
+              
+                Added algebra and operations dispatcher for automatic detection of
+                appropriate algebras and operations.
+              
+            
+            
+              
+                Added support for Eigen, Boost.Multiarray, Boost.Mpi, Boost.Compute,
+                Blaze, and NT2.
+              
+            
+            
+              
+                Changed algebra interface to use algebra.norm_inf function.
+              
+            
+            
+              
+                Added iterators for iterating through the solution of the ODEs, hence
+                an alternative to the integrate functions.
+              
+            
+            
+              
+                Added the Velocity-Verlet method.
+              
+            
+            
+              
+                Minor bug fixes.
+              
+            
+          
+        
+      
+      
+        
+          Optional:
+          
+            
+              
+                Added support for rvalue references. Now optional<T> works with moveable but non-copyable
+                T's.
+              
+            
+            
+              
+                Improved swap (now
+                uses move operations).
+              
+            
+            
+              
+                Added function emplace(). This is the last of the requests
+                from #1841.
+              
+            
+            
+              
+                optional is moveable,
+                including conditional noexcept
+                specifications, which make it move_if_noexcept-friendly.
+              
+            
+            
+              
+                Using explicit operator bool() on platforms that support it (#4227)
+                (breaking change).
+              
+            
+            
+              
+                Forward declaration of operator<<(ostream&, optional
+                const&)
+                to prevent inadvertent incorrect serialization of optional objects.
+              
+            
+            
+              
+                Removed depprecated function reset() from examples (#9005).
+              
+            
+            
+              
+                Equality comparison with boost::none
+                does not require that T
+                be EqualityComparable.
+              
+            
+            
+              
+                Optional rvalue references are explicitly disallowed.
+              
+            
+            
+              
+                Binding temporaries to optional references is explicitly disallowed
+                (breaking change).
+              
+            
+            
+              
+                More ways to access the contained value, functions value(),
+                value_or(),
+                value_or_eval().
+              
+            
+            
+              
+                Updated and reorganized documentation, added tutorial and quick guide
+                sections.
+              
+            
+          
+        
+      
+      
+        
+          Predef:
+          
+            
+              
+                Addition of BOOST_PLAT_* platform definitions for MinGW and
+                Windows platform variants.
+              
+            
+            
+              
+                Detection of ARM architecture for Windows compilers to target mobile
+                devices of Windows 8.
+              
+            
+            
+              
+                Improved ARM detection for 64 bit ARM.
+              
+            
+            
+              
+                Added detection of iOS as an operating system.
+              
+            
+            
+              
+                Improved detection of endianess on some platforms.
+              
+            
+            
+              
+                Addition of exclusive plus emulated definitions for platform and
+                compiler detection.
+              
+            
+          
+        
+      
+      
+        
+          Preprocessor:
+          
+            
+              
+                When using variadic macros tuple functionality was added to match
+                all the array functionality.
+              
+            
+          
+        
+      
+      
+        
+          Program Options:
+          
+            
+              
+                Columns in the --help
+                output are now aligned across all option groups (#6114).
+              
+            
+            
+              
+                Option names with dashes are no longer truncated in error messages
+                (#8009).
+              
+            
+          
+        
+      
+      
+        
+          Regex:
+          
+            
+              
+                Breaking change: corrected behavior
+                of basic_regex<>::mark_count()
+                to match existing documentation, basic_regex<>::subexpression(n) changed to match, see #9227
+              
+            
+            
+              
+                Fixed issue #8903.
+              
+            
+            
+              
+                Fixed documentation typos from #9283.
+              
+            
+            
+              
+                Fixed bug in collation code that failed if the locale generated collation
+                strings with embedded nul's, see #9451.
+              
+            
+            
+              
+                Apply patch for unusual thread usage (no statically initiallized
+                mutexes), see #9461.
+              
+            
+            
+              
+                Added better checks for invalid UTF-8 sequences, see #9473.
+              
+            
+          
+        
+      
+      
+        
+          Smart Pointers:
+          
+            
+              
+                Updated the overloads of make_shared
+                and allocate_shared
+                of array types (T[] or T[N]) to conform to the specification
+                in C++ standard paper N3939
+                and significantly reduced the spatial overhead of the internal bookkeeping
+                structures.
+              
+            
+            
+              
+                Updated the implementations of make_shared and allocate_shared for
+                scalar types and array types, respectively, to resolve C++ standard
+                library defect report #2070.
+              
+            
+          
+        
+      
+      
+        
+          Thread:
+          
+            
+              
+                New Experimental Features:
+                
+                  
+                    
+                      #7446
+                      Async: Add when_any.
+                    
+                  
+                  
+                    
+                      #7447
+                      Async: Add when_all.
+                    
+                  
+                  
+                    
+                      #7448
+                      Async: Add async taking a scheduler parameter.
+                    
+                  
+                  
+                    
+                      #8274
+                      Synchro: Add concurrent queue
+                    
+                  
+                  
+                    
+                      #8513
+                      Async: Add a basic thread_pool executor.
+                    
+                  
+                  
+                    
+                      #8518
+                      Synchro: Add a latch class.
+                    
+                  
+                  
+                    
+                      #8516
+                      Async: Add future/shared_future::then taking a scheduler as
+                      parameter.
+                    
+                  
+                  
+                    
+                      #9058
+                      with_lock_guard function
+                    
+                  
+                  
+                    
+                      #9571
+                      Add a dynamic executor and an executor adaptor
+                    
+                  
+                
+              
+            
+            
+              
+                Fixed Bugs:
+                
+                  
+                    
+                      #8070
+                      prefer GetTickCount64 over GetTickCount
+                    
+                  
+                  
+                    
+                      #9333
+                      ex_scoped_thread compile fails on msvc-12.0
+                    
+                  
+                  
+                    
+                      #9341
+                      compile error scoped_thread(move semantics) intel-linux-14.0.1
+                    
+                  
+                  
+                    
+                      #9366
+                      async(Executor, ...) fails to compile with msvc-10,11,12
+                    
+                  
+                  
+                    
+                      #9402
+                      test_excutor regression on msvc-10,11,12
+                    
+                  
+                  
+                    
+                      #9404
+                      ex_make_future regression error
+                    
+                  
+                  
+                    
+                      #9471
+                      Synchronization documentation nits
+                    
+                  
+                  
+                    
+                      #9535
+                      Missing exception safety might result in crash
+                    
+                  
+                  
+                    
+                      #9618
+                      try_join_for problem: program is not terminate.
+                    
+                  
+                  
+                    
+                      #9625
+                      Please rewrite boost::thread::~thread() reference section
+                    
+                  
+                  
+                    
+                      #9632
+                      public method start_thread in boost::thread class
+                    
+                  
+                  
+                    
+                      #9673
+                      thread compilation with MingW/gcc on Windows gives errors
+                    
+                  
+                  
+                    
+                      #9708
+                      boost::condition_variable::timed_wait unexpectedly wakes up
+                      while should wait infinite
+                    
+                  
+                  
+                    
+                      #9711
+                      future continuation called twice
+                    
+                  
+                  
+                    
+                      #9867
+                      Remove references to gcc-mingw
+                    
+                  
+                  
+                    
+                      #10008
+                      Boost Synchronization documentation typos (futures)
+                    
+                  
+                  
+                    
+                      #10058
+                      Null pointer access in once
+                    
+                  
+                  
+                    
+                      #10125
+                      call_once: compile errors in variadic version with rvalue reference
+                      emulation
+                    
+                  
+                  
+                    
+                      #10126
+                      call_once: deprecate (Function, once_flag&) overload
+                    
+                  
+                  
+                    
+                      #10147
+                      pthread_delay_np() parameters different on AIX even with gcc
+                    
+                  
+                  
+                    
+                      #10155
+                      thread::physical_concurrency() always returns 0 on PowerPC
+                    
+                  
+                  
+                    
+                      #10184
+                      Future: multiply defined symbols
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          TR1:
+          
+            
+              
+                This library is now deprecated.
+              
+            
+          
+        
+      
+      
+        
+          TTI:
+          
+            
+              
+                Ticket #9441: Added better support for Sun Solaris Studio C++
+                compiler.
+              
+            
+            
+              
+                Ticket #9444: Handle all situations where the enclosing class
+                is not a class type.
+              
+            
+          
+        
+      
+      
+        
+          Unordered:
+          
+            
+              
+                Minor documentation and warning fixes (#9377, #9719).
+              
+            
+            
+              
+                Always use prime number of buckets for integers. Fixes performance
+                regression when inserting consecutive integers (#9282).
+              
+            
+            
+              
+                Only construct elements using allocators, as specified in C++11 standard.
+              
+            
+          
+        
+      
+      
+        
+          Utility:
+          
+            
+              
+                Some components were moved to the new Boost.Core library.
+              
+            
+            
+              
+                empty_deleter is
+                deprecated in favor of null_deleter
+                from Boost.Core. empty_deleter
+                is an alias for null_deleter,
+                it will be removed in future releases.
+              
+            
+            
+              
+                base_from_member
+                utility now supports lvalue reference member types. (#7577)
+              
+            
+          
+        
+      
+      
+        
+          UUID:
+          
+            
+              
+                Added basic support for C++11 features.
+              
+            
+            
+              
+                Implemented SSE-optimized versions of some functions of uuid, including comparison operators
+                and swap. The support
+                for different versions of SSE is automatically detected at compile
+                time for most compilers, but can also be explicitly enabled or disabled
+                with configuration
+                macros. (#8509)
+              
+            
+            
+              
+                Silenced some compiler warnings. (#8495, #8697)
+              
+            
+          
+        
+      
+      
+        
+          Variant:
+          
+            
+              
+                Breaking change: Variant now uses
+                variadic templates if they are supported by compiler. This leads
+                to smaller binaries and better compilation times but in some cases
+                may break metaprogramming functions, especially if BOOST_VARIANT_ENUM_PARAMS
+                and BOOST_VARIANT_ENUM_SHIFTED_PARAMS
+                are not used. Usage of variadic templates may
+                be disabled.
+              
+            
+            
+              
+                Added
+                polymorphic_get function
+                #9479.
+              
+            
+            
+              
+                Move-only classes now can be returned by visitors.
+              
+            
+            
+              
+                Optimized variant::swap() and fixed ambiguity in move_swap
+                #2839.
+              
+            
+            
+              
+                Added conditional noexcepts to move assignments, default and move
+                constructors making boost::variant
+                move_if_noexcept-friendly
+                (#7911).
+              
+            
+            
+              
+                Exceptions are now visible across modules even with -fvisibility=hidden
+                flags.
+              
+            
+            
+              
+                Dropped support of antique compilers.
+              
+            
+            
+              
+                Fixed some warnings (#3020).
+              
+            
+          
+        
+      
+    
+  
+  
+    Compilers Tested
+    
+      Boost's primary test compilers are:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                Clang: 3.4, 3.3, 3.2, 3.1, 3.0
+              
+            
+            
+              
+                Clang, C++98: 3.3.16
+              
+            
+            
+              
+                Clang, C++11, libc++: 3.4.2
+              
+            
+            
+              
+                Clang, C++1y: 3.3.16
+              
+            
+            
+              
+                GCC: 4.8.2, 4.8.1, 4.7.3, 4.6.4, 4.4.7
+              
+            
+            
+              
+                GCC, C++98: 4.9.0
+              
+            
+            
+              
+                GCC, C++11: 4.8.2
+              
+            
+            
+              
+                GCC, C++1y: 4.9.0
+              
+            
+            
+              
+                Intel: 13.1
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Apple Clang: 5.1
+              
+            
+            
+              
+                Apple Clang, C++11: 5.1
+              
+            
+            
+              
+                GCC: 4.2.1
+              
+            
+            
+              
+                Intel: 12.0
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                GCC, mingw: 4.9.0, 4.8.2, 4.7.3, 4.7.2, 4.6.3, 4.5.4, 4.4.7
+              
+            
+            
+              
+                Visual C++: 12.0, 11.0, 10.0, 9.0
+              
+            
+          
+        
+      
+      
+        
+          FreeBSD:
+          
+            
+              
+                GCC: 4.2.1
+              
+            
+          
+        
+      
+      
+        
+          QNX:
+          
+            
+              
+                QCC: 4.4.2
+              
+            
+          
+        
+      
+    
+    
+      Boost's additional test compilers include:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                Clang: 3.4, 3.3, 3.2, 3.1, 3.0
+              
+            
+            
+              
+                Clang, C++98: 3.3.16
+              
+            
+            
+              
+                Clang, C++11, libc++: 3.4.2
+              
+            
+            
+              
+                Clang, C++1y: 3.3.16
+              
+            
+            
+              
+                Clang, C++14, libc++: trunk
+              
+            
+            
+              
+                GCC: 4.8.2, 4.8.1, 4.7.3, 4.6.4, 4.4.7
+              
+            
+            
+              
+                GCC, C++98: 4.9.0
+              
+            
+            
+              
+                GCC, C++11: 4.9.0, 4.8.2
+              
+            
+            
+              
+                GCC, C++1y: 4.9.0
+              
+            
+            
+              
+                Intel: 13.1, 13.0, 12.1, 11.1
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Apple Clang: 5.1
+              
+            
+            
+              
+                Apple Clang, C++11:
+              
+            
+            
+              
+                Clang: trunk
+              
+            
+            
+              
+                Clang, C++11: trunk
+              
+            
+            
+              
+                GCC: 4.2.1
+              
+            
+            
+              
+                Intel: 12.0
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                GCC, mingw: 4.9.0, 4.8.2, 4.7.2, 4.6.3, 4.5.4, 4.4.7
+              
+            
+            
+              
+                Visual C++: 12.0, 11.0, 10.0, 9.0
+              
+            
+          
+        
+      
+      
+        
+          FreeBSD:
+          
+            
+              
+                GCC: 4.2.1
+              
+            
+          
+        
+      
+      
+        
+          QNX:
+          
+            
+              
+                QCC, ARM: 4.4.2
+              
+            
+            
+              
+                QCC, x86: 4.4.2
+              
+            
+          
+        
+      
+    
+  
+  
+    Acknowledgements
+    
+      Beman Dawes, Eric Niebler,
+      Rene Rivera, Daniel James,
+      Vladimir Prus and Marshall Clow managed this release.
+    
+  
+              
+            
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+  
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Copyright Rene Rivera 2006-2007.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

@@ -1,0 +1,562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+Rational Number Library - 1.62.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Rational Numbers
+Contents
+    Class rational synopsis
+    Rationale
+    Background
+    Integer Type Requirements
+    Interface
+    
+	Utility functions
+	Constructors
+	Arithmetic operations
+	Input and Output
+	In-place assignment
+	Conversions
+	Numerator and Denominator
+    
+    Performance
+    Exceptions
+    Internal representation
+    Design notes
+    
+	Minimal Implementation
+	Limited-range integer types
+	Conversion from floating point
+	Absolute Value
+    
+    References
+    History and Acknowledgements
+Class rational synopsis
+#include <boost/rational.hpp>
+namespace boost {
+class bad_rational;
+template<typename I> class rational {
+    typedef implementation-defined bool_type;
+public:
+    typedef I int_type;
+    // Constructors
+    constexpr rational();          // Zero
+    constexpr rational(I n);       // Equal to n/1
+              rational(I n, I d);  // General case (n/d)
+   template<typename J>
+    constexpr explicit rational(const rational<J> &r);  // Cross-instantiation
+    // Normal copy constructors and assignment operators
+    // Assignment from I
+    rational& operator=(I n);
+    // Assign in place
+    rational& assign(I n, I d);
+    // Representation
+    constexpr I numerator() const;
+    constexpr I denominator() const;
+    // In addition to the following operators, all of the "obvious" derived
+    // operators are available - see operators.hpp
+    // Arithmetic operators
+    rational& operator+= (const rational& r);
+    rational& operator-= (const rational& r);
+    rational& operator*= (const rational& r);
+    rational& operator/= (const rational& r);
+    // Arithmetic with integers
+    rational& operator+= (I i);
+    rational& operator-= (I i);
+    rational& operator*= (I i);
+    rational& operator/= (I i);
+    // Increment and decrement
+    const rational& operator++();
+    const rational& operator--();
+    // Operator not
+    constexpr bool operator!() const;
+    // Boolean conversion
+    constexpr operator bool_type() const;
+    // Comparison operators
+              bool operator< (const rational& r) const;
+    constexpr bool operator== (const rational& r) const;
+    // Comparison with integers
+              bool operator< (I i) const;
+              bool operator> (I i) const;
+    constexpr bool operator== (I i) const;
+};
+// Unary operators
+template <typename I> constexpr rational<I> operator+ (const rational<I>& r);
+template <typename I>           rational<I> operator- (const rational<I>& r);
+// Reversed order operators for - and / between (types convertible to) I and rational
+template <typename I, typename II> inline rational<I> operator- (II i, const rational<I>& r);
+template <typename I, typename II> inline rational<I> operator/ (II i, const rational<I>& r);
+// Absolute value
+template <typename I> rational<I> abs (const rational<I>& r);
+// Input and output
+template <typename I> std::istream& operator>> (std::istream& is, rational<I>& r);
+template <typename I> std::ostream& operator<< (std::ostream& os, const rational<I>& r);
+// Type conversion
+template <typename T, typename I> constexpr T rational_cast (const rational<I>& r);
+Rationale
+Numbers come in many different forms. The most basic forms are natural numbers
+(non-negative "whole" numbers), integers and real numbers.  These types are
+approximated by the C++ built-in types unsigned int, int, and
+float (and their various equivalents in different sizes).
+The C++ Standard Library extends the range of numeric types available by
+providing the complex type.
+This library provides a further numeric type, the rational numbers.
+The rational class is actually a implemented as a template, in a
+similar manner to the standard complex class.
+Background
+The mathematical concept of a rational number is what is commonly thought of
+as a fraction - that is, a number which can be represented as the ratio of two
+integers. This concept is distinct from that of a real number, which can take
+on many more values (for example, the square root of 2, which cannot be
+represented as a fraction).
+Computers cannot represent mathematical concepts exactly - there are always
+compromises to be made. Machine integers have a limited range of values (often
+32 bits), and machine approximations to reals are limited in precision. The
+compromises have differing motivations - machine integers allow exact
+calculation, but with a limited range, whereas machine reals allow a much
+greater range, but at the expense of exactness.
+The rational number class provides an alternative compromise. Calculations
+with rationals are exact, but there are limitations on the available range. To
+be precise, rational numbers are exact as long as the numerator and
+denominator (which are always held in normalized form, with no common factors)
+are within the range of the underlying integer type. When values go outside
+these bounds, overflow occurs and the results are undefined.
+The rational number class is a template to allow the programmer to control the
+overflow behaviour somewhat. If an unlimited precision integer type is
+available, rational numbers based on it will never overflow (modulo resource
+limits) and will provide exact calculations in all circumstances.
+Integer Type Requirements
+ The rational type takes a single template type parameter I. This is the
+underlying integer type for the rational type. Any of the built-in
+integer types provided by the C++ implementation are supported as values for
+I. User-defined types may also be used, but users should be aware that the
+performance characteristics of the rational class are highly dependent upon
+the performance characteristics of the underlying integer type (often in
+complex ways - for specific notes, see the Performance
+section below). Note: Should the boost library support an unlimited-precision
+integer type in the future, this type will be fully supported as the underlying
+integer type for the rational class.
+A user-defined integer type which is to be used as the underlying integer type
+for the rational type must be a model of the following concepts.
+Assignable
+Default Constructible
+Equality Comparable
+LessThan Comparable
+Furthermore, I must be an integer-like type, that is the following
+expressions must be valid for any two values n and m of type I, with the
+"expected" semantics.
+n + m
+n - m
+n * m
+n / m (must truncate; must be nonnegative if n and
+    m are positive)
+n % m (must be nonnegative if n and m
+    are positive)
+Assignment versions of the above
++n, -n
+!n (must be true iff n is zero)
+There must be zero and one values available for I. It should
+be possible to generate these as I(0) and I(1),
+respectively. Note: This does not imply that I needs to have an
+implicit conversion from integer - an explicit constructor is
+adequate.
+It is valid for I to be an unsigned type. In that case, the derived rational
+class will also be unsigned. Underflow behaviour of subtraction, where results
+would otherwise be negative, is unpredictable in this case.
+The implementation of rational_cast<T>(rational<I>) relies on the
+ability to static_cast from type I to type T, and on the expression x/y being
+valid for any two values of type T.
+The input and output operators rely on the existence of corresponding input
+and output operators for type I.
+The std::numeric_limits<I> specialization must exist (and be
+visible before boost::rational<I> needs to be specified).
+The value of its is_specialized static data member must be
+true and the value of its is_signed static data member
+must be accurate.
+Interface
+Utility functions
+Two utility function templates may be provided, that should work with any type that can be used with the
+boost::rational<> class template.
+gcd(n, m)
+The greatest common divisor of n and m
+lcm(n, m)
+The least common multiple of n and m
+These function templates now forward calls to their equivalents in the Boost.Integer library.  Their presence can be controlled at
+compile time with the BOOST_CONTROL_RATIONAL_HAS_GCD preprocessor
+constant.
+Constructors
+Rationals can be constructed from zero, one, or two integer arguments;
+representing default construction as zero, conversion from an integer posing as
+the numerator with an implicit denominator of one, or a numerator and
+denominator pair in that order, respectively.  An integer argument should be of
+the rational's integer type, or implicitly convertible to that type.  (For the
+two-argument constructor, any needed conversions are evaluated independently,
+of course.)  The components are stored in normalized form.
+Rationals can also be constructed from another rational.  When the source and
+destination underlying integer types match, the automatically-defined copy- or
+move-constructor is used.  Otherwise, a converting constructor template is used.
+The constructor does member-wise initialization of the numerator and denominator.
+Component-level conversions that are marked explicit are fine.  When
+the conversion ends up value-preserving, it is already normalized; but a check
+for normalization is performed in case value-preservation is violated.
+These imply that the following statements are valid:
+    I n, d;
+    rational<I> zero;
+    rational<I> r1(n);
+    rational<I> r2(n, d);
+    rational<J> r3(r2);  // assuming J(n) and J(d) are well-formed
+The no-argument constructor, single-argument constructor, and cross-version
+constructor template are marked as constexpr, making them viable in
+constant-expressions when the initializers (if any) are also constant
+expressions (and the necessary operations from the underlying integer type(s)
+are constexpr-enabled).
+The single-argument constructor is not declared as explicit, so
+there is an implicit conversion from the underlying integer type to the
+rational type.  The two-argument constructor can be considered an implicit
+conversion with C++11's uniform initialization syntax, since it is also not
+declared explicit.  The cross-version constructor template is declared explicit,
+so the direction of conversion between two rational instantiations must be
+specified.
+Arithmetic operations
+All of the standard numeric operators are defined for the rational
+class. These include:
+    +    +=
+    -    -=
+    *    *=
+    /    /=
+    ++   --    (both prefix and postfix)
+    ==   !=
+    <    >
+    <=   >=
+    Unary: + - !
+So far, only operator ==, unary operator +, and
+operator ! are constexpr-enabled.
+Input and Output
+Input and output operators << and >>
+are provided. The external representation of a rational is
+two integers, separated by a slash (/). On input, the format must be
+exactly an integer, followed with no intervening whitespace by a slash,
+followed (again with no intervening whitespace) by a second integer. The
+external representation of an integer is defined by the undelying integer
+type.
+In-place assignment
+For any rational<I> r, r.assign(n, m) provides an
+alternate to r = rational<I>(n, m);, without a user-specified
+construction of a temporary. While this is probably unnecessary for rationals
+based on machine integer types, it could offer a saving for rationals based on
+unlimited-precision integers, for example.
+The function will throw if the given components cannot be formed into a valid
+rational number.  Otherwise, it could throw only if the component-level move
+assignment (in C++11; copy-assignment for earlier C++ versions) can throw.  The
+strong guarantee is kept if throwing happens in the first part, but there is a
+risk of neither the strong nor basic guarantees happening if an exception is
+thrown during the component assignments.
+Conversions
+There is a conversion operator to an unspecified Boolean type (most likely a
+member pointer).  This operator converts a rational to false if it
+represents zero, and true otherwise.  This conversion allows a
+rational for use as the first argument of operator ?:; as either
+argument of operators && or || without
+forfeiting short-circuit evaluation; as a condition for a do,
+if, while, or for statement; and as a
+conditional declaration for if, while, or
+for statements.  The nature of the type used, and that any names
+for that nature are kept private, should prevent any inappropriate non-Boolean
+use like numeric or pointer operations or as a switch condition.
+There are no other implicit conversions from a rational
+type. Besides the explicit cross-version constructor template, there is an
+explicit type-conversion function, rational_cast<T>(r). This can
+be used as follows:
+    rational<int> r(22,7);
+    double nearly_pi = boost::rational_cast<double>(r);
+The rational_cast<T> function's behaviour is undefined if the
+source rational's numerator or denominator cannot be safely cast to the
+appropriate floating point type, or if the division of the numerator and
+denominator (in the target floating point type) does not evaluate correctly.
+Also, since this function has a custom name, it cannot be called in generic code
+for trading between two instantiations of the same class template, unlike the
+cross-version constructor.
+In essence, all required conversions should be value-preserving, and all
+operations should behave "sensibly". If these constraints cannot be met, a
+separate user-defined conversion will be more appropriate.
+Boolean conversion and rational_cast are constexpr-enabled.
+Implementation note:
+The implementation of the rational_cast function was
+    template <typename Float, typename Int>
+    Float rational_cast(const rational<Int>& src)
+    {
+        return static_cast<Float>(src.numerator()) / src.denominator();
+    }
+Programs should not be written to depend upon this implementation, however,
+especially since this implementation is now obsolete.  (It required a mixed-mode
+division between types Float and Int, contrary to the Integer Type Requirements.)
+Numerator and Denominator
+Finally, access to the internal representation of rationals is provided by
+the two member functions numerator() and denominator().
+These functions are constexpr-enabled.
+These functions allow user code to implement any additional required
+functionality. In particular, it should be noted that there may be cases where
+the above rational_cast operation is inappropriate - particularly in cases
+where the rational type is based on an unlimited-precision integer type. In
+this case, a specially-written user-defined conversion to floating point will
+be more appropriate.
+Performance
+The rational class has been designed with the implicit assumption that the
+underlying integer type will act "like" the built in integer types. The
+behavioural aspects of this assumption have been explicitly described above,
+in the Integer Type Requirements
+section. However, in addition to behavioural assumptions, there are implicit
+performance assumptions.
+ No attempt will be made to provide detailed performance guarantees for the
+operations available on the rational class. While it is possible for such
+guarantees to be provided (in a similar manner to the performance
+specifications of many of the standard library classes) it is by no means
+clear that such guarantees will be of significant value to users of the
+rational class. Instead, this section will provide a general discussion of the
+performance characteristics of the rational class.
+There now follows a list of the fundamental operations defined in the
+ <boost/rational.hpp> header
+and an informal description of their performance characteristics. Note that
+these descriptions are based on the current implementation, and as such should
+be considered subject to change.
+Construction of a rational is essentially just two constructions of the
+underlying integer type, plus a normalization.
+Increment and decrement operations are essentially as cheap as addition and
+subtraction on the underlying integer type.
+(In)equality comparison is essentially as cheap as two equality operations
+on the underlying integer type.
+I/O operations are not cheap, but their performance is essentially
+dominated by the I/O time itself.
+An (implicit) GCD routine call is essentially a repeated modulus operation.
+Its other significant operations are construction, assignment, and comparison
+against zero of IntType values. These latter operations are assumed to be
+trivial in comparison with the modulus operation.
+The (implicit) LCM operation is essentially a GCD plus a multiplication,
+division, and comparison.
+The addition and subtraction operations are complex. They will require
+approximately two gcd operations, 3 divisions, 3 multiplications and an
+addition on the underlying integer type.
+The multiplication and division operations require two gcd operations, two
+multiplications, and four divisions.
+The compare-with-integer operation does a single integer division &
+modulus pair, at most one extra integer addition and decrement, and at most
+three integer comparisons.
+The compare-with-rational operation does two double-sized GCD operations,
+two extra additions and decrements, and three comparisons in the worst case.
+(The GCD operations are double-sized because they are done in piecemeal and the
+interim quotients are retained and compared, whereas a direct GCD function only
+retains and compares the remainders.)
+The final fundamental operation is normalizing a rational. This operation
+is performed whenever a rational is constructed (and assigned in place). All
+other operations are careful to maintain rationals in a normalized state.
+Normalization costs the equivalent of one gcd and two divisions.
+Note that it is implicitly assumed that operations on IntType have the
+"usual" performance characteristics - specifically, that the expensive
+operations are multiplication, division, and modulo, with addition and
+subtraction being significantly cheaper. It is assumed that construction (from
+integer literals 0 and 1, and copy construction) and assignment are relatively
+cheap, although some effort is taken to reduce unnecessary construction and
+copying. It is also assumed that comparison (particularly against zero) is
+cheap.
+Integer types which do not conform to these assumptions will not be
+particularly effective as the underlying integer type for the rational class.
+Specifically, it is likely that performance will be severely sub-optimal.
+Exceptions
+Rationals can never have a denominator of zero. (This library does not support
+representations for infinity or NaN). Should a rational result ever generate a
+denominator of zero, or otherwise fail during normalization, the exception
+boost::bad_rational (a subclass of std::domain_error) is
+thrown. This should only occur if the user attempts to explicitly construct a
+rational with a denominator of zero, to divide a rational by a zero value, or
+generate a negative denominator too large to be normalized.  The exception can
+be thrown during a cross-instantiation conversion, when at least one of the
+components ends up not being value-preserved and the new combination is not
+considered normalized.
+In addition, if operations on the underlying integer type can generate
+exceptions, these will be propagated out of the operations on the rational
+class. No particular assumptions should be made - it is only safe to assume
+that any exceptions which can be thrown by the integer class could be thrown
+by any rational operation. In particular, the rational constructor may throw
+exceptions from the underlying integer type as a result of the normalization
+step.  The only exception to this rule is that the rational destructor will
+only throw exceptions which can be thrown by the destructor of the underlying
+integer type (usually none).
+If the component-level assignment operator(s) can throw, then a rational
+object's invariants may be violated if an exception happens during the second
+component's assignment.  (The assign member function counts here
+too.)  This violates both the strong and basic guarantees.
+Internal representation
+Note: This information is for information only. Programs should not
+be written in such a way as to rely on these implementation details.
+Internally, rational numbers are stored as a pair (numerator, denominator)
+of integers (whose type is specified as the template parameter for the
+rational type). Rationals are always stored in fully normalized form (ie,
+gcd(numerator,denominator) = 1, and the denominator is always positive).
+Design notes
+Minimal Implementation
+The rational number class is designed to keep to the basics. The minimal
+operations required of a numeric class are provided, along with access to the
+underlying representation in the form of the numerator() and denominator()
+member functions. With these building-blocks, it is possible to implement any
+additional functionality required.
+Areas where this minimality consideration has been relaxed are in providing
+input/output operators, and rational_cast. The former is generally
+uncontroversial. However, there are a number of cases where rational_cast is
+not the best possible method for converting a rational to a floating point
+value (notably where user-defined types are involved). In those cases, a
+user-defined conversion can and should be implemented. There is no need
+for such an operation to be named rational_cast, and so the rational_cast
+function does not provide the necessary infrastructure to allow for
+specialisation/overloading.
+Limited-range integer types
+The rational number class is designed for use in conjunction with an
+unlimited precision integer class. With such a class, rationals are always
+exact, and no problems arise with precision loss, overflow or underflow.
+Unfortunately, the C++ standard does not offer such a class (and neither
+does boost, at the present time). It is therefore likely that the rational
+number class will in many cases be used with limited-precision integer types,
+such as the built-in int type.
+When used with a limited precision integer type, the rational class suffers
+from many of the precision issues which cause difficulty with floating point
+types. While it is likely that precision issues will not affect simple uses of
+the rational class, users should be aware that such issues exist.
+As a simple illustration of the issues associated with limited precision
+integers, consider a case where the C++ int type is a 32-bit signed
+representation. In this case, the smallest possible positive
+rational<int> is 1/0x7FFFFFFF. In other words, the
+"granularity" of the rational<int> representation around zero is
+approximately 4.66e-10. At the other end of the representable range, the
+largest representable rational<int> is 0x7FFFFFFF/1, and the
+next lower representable rational<int> is 0x7FFFFFFE/1. Thus,
+at this end of the representable range, the granularity ia 1. This type of
+magnitude-dependent granularity is typical of floating point representations.
+However, it does not "feel" natural when using a rational number class.
+Limited-precision integer types may raise issues with the range sizes of
+their allowable negative values and positive values.  If the negative range is
+larger, then the extremely-negative numbers will not have an additive inverse in
+the positive range, making them unusable as denominator values since they cannot
+be normalized to positive values (unless the user is lucky enough that the input
+components are not relatively prime pre-normalization).
+It is up to the user of a rational type based on a limited-precision integer
+type to be aware of, and code in anticipation of, such issues.
+Conversion from floating point
+The library does not offer a conversion function from floating point to
+rational. A number of requests were received for such a conversion, but
+extensive discussions on the boost list reached the conclusion that there was
+no "best solution" to the problem. As there is no reason why a user of the
+library cannot write their own conversion function which suits their
+particular requirements, the decision was taken not to pick any one algorithm
+as "standard".
+The key issue with any conversion function from a floating point value is
+how to handle the loss of precision which is involved in floating point
+operations. To provide a concrete example, consider the following code:
+    // These two values could in practice be obtained from user input,
+    // or from some form of measuring instrument.
+    double x = 1.0;
+    double y = 3.0;
+    double z = x/y;
+    rational<I> r = rational_from_double(z);
+The fundamental question is, precisely what rational should r be? A naive
+answer is that r should be equal to 1/3. However, this ignores a multitude of
+issues.
+In the first instance, z is not exactly 1/3. Because of the limitations of
+floating point representation, 1/3 is not exactly representable in any of the
+common representations for the double type. Should r therefore not contain an
+(exact) representation of the actual value represented by z? But will the user
+be happy with a value of 33333333333333331/100000000000000000 for r?
+Before even considering the above issue, we have to consider the accuracy
+of the original values, x and y. If they came from an analog measuring
+instrument, for example, they are not infinitely accurate in any case. In such
+a case, a rational representation like the above promises far more accuracy
+than there is any justification for.
+All of this implies that we should be looking for some form of "nearest
+simple fraction". Algorithms to determine this sort of value do exist.
+However, not all applications want to work like this. In other cases, the
+whole point of converting to rational is to obtain an exact representation, in
+order to prevent accuracy loss during a series of calculations. In this case,
+a completely precise representation is required, regardless of how "unnatural"
+the fractions look.
+With these conflicting requirements, there is clearly no single solution
+which will satisfy all users. Furthermore, the algorithms involved are
+relatively complex and specialised, and are best implemented with a good
+understanding of the application requirements. All of these factors make such
+a function unsuitable for a general-purpose library such as this.
+Absolute Value
+In the first instance, it seems logical to implement
+abs(rational<IntType>) in terms of abs(IntType).
+However, there are a number of issues which arise with doing so.
+The first issue is that, in order to locate the appropriate implementation
+of abs(IntType) in the case where IntType is a user-defined type in a user
+namespace, Koenig lookup is required. Not all compilers support Koenig lookup
+for functions at the current time. For such compilers, clumsy workarounds,
+which require cooperation from the user of the rational class, are required to
+make things work.
+The second, and potentially more serious, issue is that for non-standard
+built-in integer types (for example, 64-bit integer types such as
+long long or __int64), there is no guarantee that the vendor
+has supplied a built in abs() function operating on such types. This is a
+quality-of-implementation issue, but in practical terms, vendor support for
+types such as long long is still very patchy.
+As a consequence of these issues, it does not seem worth implementing
+abs(rational<IntType>) in terms of abs(IntType). Instead, a simple
+implementation with an inline implementation of abs() is used:
+    template <typename IntType>
+    inline rational<IntType> abs(const rational<IntType>& r)
+    {
+        if (r.numerator() >= IntType(0))
+            return r;
+            return rational<IntType>(-r.numerator(), r.denominator());
+    }
+The same arguments imply that where the absolute value of an IntType is
+required elsewhere, the calculation is performed inline.
+References
+The rational number header itself: rational.hpp
+Some example code: rational_example.cpp
+The regression test: rational_test.cpp
+History and Acknowledgements
+In December, 1999, I implemented the initial version of the rational number
+class, and submitted it to the boost.org
+mailing list. Some discussion of the implementation took place on the mailing
+list. In particular, Andrew D. Jewell pointed out the importance of ensuring
+that the risk of overflow was minimised, and provided overflow-free
+implementations of most of the basic operations. The name rational_cast was
+suggested by Kevlin Henney. Ed Brey provided invaluable comments - not least
+in pointing out some fairly stupid typing errors in the original code!
+David Abrahams contributed helpful feedback on the documentation.
+A long discussion of the merits of providing a conversion from floating
+point to rational took place on the boost list in November 2000. Key
+contributors included Reggie Seagraves, Lutz Kettner and Daniel Frey (although
+most of the boost list seemed to get involved at one point or another!). Even
+though the end result was a decision not to implement anything, the
+discussion was very valuable in understanding the issues.
+Stephen Silver contributed useful experience on using the rational class
+with a user-defined integer type.
+Nickolay Mladenov provided the current implementation of operator+= and
+operator-=.
+Discussion of the issues surrounding Koenig lookup and std::swap took place
+on the boost list in January 2001.
+Daryle Walker provided a Boolean conversion operator, so that a rational can
+be used in the same Boolean contexts as the built-in numeric types, in December
+2005.  He added the cross-instantiation constructor template in August 2013.
+Revised August 30, 2013
+ Copyright Paul Moore 1999-2001;  Daryle Walker 2005, 2013.
+Permission to copy, use, modify, sell and distribute this document is granted
+provided this copyright notice appears in all copies. This document is provided
+"as is" without express or implied warranty, and with no claim as to
+its suitability for any purpose.

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	enable_current_exception - 1.63.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+enable_current_exception
+include <boost/exception/enable_current_exception.hpp>
+namespace
+boost
+    {
+    template <class T>
+    ---unspecified--- enable_current_exception( T const & e );
+    }
+Requirements:
+ T must be a class with an accessible no-throw copy constructor.
+ If T has any virtual base types, those types must have an accessible default constructor.
+Returns:
+An object of unspecified type which derives publicly from T. That is, the returned object can be intercepted by a catch(T &).
+Description:
+This function is designed to be used directly in a throw-expression to enable the exception_ptr support in Boost Exception. For example:
+class
+my_exception:
+    public std::exception
+    {
+    };
+....
+throw boost::enable_current_exception(my_exception());
+Unless enable_current_exception is called at the time an exception object is used in a throw-expression, an attempt to copy it using current_exception may return an exception_ptr which refers to an instance of unknown_exception. See current_exception for details.
+Note:
+Instead of using the throw keyword directly, it is preferable to call boost::throw_exception. This is guaranteed to throw an exception that derives from boost::exception and supports the exception_ptr functionality.
+See also: Boost Exception | boost/exception/enable_current_exception.hpp | Configuration Macros | copy_exception | current_exception | Transporting of Exceptions Between Threads
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

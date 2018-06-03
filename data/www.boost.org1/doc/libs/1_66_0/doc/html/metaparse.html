@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 23. Boost.Metaparse - 1.66.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 23. Boost.Metaparse
+Abel Sinkovics
+Copyright  2015 Abel Sinkovics
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Description
+Related publications
+    and blogs
+Preface
+Description
+Scope
+Advantages
+      of using this library
+Cost of using
+      Metaparse
+Supported platforms
+Getting
+    started with Boost.Metaparse
+1.
+      Introduction
+2.
+      The text to parse
+3.
+      Creating a simple parser
+4.
+      Parsing simple expressions
+5.
+      Parsing longer expressions
+6.
+      Adding support for other operators
+7.
+      Dealing with precedence
+8.
+      Dealing with associativity
+9.
+      Dealing with unary operators
+10.
+      Dealing with parens
+11.
+      Dealing with invalid input
+12.
+      Summary
+Copy-paste
+      friendly code examples
+Definitions
+      before each section
+User manual
+What is a parser
+Parsing
+      based on constexpr
+What
+      types of grammars can be used?
+Versioning
+Template classes
+Macros
+Performance
+Benchmarks
+      of BOOST_METAPARSE_STRING
+Measuring printf
+Further measurements
+The design of the
+    library
+Design
+      rationale
+Reference
+Parsers
+      and combinators provided by the library
+Compile-time
+      data structures and values
+String
+Errors
+Tags
+Utilities
+Terms
+      used by the library
+Alphabetical
+Description
+      Metaparse is a parser generator library for template metaprograms. The purpose
+      of this library is to support the creation of parsers that parse at compile
+      time. This library is intended to be used for embedded domain specific language
+      creation for C++. The input of the generated parser is a compile time string,
+      see string.
+      The result of the parsing process is either an error or any other result the
+      writer of the parser specifies.
+    
+      The library is similar to Boost.Spirit, however while parsers built with Spirit
+      parse at run-time, parsers built with Metaparse parse at compile-time. Parsers
+      built with Metaparse can output:
+    
+          types
+        
+          constant values
+        
+          objects (types with public static members)
+        
+          callable C++ functions (types with public static method)
+        
+          template metafunction classes
+        
+      See section What can be built from a compile-time
+      string? for further details.
+    
+      Based on C++11 features the library can provide advanced utilities for defining
+      the input string, the rest of the library works on C++98-based compilers as
+      well. Note that if you build the tests and examples with Boost.Build using
+      GCC or Clang, the compiler will not have C++11 (or newer) enabled. To build
+      the tests and examples in C++11-mode, you need to run b2
+      cxxflags="-std=c++11".
+    
+      An external tutorial can be found at https://github.com/sabel83/metaparse_tutorial#metaparse-tutorial
+    
+Last revised: December 05, 2017 at 23:51:40 GMT

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	quaternions, vectors, matrices - 1.63.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+Quaternions, Vectors, Matrices
+Out of the box Boost QVM defines generic yet simple quat, vec and mat types. For example, the following snippet creates a quaternion object that rotates around the X axis:
+#include <boost/qvm/quat.hpp>
+#include <boost/qvm/quat_operations.hpp>
+....
+quat<float> rx=rotx_quat(3.14159f);
+Similarly, a matrix that translates by a given vector can be created as follows:
+#include <boost/qvm/mat.hpp>
+#include <boost/qvm/vec.hpp>
+#include <boost/qvm/map_vec_mat.hpp>
+....
+vec<float,3> v={0,0,7};
+mat<float,4,4> tr=translation_mat(v);
+The usual quaternion, vector and matrix operations work on these Boost QVM types, however the operations are decoupled from any specific types: they work on any suitable type that has been registered by specializing the quat_traits, vec_traits and mat_traits templates.
+For example, a user-defined 3D vector type float3 can be introduced to Boost QVM as follows:
+#include <boost/qvm/vec_traits.hpp>
+struct float3 { float a[3]; };
+namespace boost
+{
+    namespace qvm
+    {
+        template <>
+        struct vec_traits<float3>
+        {
+            static int const dim=3;
+            typedef float scalar_type;
+            template <int I> static inline scalar_type & write_element( float3 & v ) { return v.a[I]; }
+            template <int I> static inline scalar_type read_element( float3 const & v ) { return v.a[I]; }
+            static inline scalar_type & write_element_idx( int i, float3 & v ) { return v.a[i]; } //optional
+            static inline scalar_type read_element_idx( int i, float3 const & v ) { return v.a[i]; } //optional
+        };
+    }
+}
+After a similar specialization of the mat_traits template for a user-defined 3x3 matrix type float33, the full range of vector and matrix operations defined by Boost QVM headers becomes available automatically:
+float3 v;
+X(v) = 0;
+Y(v) = 0;
+Z(v) = 7;
+float vmag = mag(v);
+float33 m = rotx_mat<3>(3.14159f);
+float3 vrot = m * v;
+User-defined quaternion types are similarly introduced to Boost QVM by specializing the quat_traits template.
+Tutorial navigation: Quaternions, Vectors, Matrices | C Arrays | Views | Swizzling | Interoperability 
+ 
+See also: Boost QVM
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

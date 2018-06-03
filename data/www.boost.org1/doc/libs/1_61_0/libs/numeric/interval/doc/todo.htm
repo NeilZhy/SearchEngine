@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+  
+  
+  
+  Interval-TODO.htm - 1.61.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  TODO list for the Interval Arithmetic library
+  Comments from the review process
+  
+    It would be nice to have a 100% portable Rounding policy class based
+    on LIA-1 only, with no additional requirement such as IEEE 754 or even
+    more.
+    For pi and other constants, we should fetch them from the Math
+    constants library when it is ready.
+  
+  Various items
+  
+    Support the -mfpmath=sse option of g++ for Pentium IV
+    optimized code. This requires a different rounding policy class.
+    Have an optimized specialization of
+    interval<double> using SSE2 instructions? Tricky.
+    Write a traits specialization for interval<MPFR>,
+    and other non-built-in number types.
+    Have a robust implementation of transcendental functions over the
+    built-in floating point types (e.g. using MPFR)?
+    Safe conversions from interval<double> to
+    interval<float>? Requires partial specialization.
+    It would be nice to use the expression template mechanism to
+    automatically use the more efficient unprotected rounding mode version
+    for small subexpressions (although you can do bigger expressions by
+    hand).
+  
+  
+  
+  Revised 
+  2006-12-24
+  Copyright  2002 Guillaume Melquiond, Sylvain Pion, Herv
+  Brnnimann, Polytechnic University
+  Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file LICENSE_1_0.txt
+  or copy at http://www.boost.org/LICENSE_1_0.txt)

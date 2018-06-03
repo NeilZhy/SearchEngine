@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	known quirks and issues - 1.66.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+Known Quirks and Issues
+Capturing view proxies with auto
+By design view proxies must not return temporary objects. They return reference to an argument they take by (const) reference, cast to reference of unspecified type that is not copyable. Because of this, the return value of a view proxy can not be captured by auto:
+auto tr=transposed(m); //Error: the return type of transposed can not be copied.
+The correct use of auto with view proxies is:
+auto & tr=transposed(m);
+Note:
+many view proxies are not read-only, that is, changes made on the view proxy operate on the original object. This is another reason why they can not be captured by auto by value.
+Binding QVM overloads from an unrelated namespace
+The operator overloads in namespace boost::qvm are designed to work with user-defined types. Typically it is sufficient to make these operators available in the namespace where the operator is used, by using namespace boost::qvm. A problem arises if the scope that uses the operator is not controlled by the user. For example:
+namespace ns1
+{
+    struct float2 { float x, y; };
+}
+namespace ns2
+{
+    using namespace boost::qvm;
+    void f()
+    {
+        ns1::float2 a, b;
+        a==b; //OK
+        ns1::float2 arr1[2], arr2[2];
+        std::equal(arr1,arr1+2,arr2); //Error: operator== is inaccessible from namespace std
+    }
+}
+In the std::equal expression above, even though boost::qvm::operator== is made visible in namespace ns2 by using namespace boost::qvm, the call originates from namespace std. In this case the compiler can't bind boost::qvm::operator== because only namespace ns1 is visible through ADL, and it does not contain a suitable declaration. The solution is to declare operator== in namespace ns1, which can be done like this:
+namespace ns1 { using boost::qvm::operator==; }
+Link errors when calling math functions with int arguments
+Boost QVM does not call standard math functions (e.g. sin, cos, etc.) directly. Instead, it calls function templates declared in boost/qvm/math.hpp in namespace boost::qvm. This allows the user to specialize these templates for user-defined scalar types.
+Boost QVM itself defines specializations of the math function templates only for float and double, but it does not provide generic definitions. This is done to protect the user from unintentionally writing code that binds standard math functions that take double when passing arguments of lesser types, which would be suboptimal.
+Because of this, a call to e.g. rot_mat(axis,1) will compile successfully but fail to link, since it calls e.g. boost::qvm::sin<int>, which is undefined. Because rotations by integer number of radians are rarely needed, in QVM there is no protection against such errors. In such cases the solution is to use rot_mat(axis,1.0f) instead.
+MSVC 2013 parsing bug
+Due to a MSVC 2013 bug, expressions of the form (v,A<I>) used to access vector elements as well as (m,A<R,C>) used to access matrix elements do not parse correctly. A workaround is to add parentheses, for example (v,A<I>()). It is unknown if other versions of MSVC have the same issue.
+The corresponding non-template syntax used to access specific elements, e.g. (m,A31) or (v,Y) is not affected by this issue.
+See also: Boost QVM
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

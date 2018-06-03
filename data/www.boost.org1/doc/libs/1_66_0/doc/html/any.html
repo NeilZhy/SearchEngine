@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 4. Boost.Any - 1.66.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 4. Boost.Any
+Kevlin Henney
+Copyright  2001 Kevlin Henney
+Distributed under the Boost Software License, Version 1.0.
+      (See accompanying file LICENSE_1_0.txt or copy at 
+      http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Introduction
+Examples
+Reference
+ValueType requirements
+Header <boost/any.hpp>
+Acknowledgements
+Introduction
+There are times when a generic (in the sense of
+    general as opposed to
+    template-based programming) type is needed:
+    variables that are truly variable, accommodating values of many
+    other more specific types rather than C++'s normal strict and
+    static types. We can distinguish three basic kinds of generic
+    type:
+Converting types that can hold one of a number of
+        possible value types, e.g. int and
+        string, and freely convert between them, for
+        instance interpreting 5 as "5" or
+        vice-versa.  Such types are common in scripting and other
+        interpreted
+        languages. 
+        boost::lexical_cast
+        supports such conversion functionality.
+        Discriminated types that contain values of different types but
+        do not attempt conversion between them, i.e. 5 is
+        held strictly as an int and is not implicitly
+        convertible either to "5" or to
+        5.0. Their indifference to interpretation but
+        awareness of type effectively makes them safe, generic
+        containers of single values, with no scope for surprises from
+        ambiguous conversions.
+        Indiscriminate types that can refer to anything but are
+        oblivious to the actual underlying type, entrusting all forms
+        of access and interpretation to the programmer. This niche is
+        dominated by void *, which offers plenty of scope
+        for surprising, undefined behavior.
+The boost::any class
+    (based on the class of the same name described in "Valued
+    Conversions" by Kevlin Henney, C++
+    Report 12(7), July/August 2000) is a variant value type
+    based on the second category. It supports copying of any value
+    type and safe checked extraction of that value strictly against
+    its type. A similar design, offering more appropriate operators,
+    can be used for a generalized function adaptor,
+    any_function, a generalized iterator adaptor,
+    any_iterator, and other object types that need
+    uniform runtime treatment but support only compile-time template
+    parameter conformance.

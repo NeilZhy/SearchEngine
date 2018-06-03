@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 35. Boost.Signals - 1.66.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 35. Boost.Signals
+Douglas Gregor
+Copyright  2001-2004 Douglas Gregor
+Use, modification and distribution is subject to the Boost
+    Software License, Version 1.0. (See accompanying file
+    LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+Table of Contents
+Introduction
+Tutorial
+How to Read this Tutorial
+Compatibility Note
+Hello, World! (Beginner)
+Calling multiple slots
+Passing values to and from slots
+Connection Management
+Example: Document-View
+Linking against the Signals library
+Reference
+Header <boost/signal.hpp>
+Header <boost/signals/slot.hpp>
+Header <boost/signals/trackable.hpp>
+Header <boost/signals/connection.hpp>
+Header <boost/visit_each.hpp>
+Header <boost/last_value.hpp>
+Frequently Asked Questions
+Design Overview
+Type Erasure
+connection class
+Slot Call Iterator
+visit_each function template
+Design Rationale
+Choice of Slot Definitions
+User-level Connection Management
+Combiner Interface
+Connection Interfaces: +=  operator
+trackable rationale
+Comparison with other Signal/Slot implementations
+Testsuite
+Acceptance tests
+Introduction
+Note
+Boost.Signals is no longer being actively maintained.
+Do not use Boost.Signals for new development (use 
+Boost.Signals2
+instead). If you have existing Boost.Signals-based code, it will
+continue to work, but consider moving to Boost.Signals2. There is
+a porting guide in the Signals2 documentation.
+The Boost.Signals library is an implementation of a managed
+signals and slots system. Signals represent callbacks with multiple
+targets, and are also called publishers or events in similar
+systems. Signals are connected to some set of slots, which are
+callback receivers (also called event targets or subscribers), which
+are called when the signal is "emitted."
+Signals and slots are managed, in that signals and slots (or,
+more properly, objects that occur as part of the slots) track all
+connections and are capable of automatically disconnecting signal/slot
+connections when either is destroyed. This enables the user to make
+signal/slot connections without expending a great effort to manage the
+lifetimes of those connections with regard to the lifetimes of all
+objects involved.
+When signals are connected to multiple slots, there is a
+question regarding the relationship between the return values of the
+slots and the return value of the signals. Boost.Signals allows the
+user to specify the manner in which multiple return values are
+combined.

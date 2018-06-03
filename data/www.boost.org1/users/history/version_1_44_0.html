@@ -1,0 +1,1258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Version 1.44.0
+  
+  
+  
+  
+/*<![CDATA[*/
+  #content .news-description ul {
+    list-style: none;
+  }
+  #content .news-description ul ul {
+    list-style: circle;
+  }
+  /*]]>*/
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+    
+      
+        
+          
+            
+              Version 1.44.0
+            
+            
+              Version 1.44.0
+              August 13th, 2010 17:00 GMT
+              Documentation
+              DownloadsPlatformFile
+unixboost_1_44_0.tar.bz2boost_1_44_0.tar.gz
+windowsboost_1_44_0.7zboost_1_44_0.zip
+              
+                
+  
+    New Libraries
+    
+      
+        
+          Meta State Machine:
+  High-performance
+          expressive UML2 finite state machines, from Christophe Henry
+        
+      
+      
+        
+          Polygon:
+  Booleans/clipping,
+          resizing/offsetting and more for planar polygons with integral coordinates,
+          from Lucanus Simonson.
+        
+      
+    
+  
+  
+    Updated Libraries
+    
+      
+        
+          Accumulators:
+          
+            
+              
+                Correct miscellaneous documentation inaccuracies
+              
+            
+          
+        
+      
+      
+        
+          Asio:
+          
+            
+              
+                Reduced compile times. (Note that some programs may need to add additional
+                #includes, e.g.
+                if the program uses boost::array
+                but does not explicitly include <boost/array.hpp>.)
+              
+            
+            
+              
+                Reduced the size of generated code.
+              
+            
+            
+              
+                Refactored deadline_timer
+                implementation to improve performance.
+              
+            
+            
+              
+                Improved multiprocessor scalability on Windows by using a dedicated
+                hidden thread to wait for timers.
+              
+            
+            
+              
+                Improved performance of asio::streambuf
+                with async_read()
+                and async_read_until(). These read operations now use
+                the existing capacity of the streambuf
+                when reading, rather than limiting the read to 512 bytes.
+              
+            
+            
+              
+                Added optional separate compilation. To enable, add #include <boost/asio/impl/src.cpp>
+                to one source file in a program, then build the program with BOOST_ASIO_SEPARATE_COMPILATION
+                defined in the project/compiler settings. Alternatively, BOOST_ASIO_DYN_LINK may be defined
+                to build a separately-compiled Asio as part of a shared library.
+              
+            
+            
+              
+                Added new macro BOOST_ASIO_DISABLE_FENCED_BLOCK
+                to permit the disabling of memory fences around completion handlers,
+                even if thread support is enabled.
+              
+            
+            
+              
+                Reworked timeout examples to better illustrate typical use cases.
+              
+            
+            
+              
+                Ensured that handler arguments are passed as const
+                types.
+              
+            
+            
+              
+                Fixed incorrect parameter order in null_buffers
+                variant of async_send_to
+                (#4170).
+              
+            
+            
+              
+                Ensured unsigned char
+                is used with isdigit
+                in getaddrinfo emulation
+                (#4201).
+              
+            
+            
+              
+                Fixed handling of very small but non-zero timeouts (#4205).
+              
+            
+            
+              
+                Fixed crash that occurred when an empty buffer sequence was passed
+                to a composed read or write operation.
+              
+            
+            
+              
+                Added missing operator+ overload in buffers_iterator
+                (#4382).
+              
+            
+            
+              
+                Implemented cancellation of null_buffers
+                operations on Windows.
+              
+            
+          
+        
+      
+      
+        
+          Config:
+          
+            
+              
+                Added new defect macro, BOOST_NO_COMPLETE_VALUE_INITIALIZATION.
+              
+            
+            
+              
+                Added new defect macro BOOST_NO_0X_HDR_TYPEINDEX,
+                fixes issue #4274.
+              
+            
+            
+              
+                Added support for code visibility in GCC.
+              
+            
+            
+              
+                Fixed issues #4385,
+                #4324,
+                #4221,
+                #4182,
+                #4178,
+                #4152,
+                #4115.
+                #4112,
+                #4059,
+                #4041,
+                #4012.
+              
+            
+          
+        
+      
+      
+        
+          Filesystem:
+          
+            
+              
+                This release contains both version 2 and version 3 of the library.
+                Version 3 is a major upgrade that will break some existing user code,
+                so version 2 is the default. Users are encouraged to migrate to version
+                3. See 'Version 2'
+                and 'Version 3'
+                for more information.
+              
+            
+            
+              
+                Fix problems with symbol visibility for shared libraries.
+              
+            
+            
+              
+                Fix various minor problems.
+              
+            
+            
+              
+                Fixed issues: #3863,
+                #4248.
+              
+            
+          
+        
+      
+      
+        
+          Foreach:
+          
+            
+              
+                Add boost/foreach_fwd.hpp for forward declarations of
+                foreach's customization points, fixes #3998.
+              
+            
+            
+              
+                Remove out-of-date work-arounds for sun compilers, fixes #4306.
+              
+            
+          
+        
+      
+      
+        
+          Fusion:
+          
+            
+              
+                Added fusion::reverse_fold, fusion::iter_fold
+                and fusion::reverse_iter_fold (#1623).
+              
+            
+          
+        
+      
+      
+        
+          Hash:
+          
+            
+              
+                Option to prevent implicit casts when calling the hash function by
+                defining the macro BOOST_HASH_NO_IMPLICIT_CASTS,
+                which can avoid some subtle problems. This might be activated by
+                default in a future version.
+              
+            
+          
+        
+      
+      
+        
+          Iostreams:
+          
+            
+              
+                Several fixes for file descriptors class, including a breaking change
+                to the constructors and open
+                methods for file_descriptor,
+                file_descriptor_source
+                and file_descriptor_sink.
+                See the
+                documentation for details. The old methods are still available
+                if you define BOOST_IOSTREAMS_USE_DEPRECATED
+                (#3323,
+                #3517,
+                #4335).
+              
+            
+            
+              
+                Fix several issues with compression and decompression (#2318,
+                #4091,
+                #3348,
+                #2783,
+                #1579,
+                #3853).
+              
+            
+            
+              
+                And a load more miscellaneous fixes (#3851,
+                #3279,
+                #3689,
+                #2356,
+                #2996,
+                #4102,
+                #2998,
+                #1612,
+                #2325).
+              
+            
+            
+              
+                Thanks to Steven Watanabe for almost all these fixes. For more detail
+                see the release
+                notes.
+              
+            
+          
+        
+      
+      
+        
+          Math:
+          
+            
+              
+                Fixed incorrect range and support for Rayleigh distribution.
+              
+            
+          
+        
+      
+      
+        
+          MPL:
+          
+            
+              
+                Make mpl::string work with mpl::transform.
+              
+            
+          
+        
+      
+      
+        
+          Multi-index Containers:
+          
+            
+              
+                Fixed a bug preventing the use of modify_key
+                with rollback in ordered
+                and hashed
+                indices when Modifier
+                and Rollback are
+                different types (ticket #4130).
+              
+            
+          
+        
+      
+      
+        
+          Proto:
+          
+            
+              
+                Minor change in behavior: when using
+                proto::and_ as a transform, apply all
+                transforms but only return the result of applying the last. See Proto's
+                Release
+                Notes for details.
+              
+            
+            
+              
+                Minor change in behavior: proto::as_expr and proto::as_child
+                no longer run objects that are already proto expressions through
+                the expression domain's generator. See Proto's Release
+                Notes for details.
+              
+            
+            
+              
+                Minor change in behavior: Proto
+                uses proto::basic_expr instead of proto::expr when possible for better compile
+                times. See Proto's Release
+                Notes for details.
+              
+            
+            
+              
+                Add support for sub-domains.
+              
+            
+            
+              
+                Introduce per-domain as_expr
+                and as_child customization
+                points to allow for domain-specific customization of variable capture
+                behavior.
+              
+            
+            
+              
+                The proto::_default transform is also a grammar
+                that matches the expressions the transform knows how to handle.
+              
+            
+            
+              
+                Add proto::_void, a no-op primitive transform
+                that does nothing and returns void.
+              
+            
+            
+              
+                The proto::pass_through transform doesn't
+                strip expression wrappers, fixes #4175.
+              
+            
+            
+              
+                Const-correctness fixes when invoking proto domains.
+              
+            
+          
+        
+      
+      
+        
+          Regex:
+          
+            
+              
+                Fixed issues: #4309,
+                #4215,
+                #4212,
+                #4191,
+                #4132,
+                #4123,
+                #4114,
+                #4036,
+                #4020,
+                #3941,
+                #3902,
+                #3890.
+              
+            
+          
+        
+      
+      
+        
+          Spirit:
+  Spirit V2.4,
+          see the 'What's
+          New' section for details.
+        
+      
+      
+        
+          System:
+          
+            
+              
+                Change system_category and generic_category to functions, to conform
+                to the C++0x FCD. This change may cause compile errors some user
+                code; the fix is add "()" to references to system_category
+                and generic_category, so that they become function calls.
+              
+            
+            
+              
+                Fix problems with symbol visibility for shared libraries.
+              
+            
+            
+              
+                Fixed issues: #4254,
+                #3994,
+                #3474.
+              
+            
+          
+        
+      
+      
+        
+          Thread:
+          
+            
+              
+                Fixes for miscellaneous trac issues (#2501,
+                #4341,
+                #4363,
+                #3760,
+                #3761,
+                #3611,
+                #2955,
+                #4071,
+                #3195,
+                #3097,
+                #2874,
+                #4316,
+                #4317,
+                #4322,
+                #3244,
+                #2747,
+                #4305,
+                #3195,
+                #2704,
+                #2293,
+                #868,
+                #2918,
+                #4238,
+                #3269,
+                #3178,
+                #3195).
+              
+            
+            
+              
+                Fixes for other miscellaneous issues (remove warnings, support newer
+                compilers, etc.)
+              
+            
+          
+        
+      
+      
+        
+          TR1:
+          
+            
+              
+                Fixed VC10 support.
+              
+            
+            
+              
+                std::tr1::result_of always uses the TR1 ResultOf
+                protocol, even on compilers that support the C++0x decltype-based implementation.
+              
+            
+          
+        
+      
+      
+        
+          Type Traits:
+          
+            
+              
+                Added support for rvalue references throughout the library, plus
+                two new traits classes is_rvalue_reference and is_lvalue_reference.
+                Fixes #4407
+                and #3804.
+              
+            
+            
+              
+                Fixed ticket #3621.
+              
+            
+          
+        
+      
+      
+        
+          uBLAS:
+          
+            
+              
+                New assignment operators to feed in vectors and matrices in many
+                nice ways (#4034).
+                Thank you Nasos
+              
+            
+            
+              
+                New doxygen-based documentation
+              
+            
+            
+              
+                Enable arithmetic operators (+,-,*,/) to work between ublas containers
+                of std::complex and integral types (#3649).
+                Thank you Neal
+              
+            
+            
+              
+                Removed unused variables in functional.hpp (#4377).
+                Thank you Marco
+              
+            
+            
+              
+                New matrix_indirect and vector_indirect views to access elements
+                with a matrix or vector of indices
+              
+            
+          
+        
+      
+      
+        
+          Utility:
+          
+            
+              
+                Added a new template class, boost::initialized<T>,
+                in order to fix #3472.
+              
+            
+            
+              
+                New version of value_initialized<T> no longer calls memset when the compiler has implemented
+                value-initialization completely (#3869).
+              
+            
+            
+              
+                New template boost::tr1_result_of
+                that implements the TR1 ResultOf protocol even if boost::result_of
+                uses the C++0x decltype-based
+                implementation.
+              
+            
+          
+        
+      
+      
+        
+          Uuid:
+          
+            
+              
+                Define BOOST_UUID_NO_TYPE_TRAITS
+                to remove the dependency on Boost.TypeTraits.
+              
+            
+            
+              
+                Stream operator<<
+                handles left, internal, and right manipulators.
+              
+            
+            
+              
+                Added to_string,
+                to_wstring to convert
+                a uuid to a string.
+              
+            
+            
+              
+                Fixed minor bugs in documentation.
+              
+            
+          
+        
+      
+      
+        
+          Wave:
+  See the Changelog
+          for details.
+        
+      
+      
+        
+          Xpressive:
+          
+            
+              
+                Replace non-portable using
+                declarations with typedefs
+                in nested_results.
+              
+            
+            
+              
+                Support user-defined assertions with placeholders for non-local variables.
+              
+            
+          
+        
+      
+    
+  
+  
+    Updated tools
+    
+      
+        
+          Boostbook:
+          
+            
+              
+                Significantly faster.
+              
+            
+            
+              
+                Improved syntax highlighter.
+              
+            
+          
+        
+      
+      
+        
+          Quickbook:
+          
+            
+              
+                Use the cygwin 1.7 API for better path handling.
+              
+            
+            
+              
+                Improved boostbook generation.
+              
+            
+            
+              
+                Tweak the grammar to clean up some edge cases.
+              
+            
+            
+              
+                For more detail see the change
+                log.
+              
+            
+          
+        
+      
+    
+  
+  
+    Compilers Tested
+    
+      Boost's primary test compilers are:
+    
+    
+      
+        
+          OS X:
+          
+            
+              
+                GCC 4.0.1 on Intel Leopard.
+              
+            
+          
+        
+      
+      
+        
+          Linux:
+          
+            
+              
+                GCC 4.4 on 64-bit Suse.
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                Visual C++ 7.1 SP1, 8.0 SP1, 9.0 SP1 and 10.0.
+              
+            
+            
+              
+                GCC 4.3.3, using Mingw.
+              
+            
+          
+        
+      
+      
+        
+          FreeBSD:
+          
+            
+              
+                GCC 4.2.1, 32 and 64 bit.
+              
+            
+          
+        
+      
+    
+    
+      Boost's additional test compilers include:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                Intel 10.1 on 32 bit Red Hat Enterprise Linux.
+              
+            
+            
+              
+                Intel 10.1, 11.0, 11.1 on 64 bit Red Hat Enterprise Linux.
+              
+            
+            
+              
+                GCC 3.4.6, 4.2.4, 4.3.4, 4.4.3, 4.5 on Red Hat Enterprise Linux.
+              
+            
+            
+              
+                GCC, with C++0x extensions, 4.3.4, 4.4.3, 4.5 on Red Hat Enterprise
+                Linux.
+              
+            
+            
+              
+                GCC 4.4 on 64 bit Suse.
+              
+            
+            
+              
+                QLogic PathScale(TM) Compiler Suite: Version 3.2 on Red Hat Enterprise
+                Linux.
+              
+            
+            
+              
+                Clang from subversion (will be released with LLVM 2.8).
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Intel C++ Compiler 10.1, 11.0, 11.1 on Leopard.
+              
+            
+            
+              
+                GCC 4.0.1, 4.2.1 (Apple build).
+              
+            
+            
+              
+                GCC 4.4
+              
+            
+            
+              
+                GCC, with C++0x extensions, 4.4
+              
+            
+            
+              
+                Clang from subversion (will be released with LLVM 2.8).
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                Visual C++ 7.1 SP, 8.0, 9.0 on 32-bit XP.
+              
+            
+            
+              
+                Visual C++ 9.0 using STLport 5.2 on XP and Windows Mobile 5.0.
+              
+            
+            
+              
+                Visual C++ 10.0 on XP.
+              
+            
+            
+              
+                Visual C++ 10.0 on 64-bit Windows 7.
+              
+            
+            
+              
+                Borland/Codegear C++ 5.9.3, 6.1.3 (2009), 6.2.1 (2010).
+              
+            
+            
+              
+                Intel C++ 11.1, with a Visual C++ 9.0 backend, on Vista 32-bit.
+              
+            
+            
+              
+                GCC 4.3.3, 4.5 on Mingw.
+              
+            
+            
+              
+                GCC, with C++0x extensions, 4.5 on Mingw.
+              
+            
+          
+        
+      
+      
+        
+          AIX:
+          
+            
+              
+                IBM XL C/C++ Enterprise Edition, V11.1.0.0, on AIX Version 5.3.0.40.
+              
+            
+          
+        
+      
+      
+        
+          FreeBSD:
+          
+            
+              
+                GCC 4.2.1 on FreeBSD 7.2, 64 bit.
+              
+            
+            
+              
+                GCC 4.2.1 on FreeBSD 8.0, 32 bit.
+              
+            
+          
+        
+      
+      
+        
+          Solaris:
+          
+            
+              
+                Sun C++ 5.10 on Solaris 5.10.
+              
+            
+          
+        
+      
+    
+  
+  
+    Acknowledgements
+    
+      Beman Dawes, Eric Niebler,
+      Rene Rivera, Daniel James
+      and Vladimir Prus managed this release.
+    
+    
+      Thanks to Marshall Clow for organizing the bug sprint and to everyone who took
+      part.
+    
+  
+              
+            
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+  
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Copyright Rene Rivera 2006-2007.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

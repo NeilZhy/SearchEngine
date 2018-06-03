@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	integrating boost exception in existing exception class hierarchies - 1.62.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Integrating Boost Exception in Existing Exception Class Hierarchies
+Some exception hierarchies can not be modified to make boost::exception a base type. In this case, the enable_error_info function template can be used to make exception objects derive from boost::exception anyway. Here is an example:
+#include <boost/exception/all.hpp>
+#include <stdexcept>
+typedef boost::error_info<struct tag_std_range_min,size_t> std_range_min;
+typedef boost::error_info<struct tag_std_range_max,size_t> std_range_max;
+typedef boost::error_info<struct tag_std_range_index,size_t> std_range_index;
+template <class T>
+class
+my_container
+    {
+    public:
+    size_t size() const;
+    T const &
+    operator[]( size_t i ) const
+        {
+        if( i > size() )
+            throw boost::enable_error_info(std::range_error("Index out of range")) <<
+                std_range_min(0) <<
+                std_range_max(size()) <<
+                std_range_index(i);
+        //....
+        }
+    };
+The call to enable_error_info<T> gets us an object of unspecified type which is guaranteed to derive from both boost::exception and T. This makes it possible to use operator<< to store additional information in the exception object. The exception can be intercepted as T &, so existing exception handling will not break. It can also be intercepted as boost::exception &, so that more information can be added to the exception at a later time.
+See also: Boost Exception | Motivation
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

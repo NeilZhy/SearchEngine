@@ -1,0 +1,576 @@
+
+Change log - 1.65.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Change log
+      Boost.Test
+      v3.6 / boost 1.65
+    
+      Breaking
+      changes
+    
+          BOOST_GLOBAL_FIXTURE is flagged
+          as deprecated and will be removed in a later version
+        
+          Using test assertions and macros is not allowed when used inside BOOST_GLOBAL_FIXTURE. Please use
+          BOOST_TEST_GLOBAL_FIXTURE instead
+          (see below).
+        
+          the interface for loggers has slightly changed to take into account the
+          current log level. This is for addressing #12631.
+        
+      New
+      features
+    
+          VS2017 / C++17 compatibility (thanks to Daniela Engert)
+        
+          Deprecating BOOST_GLOBAL_FIXTURE in favor
+          of BOOST_TEST_GLOBAL_FIXTURE and
+          BOOST_TEST_GLOBAL_CONFIGURATION.
+          This helps separating the logic of the fixtures associated to the master
+          test suite, from the one used for setting up the logging and reporting
+          facility, and results in a general cleaner design.
+        
+          It is possible to use now the BOOST_TEST check to comparing
+          a collection with respect to regular arrays. See this
+          section for more details.
+        
+      Bugfixes
+      and feature requests
+    
+          #PR-106 replace deprecated binders and adapters, and random_shuffle
+          by more modern equivalents
+        
+          #5282 Test fixtures do not support virtual inheritance
+        
+          #5563 using a test macro in a global fixture crashes Boost.Test
+        
+          #11471 array is a sequence
+        
+          #11962 BOOST_TEST_MESSAGE
+          in fixture constructor - invalid XML
+        
+          #12228 Some test headers fail to compile independently
+        
+          #12631 BOOST_TEST_MESSAGE
+          generates incorrect output when used in BOOST_DATA_TEST_CASE
+        
+          #13011 BOOST_TEST broken
+          with floating point relational operators
+        
+      Boost.Test
+      v3.5 / boost 1.64
+    
+      New
+      features
+    
+          Now Boost.Test provides customization
+          points for logging user defined types: this solution is less intrusive
+          than forcing the definition of operator<< for a specific type.
+        
+          JUnit
+          output format can now have a log-level
+          set between success and
+          non-fatal error,
+          and defaults to general information.
+        
+          JUnit
+          output format is now more performant in case a lot of checks are
+          done in a test module.
+        
+      Bugfixes
+      and feature requests
+    
+          #PR-107 BOOST_NO_EXCEPTIONS
+          typo making throw_exception
+          unusable under some circumstances
+        
+          #PR-108 Change capital variable names to lowercase
+        
+          #11756 boost.Test: non standards compliant use of FE_* macros (unable to compile boost test library
+          on FPU-less arches) (reopened)
+        
+          #12540 Provide customisation point for printing types in tests
+        
+          #12712 BOOST_AUTO_TEST_SUITE:
+          Generate unique names by using __COUNTER__
+        
+          #12748 Boost.Test defines a variable called VERSION
+        
+          #12778 Boost.Test is broken against left shift operator in certain
+          cases (nullptr issue)
+        
+      Boost.Test
+      v3.4 / boost 1.63
+    
+      Breaking
+      changes
+    
+          Now colons that appear in test case names are replaced with underscores.
+          This affect mainly the template/typed
+          test cases. The change is needed since the colon ':' is interpreted as a filter separators
+          since 1.62, and it is otherwise not possible to execute the tests reported
+          by --list_content.
+          See #12531 for more details.
+        
+      New
+      features
+    
+          Now per_element
+          and lexicographic
+          modifiers of BOOST_TEST can also be applied
+          to string comparison. See string
+          comparison for more details.
+        
+      Bugfixes
+      and feature requests
+    
+          #PR-103 Syntactic change silences latest gcc warnings
+        
+          #PR-105 Fix unused parameter warnings/errors with gcc 6
+        
+          #11756 boost.Test: non standards compliant use of FE_* macros (unable to compile boost test library
+          on FPU-less arches)
+        
+          #11907 Why does BOOST_TEST() treat std::string
+          as a collection?
+        
+          #12339 Propose users given way to disable blink in colour output
+        
+          #12506 typo in Boost.test report_sink
+          description
+        
+          #12507 Boost.test --report_sink
+          parameter broken
+        
+          #12530 No way to find out Boost.Test version without running any tests
+        
+          #12531 --run_test
+          in Boost 1.62 does not accept test names which contain ':'
+        
+      Boost.Test
+      v3.3 / boost 1.62
+    
+      New
+      features
+    
+          Boost.Test now treats each sample of a dataset test case as being a uniquely
+          named test case under the same test suite, which enables the (re)run of
+          one particular sample from the command line interface. See here
+          for more details,
+        
+          Boost.Test learned to interpret ':' as a separator for the test filters:
+          the string passed to --run_test
+          generates tokens as if --run_test has been repeated, which enables
+          the set up of several test filters through the associated environment variable
+          BOOST_TEST_RUN_FILTERS
+        
+          the Unit Test Framework learned to log the messages
+          in the xUnit/JUNIT log format. See here
+          for more details.
+        
+          the Unit Test Framework learned to have several loggers
+          at the same time, each of which with their own log level and log sink.
+          See the associated command line switch --logger
+          and corresponding environment variable BOOST_TEST_LOGGER
+          for more details.
+        
+          loggers are now able to indicate their default output stream and log level.
+        
+      Bugfixes
+      and feature requests
+    
+          #PR-81 Possibility to remove the support of the alternative stack at compilation
+          time. See BOOST_TEST_DISABLE_ALT_STACK for
+          more details.
+        
+          #8707 Provide Standard xUnit XML Output from Boost Test
+        
+          #8834 Boost Test should be able to generate report in both XML and HRF
+          together
+        
+          #11128 [bb10/qnx failures]
+          Build error
+        
+          #11845 Ability to generate the unique and stable test name for every
+          data set in BOOST_DATA_TEST_CASE
+        
+          #11859 Wrong handling of "," in Run-Parameters
+        
+          #12024 boost test depends on nonexisting abi::__cxa_demangle
+          on android
+        
+          #12093 Boost 1.60.0: Build fails (gcc 4.6)
+        
+          #12103 Fix for gcc bug 58952 (getchar() is defined as a macro in uClibc)
+        
+          #12224 Crash on MSVC with RTTI disabled
+        
+          #12241 Data-driven testing over a range of std::tuple
+          has broken
+        
+          #12257 Incorrect line numbers in test_units
+          generated from test_case_gen
+        
+          #12378 Compilation errors with clang 3.8
+        
+      Boost.Test
+      v3.2 / boost 1.61
+    
+      New
+      features
+    
+          now datasets support any arity,
+          using the variadic template support of the compiler.
+        
+          now datasets support fixtures through BOOST_DATA_TEST_CASE_F,
+          see here
+          for more details
+        
+          now datasets honors move semantics of the types used for samples
+        
+      Bugfixes
+      and feature requests
+    
+          #6767 Use of namespace qualifier with floating point exception functions
+          breaks if they are macros
+        
+          #8905 boost/test/impl/debug.ipp: Ignores return value from WaitForSingleObject
+        
+          #9443 Runtime parameter Random seed for random order of test cases not
+          respected correctly
+        
+          #11854 Add fixture support in BOOST_DATA_TEST_CASE
+        
+          #11887 BOOST_TEST(3u == (std::max)(0u, 3u)) fails
+        
+          #11889 BOOST_DATA_TEST_CASE
+          fails to compile for 4D and higher dimensional grids
+        
+          #11983 Boost Test XML Report contains unescaped XML characters
+        
+      Boost.Test
+      v3.1 / boost 1.60
+    
+      New
+      major features
+    
+          improved API for datasets
+          
+                it is now possible to use initializer lists
+              
+                the use of make as
+                top left dataset is not necessary anymore
+              
+        
+          improved command line interface
+          
+                clearer help commands
+              
+                now proposes closest matching command in case of ambiguity
+              
+                reports invalid or ambiguous parameters: this might break existing
+                calls when user defined commands are provided to the test module.
+                The following calling convention should be adopted:
+                
+                      if the test module uses user supplied commands, those should
+                      be passed after an empty token --
+                    
+                      all boost.test related commands should be passed before --, if any
+                    
+              
+                Example: the call
+              
+test_module --user-arg1=xy --log_level=test_suite
+                should be rewritten to
+              
+test_module --log_level=test_suite -- --user-arg1=xy
+        
+      Bugfixes
+      and feature requests
+    
+          #3384 Double-quoted arguments including spaces are divided by Boost.Test.
+        
+          #3897 Test framework does not include <osreldate.h>
+          before testing __FreeBSD_version
+          (fixed in 1.59)
+        
+          #6032 Program options within init_unit_test_suite
+          are incorrect when using path and whitespaces
+        
+          #6859 Boost.Test eats away last empty command line parameter
+        
+          #7257 Boost.Test alters and does not restore ostream
+          precision after any Test macro (fixed in 1.59)
+        
+          #9228 Patch to make Boost.Test work with RTTI disabled (fixed in 1.59)
+        
+          #10317 boost::test corrupts contents of argv
+          if a paramter contains whitespace
+        
+          #11279 invalid parameters should be reported
+        
+          #11478 Boost Test Exception Assert Failure has poor message
+        
+          #11571 Can't compile BOOST_TEST( ..., per_element()
+          ) comparison of vector<string>
+        
+          #11623 Clang rejects some simple BOOST_TEST() statements
+        
+          #11624 BOOST_TEST(
+          0.0 ==
+          0.0 )
+          fails under C++11 (GCC and Clang)
+        
+          #11625 BOOST_TEST(
+          ..., per_element() ) erroneously
+          requires collections are comparable
+        
+      Boost.Test
+      v3 / boost 1.59
+    
+      New
+      major features
+    
+          BOOST_TEST generic assertion
+        
+          data
+          driven test cases: supersedes the parametric test case (unary test
+          cases)
+        
+          test units attributes,
+          that allow finer control over test units property and behavior
+        
+          logical grouping of the test units using labels
+        
+          support for declaring dependencies
+          over test cases
+        
+          attributes for enabling
+          or disabling test execution based on static, compile-time or runtime
+          rules
+        
+          extended unit
+          test filtering from the command line (negation, labels, ...)
+        
+          color output with color_output
+        
+          test bed listing with list_content
+        
+          rewritten documentation using quickbook
+        
+      Bugfixes
+      and feature requests
+    
+          #2018 Error in the documentation chapter "Runtime parameters reference"
+        
+          #2450 equations in Floating-point comparison algorithms html are not
+          rendered properly
+        
+          #2600 Unit Test Framework - missed documentation
+        
+          #2717 BOOST_<level>_EQUAL_COLLECTION docs typo
+        
+          #2759 Typos in test new-year-resolution.html
+        
+          #3182 _CrtSetReportFile
+          can be used to redirect memory leaks report
+        
+          #3316 Access violation when trying to log from init_tests_func
+        
+          #3392 Boost::Test: Wrong contents for documentation of the BOOST_TEST_PASSPOINT macro
+        
+          #3402 Invalid define name in docummentation (duplicates ##2717)
+        
+          #3445 incorreect link in the docs
+        
+          #3463 GT is GREAT!
+        
+          #3542 Bug in documentation of detect_memory_leak parameter (duplicates
+          ##2018)
+        
+          #3481 Boost Testing doesn't work under Sun Solaris Containers (duplicates
+          ##3592)
+        
+          #3495 Boost::Test enters endless loop when running in vserver environment (duplicates ##3592)
+        
+          #3592 under_debugger() goes into infinite loop
+        
+          #3595 Typo (duplicates ##2759)
+        
+          #3623 Boost Test Typo (duplicates ##2759)
+        
+          #3664 SIGCHLD always
+          considered fatal error
+        
+          #3784 Documentation errors in Execution Monitor Compilation
+        
+          #3785 Documentation errors in Program Execution Monitor implementation
+        
+          #3811 global namespace polution
+        
+          #3834 doc: probably incorrect HTML rendering (duplicates ##2450)
+        
+          #3896 erroneous documentation in boost test commandline parameter description
+        
+          #3932 Error in BOOST_<level>_GT
+          description (duplicates ##3463)
+        
+          #3938 doc: incorrect macro name (duplicates ##2759)
+        
+          #3964 Documentation for BOOST_<level>_CLOSE_FRACTION
+          is incorrect
+        
+          #3978 Failed to completely redirect TestLog to file, bugfix appended
+        
+          #3979 <boost/test/exception_safety.hpp> requires additional includes
+        
+          #4161 spelling mistakes...
+        
+          #4275 Documentation error Boost.Test (duplicates ##2717)
+        
+          #4389 Enable boost_test to run specific tests with any required dependent
+          tests.
+        
+          #4434 BOOST_AUTO_EST_CASE
+          typos in docs
+        
+          #4587 Broken link in website
+        
+          #4806 Invalid link (examples not showing up in documentation)
+        
+          #4911 ENH: boost.test output the exception real type name.
+        
+          #4923 Missing semicolon in documentation example
+        
+          #4924 Minor typo in Boost::Test docs
+        
+          #4982 Boost.Test has misspelled Gennadiy Rozental e-mail address
+        
+          #5008 Boost.Test does not do checkpointing of entry/exit of test cases
+        
+          #5036 Boost.Test VC memory leak report should direct to stderr
+        
+          #5262 Run tests by name utility doesn't support negation
+        
+          #5374 Errors from Boost.Test are no more shown in the Error list in
+          VS2010
+        
+          #5412 XML formatter in test library processes strings with subsequences
+          ]]> incorrectly
+        
+          #5563 using a test macro in a global fixture crashes Boost.Test
+        
+          #5582 There is a memory leak in the BOOST_AUTO_TEST_CASE_TEMPLATE
+        
+          #5599 boost::test documentation gives poor instruction
+        
+          #5718 broken link to unit testing framework examples
+        
+          #5729 Missing static_cast in fpt_limits
+        
+          #5870 The warning stack is not maintained
+        
+          #5972 Support program option to only dump the test-tree in text to output
+          stream
+        
+          #6002 Failed to completely redirect TestLog to file (duplicates)
+        
+          #6071 Boost Test (Boost 1.46.0) GCC 4.6.1 error: ambiguous overload
+          for operator[]
+        
+          #6074 warnings-as-errors not usable with Boost.test in release mode
+        
+          #6161 SunOS: bad putenv declaration (duplicates ##6766)
+        
+          #6766 incorrect declaration for putenv in config.hpp
+        
+          #6712 Eliminate warnings with GCC
+        
+          #6748 Link in the documentation points to wrong page
+        
+          #7046 Output full error message, not just 512 chars
+        
+          #7136 Correct documentation for BOOST_<level>_CLOSE_FRACTION
+          is not reflected into released documents
+        
+          #7410 Test Units (Cases and Suites) in Boost.Test do not capture __FILE__ and __LINE__
+          at declaration point making it impossible to provide source file linking
+          using external test management tools
+        
+          #7894 Boost.Test documentation contains no linking instructions
+        
+          #8201 Broken link in document
+        
+          #8272 BOOST_REQUIRE_CLOSE
+          fails to compile with boost::multiprecision::cpp_dec_float_100
+          (duplicates ##11054)
+        
+          #8467 Incorrect link in document (duplicates ##6748)
+        
+          #8679 Boost.Test pollutes boost namespace with it's own enable_if/disable_if templates
+        
+          #8862 Boost.Test typo in documentation
+        
+          #8895 English error in test collection comparison
+        
+          #9179 Documentation: broken link (unable to find const_string.hpp/const_string_test.cpp)
+        
+          #9272 boost::test BOOST_<level>_GT
+          documentation bug (duplicates ##3463)
+        
+          #9390 Incomplete BOOST_TEST_DONT_PRINT_LOG_VALUE
+        
+          #9409 Some source code examples are missing
+        
+          #9537 const_string_test example fails
+        
+          #9539 Floating-point comparison algorithms aren't formatted correctly
+        
+          #9581 Squassabia reference link gives 404 not found
+        
+          #9960 Warnings on Clang
+        
+          #10256 [boost test] - issue: sigaltstack
+        
+          #10318 Minor documentation fix
+        
+          #10394 Broken links in Boost Test documentation
+        
+          #10888 Assertion failures don't show up in the errors pane in VS 2010,
+          VS 2012 or VS 2013 (duplicates)
+        
+          #11054 Floating-point comparison of multiprecision values fails if
+          expression template is on
+        
+          #11347 DS identifier
+          causes test failures in doc/examples/dataset_example*.cpp
+        
+          #11358 Boost.Test v3 warning could helpfully be suppressed.
+        
+          #11359 BOOST_CHECK_EQUAL_COLLECTIONS:
+          can't control output operator (duplicates #9390)
+        
+          #11425 use-of-uninitialized-value (obsolete)
+        
+Copyright  2001-2017 Boost.Test contributors
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      

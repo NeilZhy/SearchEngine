@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 36. Boost.Signals2 - 1.65.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 36. Boost.Signals2
+Douglas Gregor
+Frank Mori Hess
+Copyright  2001-2004 Douglas Gregor
+Copyright  2007-2009 Frank Mori Hess
+Distributed under the Boost
+    Software License, Version 1.0. (See accompanying file
+    LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+Table of Contents
+Introduction
+Signals2
+Tutorial
+How to Read this Tutorial
+Hello, World! (Beginner)
+Calling Multiple Slots
+Passing Values to and from Slots
+Connection Management
+Example: Document-View
+Giving a Slot Access to its Connection (Advanced)
+Changing the Mutex Type of a Signal (Advanced).
+Linking against the Signals2 library
+Example programs
+Miscellaneous Tutorial Examples
+Document-View
+Postconstructors and Predestructors with deconstruct()
+Reference
+Header <boost/signals2.hpp>
+Header <boost/signals2/connection.hpp>
+Header <boost/signals2/deconstruct.hpp>
+Header <boost/signals2/dummy_mutex.hpp>
+Header <boost/signals2/last_value.hpp>
+Header <boost/signals2/mutex.hpp>
+Header <boost/signals2/optional_last_value.hpp>
+Header <boost/signals2/shared_connection_block.hpp>
+Header <boost/signals2/signal.hpp>
+Header <boost/signals2/signal_base.hpp>
+Header <boost/signals2/signal_type.hpp>
+Header <boost/signals2/slot.hpp>
+Header <boost/signals2/slot_base.hpp>
+Header <boost/signals2/trackable.hpp>
+Thread-Safety
+Introduction
+Signals and combiners
+Connections and other classes
+Frequently Asked Questions
+Design Rationale
+User-level Connection Management
+Automatic Connection Management
+optional_last_value as the Default Combiner
+Combiner Interface
+Connection Interfaces: +=  operator
+Signals2 Mutex Classes
+Comparison with other Signal/Slot implementations
+Signals2 API Changes
+Porting from Boost.Signals to Boost.Signals2
+Signals2 API Development
+Testsuite
+Acceptance tests
+Introduction
+Signals2
+The Boost.Signals2 library is an implementation of a managed
+  signals and slots system. Signals represent callbacks with multiple
+  targets, and are also called publishers or events in similar
+  systems. Signals are connected to some set of slots, which are
+  callback receivers (also called event targets or subscribers), which
+  are called when the signal is "emitted."
+Signals and slots are managed, in that signals and slots (or,
+  more properly, objects that occur as part of the slots) can track
+  connections and are capable of automatically disconnecting signal/slot
+  connections when either is destroyed. This enables the user to make
+  signal/slot connections without expending a great effort to manage the
+  lifetimes of those connections with regard to the lifetimes of all
+  objects involved.
+When signals are connected to multiple slots, there is a
+  question regarding the relationship between the return values of the
+  slots and the return value of the signals. Boost.Signals2 allows the
+  user to specify the manner in which multiple return values are
+  combined.
+Signals2
+This documentation describes a thread-safe variant of the
+    original Boost.Signals library.  There have been some changes to
+    the interface to support thread-safety, mostly with respect to
+    automatic connection management.  This implementation was written by
+    Frank Mori Hess.  Acknowledgements are also due to Timmo Stange, Peter
+    Dimov, and Tony Van Eerd for ideas and feedback, and to Douglas Gregor
+    for the original version of Boost.Signals this effort was based on.
+    
+Last revised: June 12, 2007 at 14:01:23 -0400

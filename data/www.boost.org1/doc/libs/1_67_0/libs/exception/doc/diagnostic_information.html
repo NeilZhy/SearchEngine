@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	diagnostic_information - 1.67.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+Boost Exception
+diagnostic_information
+include <boost/exception/diagnostic_information.hpp> 
+include <boost/exception_ptr.hpp> 
+namespace
+boost
+    {
+    template <class E>
+    std::string diagnostic_information( E const & e, bool verbose=true );
+    
+    std::string diagnostic_information( exception_ptr const & p, bool verbose=true );
+    }
+Returns:
+A string value that contains varying amount of diagnostic information about the passed object:
+ If E can be statically converted to either boost::exception or to std::exception, dynamic_cast is used to access both the boost::exception and std::exception subobjects of e; otherwise, the boost::diagnostic_information template is not available.
+ The returned value contains the string representations of all error_info objects stored in the boost::exception subobject through operator<<.
+ In addition, if verbose is true, it contains other diagnostic information relevant to the exception, including the string returned by std::exception::what().
+The string representation of each error_info object is deduced by an unqualified call to to_string(x), where x is of type error_info<Tag,T>, for which Boost Exception defines a generic overload. It converts x.value() to string, attempting to bind (at the time the error_info<Tag,T> template is instantiated) the following functions in order:
+Unqualified call to to_string(x.value()) (the return value is expected to be of type std::string.)
+Unqualified call to s << x.value(), where s is a std::ostringstream.
+The first successfully bound function is used at the time diagnostic_information is called; if both overload resolutions are unsuccessful, the system is unable to convert the error_info object to string, and an unspecified stub string value is used without issuing a compile error.
+The exception_ptr overload of diagnostic_information is equivalent to:
+if( p )
+    try
+        {
+        rethrow_exception(p);
+        }
+    catch(...)
+        {
+        return current_exception_diagnostic_information(verbose);
+        }
+else return <unspecified-string-value>;
+Example:
+this is a possible output from the diagnostic_information function, as used in libs/exception/example/example_io.cpp:
+example_io.cpp(70): Throw in function class boost::shared_ptr<struct _iobuf> __cdecl my_fopen(const char *,const char *)
+Dynamic exception type: class boost::exception_detail::clone_impl<struct fopen_error>
+std::exception::what: example_io error
+[struct boost::errinfo_api_function_ *] = fopen
+[struct boost::errinfo_errno_ *] = 2, "No such file or directory"
+[struct boost::errinfo_file_name_ *] = tmp1.txt
+[struct boost::errinfo_file_open_mode_ *] = rb
+See also: BOOST_THROW_EXCEPTION | Boost Exception | boost/exception/diagnostic_information.hpp | Configuration Macros | current_exception_diagnostic_information | Diagnostic Information | diagnostic_information_what | Frequently Asked Questions | Motivation
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

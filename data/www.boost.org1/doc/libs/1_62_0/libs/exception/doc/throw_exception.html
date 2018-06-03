@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	throw_exception - 1.62.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+throw_exception
+include <boost/throw_exception.hpp>
+namespace
+boost
+    {
+#ifdef BOOST_NO_EXCEPTIONS
+    void throw_exception( std::exception const & e ); // user defined
+#else
+    template <class E>
+    void throw_exception( E const & e );
+#endif
+    }
+Effects:
+ If BOOST_NO_EXCEPTIONS is not defined, boost::throw_exception(e) throws an exception of unspecified type that derives publicly from E and from boost::exception.
+ If BOOST_NO_EXCEPTIONS is defined, the function is left undefined, and the user is expected to supply an appropriate definition. Callers of throw_exception are allowed to assume that the function never returns; therefore, if the user-defined throw_exception returns, the behavior is undefined.
+Requirements:
+E must derive publicly from std::exception. E may or may not derive from boost::exception.
+Notes:
+ The emitted exception can be intercepted as E &, std::exception &, or boost::exception &.
+ The emitted exception supports boost::exception_ptr.
+ If BOOST_EXCEPTION_DISABLE is defined and BOOST_NO_EXCEPTIONS is not defined, boost::throw_exception(e) equivalent to throw e.
+See also: BOOST_THROW_EXCEPTION | Boost Exception | boost/throw_exception.hpp | Configuration Macros | enable_current_exception | Frequently Asked Questions | Transporting of Exceptions Between Threads
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

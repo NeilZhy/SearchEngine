@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  
+  
+  Boost Function Object Adapter Library - 1.63.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  
+  Function Pointer Adapters
+  The header functional.hpp
+  provides enhanced versions of both the function pointer adapters from the
+  C++ Standard Library (20.3.7):
+  
+    pointer_to_unary_function
+    pointer_to_binary_function
+  
+  As well as the corresponding helper function template:
+  
+    ptr_fun
+  
+  However, you should not need to use the adapters in conjunction with the
+  adapters in this library due to our use of function object traits. You will however need to
+  use them if your implementation fails to work properly with our traits
+  classes (due to lack if partial specialisation), or if you wish to use a
+  function object adapter from a third party.
+  Usage
+  If you need to use these adapters, usage is identical to the standard
+  function pointer adapters. For example,
+  
+    
+bool bad(std::string foo) { ... }
+...
+std::vector<std::string> c;
+...
+std::vector<std::string>::iterator it
+     = std::find_if(c.begin(), c.end(), std::not1(boost::ptr_fun(bad)));
+  
+  Note however that this library contains enhanced negators that support function object traits, so the
+  line above could equally be written
+  
+    
+std::vector<std::string>::iterator it
+     = std::find_if(c.begin(), c.end(), boost::not1(bad));
+  
+  Argument Types
+  The standard defines pointer_to_unary_function like this
+  (20.3.8 2):
+  
+    
+template <class Arg, class Result>
+class pointer_to_unary_function : public unary_function<Arg, Result> {
+public:
+  explicit pointer_to_unary_function(Result (* f)(Arg));
+  Result operator()(Arg x) const;
+};
+  
+  Note that the argument to operator() is exactly the same type
+  as the argument to the wrapped function. If this is a value type, the
+  argument will be passed by value and copied twice.
+  pointer_to_binary_function has a similar problem.
+  However, if we were to try and eliminate this inefficiency by instead
+  declaring the argument as const Arg&, then if Arg were a
+  reference type, we would have a reference to a reference, which is
+  currently illegal (but see C++ core
+  language issue number 106)
+  So the way in which we want to declare the argument for
+  operator() depends on whether or not the wrapped function's
+  argument is a reference. If it is a reference, we want to declare it simply
+  as Arg; if it is a value we want to declare it as
+  const Arg&.
+  The Boost call_traits class
+  template contains a param_type typedef, which uses partial
+  specialisation to make precisely this decision. By declaring the
+  operator() as
+  
+    
+Result operator()(typename call_traits<Arg>::param_type x) const
+  
+  we achieve the desired result - we improve efficiency without generating
+  references to references.
+  Limitations
+  The call traits template used to realise this improvement relies on
+  partial specialisation, so this improvement is only available on compilers
+  that support that feature. With other compilers, the argument passed to the
+  function will always be passed by reference, thus generating the
+  possibility of references to references.
+  
+  
+  Revised 
+  02
+  December, 2006
+  Copyright  2000 Cadenza New Zealand Ltd.
+  Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file LICENSE_1_0.txt or
+  copy at http://www.boost.org/LICENSE_1_0.txt)

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	accessing vector elements by swizzling - 1.63.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+Accessing Vector Elements by Swizzling
+include <boost/qvm/swizzle.hpp>
+namespace boost
+{
+    namespace qvm
+    {
+        //*** Accessing vector elements by swizzling ***
+        
+        //2D view proxies, only enabled if:
+        //  is_vec<V>::value
+        template <class V> -unspecified-2D-vector-type- XX( V & v );
+        template <class V> -unspecified-2D-vector-type- XY( V & v );
+        template <class V> -unspecified-2D-vector-type- XZ( V & v );
+        template <class V> -unspecified-2D-vector-type- XW( V & v );
+        template <class V> -unspecified-2D-vector-type- X0( V & v );
+        template <class V> -unspecified-2D-vector-type- X1( V & v );
+        template <class V> -unspecified-2D-vector-type- YX( V & v );
+        template <class V> -unspecified-2D-vector-type- YY( V & v );
+        template <class V> -unspecified-2D-vector-type- YZ( V & v );
+        template <class V> -unspecified-2D-vector-type- YW( V & v );
+        template <class V> -unspecified-2D-vector-type- Y0( V & v );
+        template <class V> -unspecified-2D-vector-type- Y1( V & v );
+        template <class V> -unspecified-2D-vector-type- ZX( V & v );
+        template <class V> -unspecified-2D-vector-type- ZY( V & v );
+        template <class V> -unspecified-2D-vector-type- ZZ( V & v );
+        template <class V> -unspecified-2D-vector-type- ZW( V & v );
+        template <class V> -unspecified-2D-vector-type- Z0( V & v );
+        template <class V> -unspecified-2D-vector-type- Z1( V & v );
+        template <class V> -unspecified-2D-vector-type- WX( V & v );
+        template <class V> -unspecified-2D-vector-type- WY( V & v );
+        template <class V> -unspecified-2D-vector-type- WZ( V & v );
+        template <class V> -unspecified-2D-vector-type- WW( V & v );
+        template <class V> -unspecified-2D-vector-type- W0( V & v );
+        template <class V> -unspecified-2D-vector-type- W1( V & v );
+        ...
+        -unspecified-2D-vector-type- _00();
+        -unspecified-2D-vector-type- _01();
+        -unspecified-2D-vector-type- _10();
+        -unspecified-2D-vector-type- _11();
+        
+        //3D view proxies, only enabled if:
+        //  is_vec<V>::value
+        template <class V> -unspecified-3D-vector-type- XXX( V & v );
+        ...
+        template <class V> -unspecified-3D-vector-type- XXW( V & v );
+        template <class V> -unspecified-3D-vector-type- XX0( V & v );
+        template <class V> -unspecified-3D-vector-type- XX1( V & v );
+        template <class V> -unspecified-3D-vector-type- XYX( V & v );
+        ...
+        template <class V> -unspecified-3D-vector-type- XY1( V & v );
+        ...
+        template <class V> -unspecified-3D-vector-type- WW1( V & v );
+        ...
+        -unspecified-3D-vector-type- _000();
+        -unspecified-3D-vector-type- _001();
+        -unspecified-3D-vector-type- _010();
+        ...
+        -unspecified-3D-vector-type- _111();
+        
+        //4D view proxies, only enabled if:
+        //  is_vec<V>::value
+        template <class V> -unspecified-4D-vector-type- XXXX( V & v );
+        ...
+        template <class V> -unspecified-4D-vector-type- XXXW( V & v );
+        template <class V> -unspecified-4D-vector-type- XXX0( V & v );
+        template <class V> -unspecified-4D-vector-type- XXX1( V & v );
+        template <class V> -unspecified-4D-vector-type- XXYX( V & v );
+        ...
+        template <class V> -unspecified-4D-vector-type- XXY1( V & v );
+        ...
+        template <class V> -unspecified-4D-vector-type- WWW1( V & v );
+        ...
+        -unspecified-4D-vector-type- _0000();
+        -unspecified-4D-vector-type- _0001();
+        -unspecified-4D-vector-type- _0010();
+        ...
+        -unspecified-4D-vector-type- _1111();         
+    }
+}
+Swizzling allows zero-overhead direct access to a (possibly rearranged) subset of the elements of 2D, 3D and 4D vectors. For example, if v is a 4D vector, the expression (v,YX) is a 2D view proxy whose X element refers to the Y element of v, and whose Y element refers to the X element of v. Like other view proxies YX is an lvalue, that is, if v2 is a 2D vector, one could write:
+YX(v) = v2;
+The above will leave the Z and W elements of v unchanged but assign the Y element of v2 to the X element of v and the X element of v2 to the Y element of v.
+It is also possible to repeat the same vector element in rvalue swizzling: the expression ZZZ(v) is a 3D vector whose X, Y and Z elements all refer to the Z element of v.
+See also: Boost QVM | boost/qvm/swizzle2.hpp | boost/qvm/swizzle3.hpp | boost/qvm/swizzle4.hpp | Synopsis | transform_point | transform_vector
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

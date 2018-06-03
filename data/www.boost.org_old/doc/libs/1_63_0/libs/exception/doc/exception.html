@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+	<title>exception - 1.63.0</title>
+	<link href="reno.css" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/reno.css" type='text/css' rel='stylesheet'/>
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body>  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/exception/doc/exception.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/exception/doc/exception.html'" tppabs="https://www.boost.org/doc/libs/release/libs/exception/doc/exception.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+
+<div class="body-0">
+<div class="body-1">
+<div class="body-2">
+<div>
+<div id="boost_logo">
+<a href="../../../../../../index.htm" tppabs="https://www.boost.org/"><img style="border:0" src="../../../boost.png" tppabs="https://www.boost.org/doc/libs/1_63_0/boost.png" alt="Boost" width="277" height="86"/></a>
+</div>
+<h1>Boost Exception</h1>
+</div>
+<!-- Copyright (c) 2006-2009 Emil Dotchevski and Reverge Studios, Inc. -->
+<!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->
+<!-- file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) -->
+<div class="RenoIncludeDIV"><div class="RenoAutoDIV"><h3>exception</h3>
+</div>
+<div class="RenoIncludeDIV"><p><span class="RenoEscape">&#35;<!--<wiki>`&#35;</wiki>--></span>include &lt;<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/date_time.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/date_time.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/boost_exception_exception_hpp.html">boost/exception/exception.hpp</a></span>&gt;</p>
+<pre>namespace
+boost
+    {
+<span class="RenoIncludeSPAN">    class
+    <span class="RenoLink">exception</span>
+        {
+        protected:
+    
+    <span class="RenoIncludeSPAN">    <span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/2600  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/2600'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/exception_constructors.html">exception</a></span>();
+        <span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/2600  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/2600'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/exception_constructors.html">exception</a></span>( <span class="RenoLink">exception</span> const &amp; x );</span>    
+    <span class="RenoIncludeSPAN">    <span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/2717  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/2717'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/exception_destructor.html">~exception</a></span>();</span>    
+        };</span>
+    }</pre>
+</div><p>Class boost::<span class="RenoLink">exception</span> is designed to be used as a universal base for user-defined exception types.</p>
+<p>An object of any type deriving from boost::<span class="RenoLink">exception</span> can store data of arbitrary types, using the <span class="RenoLink"><a href="error_info.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/error_info.html">error_info</a></span> wrapper and <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/exception_operator_shl.html">operator&lt;&lt;</a></span>.</p>
+<p>To retrieve data from a boost::<span class="RenoLink">exception</span> object, use the <span class="RenoLink"><a href="get_error_info.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/get_error_info.html">get_error_info</a></span> function template.</p>
+</div><div class="RenoHR"><hr/></div>
+<h3>See Also:</h3>
+<div class="RenoPageList"><a href="configuration_macros.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/configuration_macros.html">Configuration Macros</a>&nbsp;| <a href="current_exception.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/current_exception.html">current_exception</a>&nbsp;| <a href="current_exception_diagnostic_information.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/current_exception_diagnostic_information.html">current_exception_diagnostic_information</a>&nbsp;| <a href="tutorial_diagnostic_information.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/tutorial_diagnostic_information.html">Diagnostic Information</a>&nbsp;| <a href="diagnostic_information.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/diagnostic_information.html">diagnostic_information</a>&nbsp;| <a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/EqualityComparable.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/EqualityComparable.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/diagnostic_information_what.html">diagnostic_information_what</a>&nbsp;| <a href="enable_current_exception.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/enable_current_exception.html">enable_current_exception</a>&nbsp;| <a href="enable_error_info.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/enable_error_info.html">enable_error_info</a>&nbsp;| <a href="error_info.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/error_info.html">error_info</a>&nbsp;| <a href="exception_ptr.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/exception_ptr.html">exception_ptr</a>&nbsp;| <a href="frequently_asked_questions.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/frequently_asked_questions.html">Frequently Asked Questions</a>&nbsp;| <a href="get_error_info.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/get_error_info.html">get_error_info</a>&nbsp;| <a href="motivation.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/motivation.html">Motivation</a>&nbsp;| <a href="tutorial_transporting_data.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/tutorial_transporting_data.html">Transporting of Arbitrary Data to the Catch Site</a>&nbsp;| <a href="tutorial_exception_ptr.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/tutorial_exception_ptr.html">Transporting of Exceptions Between Threads</a>&nbsp;| <a href="throw_exception.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/throw_exception.html">throw_exception</a>&nbsp;| <a href="tuple_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/tuple_operator_shl.html">tuple/operator&lt;&lt;</a>&nbsp;| <a href="unknown_exception.html" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/unknown_exception.html">unknown_exception</a></div>
+<!-- Copyright (c) 2006-2009 Emil Dotchevski and Reverge Studios, Inc. -->
+<!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->
+<!-- file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) -->
+<div id="footer">
+<p>
+<a class="logo" href="javascript:if(confirm('http://jigsaw.w3.org/css-validator/check/referer  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://jigsaw.w3.org/css-validator/check/referer'" tppabs="http://jigsaw.w3.org/css-validator/check/referer"><img class="logo_pic" src="valid-css.png" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/valid-css.png" alt="Valid CSS" height="31" width="88"/></a>
+<a class="logo" href="javascript:if(confirm('http://validator.w3.org/check?uri=referer  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://validator.w3.org/check?uri=referer'" tppabs="http://validator.w3.org/check?uri=referer"><img class="logo_pic" src="valid-xhtml.png" tppabs="https://www.boost.org/doc/libs/1_63_0/libs/exception/doc/valid-xhtml.png" alt="Valid XHTML 1.0" height="31" width="88"/></a>
+<small>Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.<br/>
+Distributed under the <a href="../../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt">Boost Software License, Version 1.0</a>.</small>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

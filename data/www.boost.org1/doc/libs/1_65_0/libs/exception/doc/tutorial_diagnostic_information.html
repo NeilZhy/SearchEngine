@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	diagnostic information - 1.65.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Diagnostic Information
+Boost Exception provides a namespace-scope function diagnostic_information which takes a boost::exception. The returned string contains:
+the string representation of all data objects added to the boost::exception through operator<<;
+the output from std::exception::what;
+additional platform-specific diagnostic information.
+The returned string is not presentable as a friendly user message, but because it is generated automatically, it is useful for debugging or logging purposes. Here is an example:
+#include <boost/exception/all.hpp>
+#include <iostream>
+void f(); //throws unknown types that derive from boost::exception.
+void
+g()
+    {
+    try
+        {
+        f();
+        }
+    catch(
+    boost::exception & e )
+        {
+        std::cerr << diagnostic_information(e);
+        }
+    }
+Example:
+this is a possible output from the diagnostic_information function, as used in libs/exception/example/example_io.cpp:
+example_io.cpp(70): Throw in function class boost::shared_ptr<struct _iobuf> __cdecl my_fopen(const char *,const char *)
+Dynamic exception type: class boost::exception_detail::clone_impl<struct fopen_error>
+std::exception::what: example_io error
+[struct boost::errinfo_api_function_ *] = fopen
+[struct boost::errinfo_errno_ *] = 2, "No such file or directory"
+[struct boost::errinfo_file_name_ *] = tmp1.txt
+[struct boost::errinfo_file_open_mode_ *] = rb
+See also: Boost Exception
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

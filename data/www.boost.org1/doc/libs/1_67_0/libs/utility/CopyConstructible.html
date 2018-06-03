@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  
+  
+  Copy Constructible - 1.67.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+  
+  Copy Constructible
+  Description
+  A type is Copy Constructible if it is possible to copy objects of that
+  type.
+  Notation
+  
+    
+      T
+      is type that is a model of Copy Constructible
+    
+    
+      t
+      is an object of type T
+    
+    
+      u
+      is an object of type const T
+    
+  
+  Definitions
+  Valid expressions
+  
+    
+      Name
+      Expression
+      Return type
+      Semantics
+    
+    
+      Copy constructor
+      T(t)
+      T
+      t is equivalent to T(t)
+    
+    
+      Copy constructor
+      
+        
+T(u)
+      
+      T
+      u is equivalent to T(u)
+    
+    
+      Destructor
+      
+        
+t.~T()
+      
+      T
+       
+    
+    
+      Address Operator
+      
+        
+&t
+      
+      T*
+      denotes the address of t
+    
+    
+      Address Operator
+      
+        
+&u
+      
+      T*
+      denotes the address of u
+    
+  
+  Models
+  
+    int
+    std::pair
+  
+  Concept Checking Class
+  
+  template <class T>
+  struct CopyConstructibleConcept
+  {
+    void constraints() {
+      T a(b);            // require copy constructor
+      T* ptr =        // require address of operator
+      const_constraints(a);
+      ignore_unused_variable_warning(ptr);
+    }
+    void const_constraints(const T& a) {
+      T c(a);            // require const copy constructor
+      const T* ptr =  // require const address of operator
+      ignore_unused_variable_warning(c);
+      ignore_unused_variable_warning(ptr);
+    }
+    T b;
+  };
+  See also
+  Default
+  Constructible and Assignable
+  
+  
+  Revised 
+  05
+  December, 2006
+  
+    
+      Copyright  2000
+      Jeremy Siek, Univ.of
+      Notre Dame (jsiek@lsc.nd.edu)
+    
+  
+  Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file LICENSE_1_0.txt or
+  copy at http://www.boost.org/LICENSE_1_0.txt)

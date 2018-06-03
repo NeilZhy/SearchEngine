@@ -1,0 +1,1130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Version 1.46.0
+  
+  
+  
+  
+/*<![CDATA[*/
+  #content .news-description ul {
+    list-style: none;
+  }
+  #content .news-description ul ul {
+    list-style: circle;
+  }
+  /*]]>*/
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+    
+      
+        
+          
+            
+              Version 1.46.0
+            
+            
+              Version 1.46.0
+              February 21st, 2011 20:36 GMT
+              Documentation
+              DownloadsPlatformFile
+unixboost_1_46_0.tar.bz2boost_1_46_0.tar.gz
+windowsboost_1_46_0.7zboost_1_46_0.zip
+              
+                
+  
+    New Libraries
+    
+      
+        
+          Icl:
+  Interval Container
+          Library, interval sets and maps and aggregation of associated values, from
+          Joachim Faulhaber.
+        
+      
+    
+  
+  
+    Updated Libraries
+    
+      
+        
+          Array:
+          
+            
+              
+                Added support for cbegin/cend (#4761)
+              
+            
+            
+              
+                Fixed a problem with the Sun compiler (#4757)
+              
+            
+          
+        
+      
+      
+        
+          Asio:
+          
+            
+              
+                Fixed an integer overflow problem that occurs when ip::address_v4::broadcast()
+                is used on 64-bit platforms.
+              
+            
+            
+              
+                Fixed a problem on older Linux kernels (where epoll is used without
+                timerfd support) that prevents timely delivery of deadline_timer
+                handlers, after the program has been running for some time (#5045).
+              
+            
+          
+        
+      
+      
+        
+          Bind:
+          
+            
+              
+                make_adaptable now
+                documented (#4532)
+              
+            
+          
+        
+      
+      
+        
+          Concept Check:
+          
+            
+              
+                fixed warnings with self-assignment (#4918)
+              
+            
+          
+        
+      
+      
+        
+          Filesystem:
+          
+            
+              
+                Version 3 of the library is now the default.
+              
+            
+            
+              
+                IBM vacpp: Workaround for compiler bug affecting iterator_facade.
+                (#4912)
+              
+            
+            
+              
+                Verify, clarify, document that <boost/config/user.hpp>
+                can be used to specify BOOST_FILESYSTEM_VERSION.
+                (#4891)
+              
+            
+            
+              
+                Replaced C-style assert
+                with BOOST_ASSERT.
+              
+            
+            
+              
+                Undeprecated unique_path(). Instead, add a note mentioning
+                the workaround for lack of thread safety and possible change to cwd.
+                unique_path()
+                is just too convenient to deprecate!
+              
+            
+            
+              
+                Cleared several GCC warnings.
+              
+            
+            
+              
+                Changed V2 code to use BOOST_THROW_EXCEPTION.
+              
+            
+            
+              
+                Windows: Fix status() to report non-symlink reparse point
+                correctly.
+              
+            
+            
+              
+                Add symlink_option
+                to recursive_directory_iterator,
+                allowing control over recursion into directory symlinks. Note that
+                the default is changed to not recurse into directory symlinks.
+              
+            
+            
+              
+                Reference documentation cleanup, including fixing missing and broken
+                links, and adding missing functions.
+              
+            
+            
+              
+                Miscellaneous implementation code cleanup.
+              
+            
+          
+        
+      
+      
+        
+          Fusion:
+          
+            
+              
+                vector copy constructor now copies sequence members in the same order
+                on different platforms (#2823)
+              
+            
+          
+        
+      
+      
+        
+          Graph:
+          
+            
+              
+                Fixed Graphviz output to work on Visual C++ 7.1.
+              
+            
+            
+              
+                Replaced assert with BOOST_ASSERT.
+              
+            
+            
+              
+                Changed to Boost.Filesystem v3.
+              
+            
+            
+              
+                Fixed the following bugs from Trac: #1021,
+                #4556,
+                #4631,
+                #4642,
+                #4715,
+                #4731,
+                #4737,
+                #4753,
+                #4758,
+                #4793,
+                #4843,
+                #4851,
+                #4852,
+                #4887,
+                #4914,
+                #4966.
+              
+            
+            
+              
+                Fixed various bugs not in Trac.
+              
+            
+          
+        
+      
+      
+        
+          Hash:
+          
+            
+              
+                Support for std::type_index (#4756).
+              
+            
+            
+              
+                Avoid -Wconversion
+                warnings.
+              
+            
+          
+        
+      
+      
+        
+          Iostreams:
+          
+            
+              
+                Use BOOST_ASSERT
+                instead of assert.
+              
+            
+            
+              
+                Fixed flush regression (#4590).
+              
+            
+          
+        
+      
+      
+        
+          Iterator:
+          
+            
+              
+                fixed problem with implicit_cast
+                (#3645)
+              
+            
+          
+        
+      
+      
+        
+          Math:
+          
+            
+              
+                Added Wald, Inverse Gaussian and geometric distributions.
+              
+            
+            
+              
+                Added information about configuration macros.
+              
+            
+            
+              
+                Added support for mpreal as a real-numered type.
+              
+            
+          
+        
+      
+      
+        
+          Meta State Machine:
+          
+            
+              
+                Compile-time
+                state machine analysis.
+              
+            
+            
+              
+                Boost.Parameter
+                interface definition for msm::back::state_machine<> template arguments.
+              
+            
+            
+              
+                Possibility
+                to provide a container for the event and deferred event queues.
+                A policy implementation based on a more efficient Boost.CircularBuffer
+                is provided.
+              
+            
+            
+              
+                msm::back::state_machine<>::is_flag_active method made const.
+              
+            
+            
+              
+                Added
+                possibility to enqueue events for delayed processing.
+              
+            
+            
+              
+                Bugfixes
+                
+                  
+                    
+                      #4926.
+                    
+                  
+                  
+                    
+                      stack overflow using the Defer functor
+                    
+                  
+                  
+                    
+                      anonymous transition of a submachine not called for the initial
+                      state
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Optional:
+          
+            
+              
+                Updated test results with information about expected failures (#2294)
+              
+            
+          
+        
+      
+      
+        
+          Pool:
+          
+            
+              
+                Now can set a max_size for pool (#2696)
+              
+            
+            
+              
+                boost/pool/pool.hpp uses reinterpret_cast
+                instead of static_cast
+                (#2941)
+              
+            
+            
+              
+                boost::pool_allocator now works with vector
+                of vectors (#386)
+              
+            
+            
+              
+                Boost pool is now compatible with Microsoft memory leak detection
+                (#4346)
+              
+            
+          
+        
+      
+      
+        
+          Program Options:
+          
+            
+              
+                Fixed errors in examples in docs (#3992,
+                #4858)
+              
+            
+            
+              
+                Now takes argv as
+                const (#3909)
+              
+            
+          
+        
+      
+      
+        
+          Proto:
+          
+            
+              
+                Breaking change: boost/proto/core.hpp
+                no longer defines functional::pop_front
+                and functional::reverse, which have moved to their
+                own headers under boost/proto/functional
+              
+            
+            
+              
+                Add callable wrappers for more Fusion algorithms (including fusion::at); and callable wrappers for
+                some std utilities like make_pair,
+                first and second, all under the new boost/proto/functional directory
+              
+            
+            
+              
+                Allow transforms to be specified separately from a grammar
+              
+            
+            
+              
+                proto::matches preserves domain-specific
+                expression wrappers
+              
+            
+            
+              
+                Fix ADL issue with operator, in proto::and_
+                transform
+              
+            
+            
+              
+                Fix handling of grammar checking in expressions involving multiple
+                domains (#4675)
+              
+            
+            
+              
+                Fix ambiguous operator<< in proto::display_expr
+                (#4910)
+              
+            
+            
+              
+                fusion::is_sequence answers true for Proto
+                expressions (#5006)
+              
+            
+            
+              
+                Eliminate -Wundef
+                GCC warning in boost/proto/fusion.hpp
+                (#5075)
+              
+            
+          
+        
+      
+      
+        
+          Signals:
+          
+            
+              
+                gcc warning cleanup (#4365)
+              
+            
+          
+        
+      
+      
+        
+          Spirit:
+          
+            
+              
+                Spirit V2.4.2, see the 'What's
+                New' section for details.
+              
+            
+          
+        
+      
+      
+        
+          Tokenizer:
+          
+            
+              
+                isspace/ispunct was called with wrong character
+                type (#4791)
+              
+            
+          
+        
+      
+      
+        
+          Unordered:
+          
+            
+              
+                Avoid using operator& with the value type.
+              
+            
+            
+              
+                Avoid -Wconversion
+                warnings.
+              
+            
+          
+        
+      
+      
+        
+          Wave:
+          
+            
+              
+                See the Changelog for details.
+              
+            
+          
+        
+      
+    
+  
+  
+    Updated Tools
+    
+      
+        
+          Boostbook:
+          
+            
+              
+                Better support for attributes on root elements - including lang.
+              
+            
+          
+        
+      
+      
+        
+          Inspect:
+          
+            
+              
+                Check that Boost headers do not use C's assert
+                macro.
+              
+            
+          
+        
+      
+      
+        
+          Quickbook:
+          
+            
+              
+                Add support for lang
+                attribute in documentation info.
+              
+            
+            
+              
+                Improved anchors.
+              
+            
+            
+              
+                Support import,
+                include and xinclude in conditional phrases.
+              
+            
+            
+              
+                Uses Filesystem 3.
+              
+            
+          
+        
+      
+    
+  
+  
+    Compilers Tested
+    
+      Boost's primary test compilers are:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                GCC: 3.4.6, 4.2.4, 4.3.4, 4.4.3, 4.4.5, 4.5.2,
+              
+            
+            
+              
+                GCC, C++0x mode: 4.3.4, 4.4.3, 4.5.0, 4.5.2
+              
+            
+            
+              
+                Intel: 10.1, 11.0, 11.1
+              
+            
+            
+              
+                Clang: 2.8
+              
+            
+            
+              
+                Pathscale: 3.2.
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                GCC: 4.0.1, 4.2.1, 4.4
+              
+            
+            
+              
+                GCC, C++0x mode: 4.4.
+              
+            
+            
+              
+                Intel: 11.1
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                Visual C++: 7.1, 8.0, 9.0 and 10.0.
+              
+            
+            
+              
+                GCC, mingw: 4.4.0.
+              
+            
+          
+        
+      
+      
+        
+          FreeBSD:
+          
+            
+              
+                GCC: 4.2.1, 64 bit.
+              
+            
+          
+        
+      
+    
+    
+      Boost's additional test compilers include:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                GCC: 3.4.6, 4.2.4, 4.3.4, 4.3.5, 4.4.3, 4.4.5, 4.5.0, 4.5.2
+              
+            
+            
+              
+                GCC, C++0x mode: 4.3.4, 4.4.3, 4.5.0, 4.5.2
+              
+            
+            
+              
+                pgCC 11.1
+              
+            
+            
+              
+                Intel: 10.1, 11.0, 11.1
+              
+            
+            
+              
+                PathScale: 3.2, 4.0
+              
+            
+            
+              
+                Visual Age C++ 10.1
+              
+            
+            
+              
+                Clang from subversion
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Intel C++ Compiler: 10.1, 11.0, 11.1
+              
+            
+            
+              
+                GCC: 4.0.1, 4.2.1, 4.4.4
+              
+            
+            
+              
+                GCC, C++0x mode: 4.4.4
+              
+            
+            
+              
+                Clang from subversion
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                Visual C++: 7.1, 8.0, 9.0, 10.0
+              
+            
+            
+              
+                Visual C++ with STLport: 9.0
+              
+            
+            
+              
+                Visual C++, Windows Mobile 5, with STLport: 9.0
+              
+            
+            
+              
+                GCC, mingw: 4.4.0, 4.5.1, 4.6.0
+              
+            
+            
+              
+                GCC, mingw, C++0x mode: 4.5.1
+              
+            
+            
+              
+                Borland: 6.1.3 (2009), 6.2.1 (2010)
+              
+            
+          
+        
+      
+      
+        
+          AIX:
+          
+            
+              
+                IBM XL C/C++ Enterprise Edition, V11.1.0.0
+              
+            
+          
+        
+      
+      
+        
+          FreeBSD:
+          
+            
+              
+                GCC 4.2.1, 64 bit
+              
+            
+          
+        
+      
+      
+        
+          Solaris:
+          
+            
+              
+                Sun C++: 5.10
+              
+            
+          
+        
+      
+    
+  
+  
+    Acknowledgements
+    
+      Beman Dawes, Eric Niebler,
+      Rene Rivera, Daniel James
+      and Vladimir Prus managed this release.
+    
+  
+              
+            
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+  
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Copyright Rene Rivera 2006-2007.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

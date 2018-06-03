@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  
+  
+  
+  
+  Boost Char Delimiters Separator - 1.61.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  
+Note: This class is deprecated. Please use
+  char_separator instead.
+  Char Delimiters Separator
+  
+template <class Char, class Traits = std::char_traits<Char> >
+class char_delimiters_separator{
+  The char_delimiters_separator class is an implementation of the TokenizerFunction concept that can be used to
+  break text up into tokens. It is the default TokenizerFunction for
+  tokenizer and token_iterator_generator. An example is below.
+  Example
+  
+// simple_example_4.cpp
+#include<iostream>
+#include<boost/tokenizer.hpp>
+#include<string>
+int main(){
+   using namespace std;
+   using namespace boost;
+   string s = "This is,  a test";
+   tokenizer<char_delimiters_separator<char> > tok(s);
+   for(tokenizer<char_delimiters_separator<char> >::iterator beg=tok.begin(); beg!=tok.end();++beg){
+       cout << *beg << "\n";
+   }
+}
+  Construction and Usage
+  There is one constructor of interest. It is as follows
+  
+explicit char_delimiters_separator(bool return_delims = false, 
+const Char* returnable = "",const Char* nonreturnable = "" )
+  
+    
+      
+        Parameter
+      
+      
+        Description
+      
+    
+    
+      return_delims
+      Whether or not to return the delimiters that have been found. Note
+      that not all delimiters can be returned. See the other two parameters
+      for explanation.
+    
+    
+      returnable
+      This specifies the returnable delimiters. These are the delimiters
+      that can be returned as tokens when return_delims is true. Since these
+      are typically punctuation, if a 0 is provided as the argument, then the
+      returnable delmiters will be all characters Cfor which std::ispunct(C)
+      yields a true value. If an argument of "" is provided, then this is
+      taken to mean that there are noreturnable delimiters.
+    
+    
+      nonreturnable
+      This specifies the nonreturnable delimiters. These are delimiters
+      that cannot be returned as tokens. Since these are typically
+      whitespace, if 0 is specified as an argument, then the nonreturnable
+      delimiters will be all characters C for which std::isspace(C) yields a
+      true value. If an argument of "" is provided, then this is taken to
+      mean that there are no non-returnable delimiters.
+    
+  
+  The reason there is a distinction between nonreturnable and returnable
+  delimiters is that some delimiters are just used to split up tokens and are
+  nothing more. Take for example the following string "b c +". Assume you are
+  writing a simple calculator to parse expression in post fix notation. While
+  both the space and the + separate tokens, you only only interested in the +
+  and not in the space. Indeed having the space returned as a token would
+  only complicate your code. In this case you would specify + as a
+  returnable, and space as a nonreturnable delimiter.
+  To use this class, pass an object of it anywhere a TokenizerFunction
+  object is required.
+  Template Parameters
+  
+    
+      Parameter
+      Description
+    
+    
+      Char
+      The type of the elements within a token, typically
+      char.
+    
+    
+      Traits
+      The traits class for Char, typically
+      std::char_traits<Char>
+    
+  
+  Model of
+  TokenizerFunction
+   
+  
+  
+  Revised 
+  25
+  December, 2006
+  Copyright  2001 John R. Bandela
+  Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file LICENSE_1_0.txt or
+  copy at http://www.boost.org/LICENSE_1_0.txt)

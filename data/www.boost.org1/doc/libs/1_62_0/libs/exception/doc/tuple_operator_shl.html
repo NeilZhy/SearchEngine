@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	tuple/operator<< - 1.62.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+tuple/operator<<
+include <boost/exception/info_tuple.hpp>
+namespace
+boost
+    {
+    template <class E, class Tag1, class T1, ..., class TagN, class TN>
+    E const & operator<<( E const & x,
+        tuple<
+            error_info<Tag1,T1>,
+            ...,
+            error_info<TagN,TN> > const & v );
+    }
+Requirements:
+E must be boost::exception, or a type that derives (indirectly) from boost::exception.
+Effects:
+Equivalent to x << v.get<0>() << ... << v.get<N>().
+Returns:
+x.
+Throws:
+std::bad_alloc, or any exception emitted by T1..TN copy constructor.
+See also: Boost Exception | boost/exception/info_tuple.hpp
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

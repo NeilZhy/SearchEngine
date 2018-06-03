@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	frequently asked questions - 1.61.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Frequently Asked Questions
+What is the cost of calling boost::throw_exception?
+The cost is that boost::exception is added as a base of the exception emitted by boost::throw_exception (unless the passed type already derives from boost::exception.)
+Calling boost::throw_exception does not cause dynamic memory allocations.
+What is the cost of BOOST_THROW_EXCEPTION?
+In addition to calling boost::throw_exception, BOOST_THROW_EXCEPTION invokes __FILE__, __LINE__ and the BOOST_THROW_EXCEPTION_CURRENT_FUNCTION macros. The space required to store the information is already included in sizeof(boost::exception).
+Calling BOOST_THROW_EXCEPTION does not cause dynamic memory allocations.
+Should I use boost::throw_exception or BOOST_THROW_EXCEPTION or just throw?
+The benefit of calling boost::throw_exception instead of using throw directly is that it ensures that the emitted exception derives from boost::exception and that it is compatible with boost::current_exception.
+The BOOST_THROW_EXCEPTION macro also results in a call to boost::throw_exception, but in addition it records in the exception object the __FILE__ and __LINE__ of the throw, as well as the pretty name of the function that throws. This enables boost::diagnostic_information to compose a more useful, if not user-friendly message.
+Typical use of boost::diagnostic_information is:
+catch(...)
+    {
+    std::cerr <<
+        "Unexpected exception, diagnostic information follows:\n" <<
+        current_exception_diagnostic_information();
+    }
+This is a possible message it may display -- the information in the first line is only available if BOOST_THROW_EXCEPTION was used to throw:
+example_io.cpp(70): Throw in function class boost::shared_ptr<struct _iobuf> __cdecl my_fopen(const char *,const char *)
+Dynamic exception type: class boost::exception_detail::clone_impl<class fopen_error>
+std::exception::what: example_io error
+[struct boost::errinfo_api_function_ *] = fopen
+[struct boost::errinfo_errno_ *] = 2, "No such file or directory"
+[struct boost::errinfo_file_name_ *] = tmp1.txt
+[struct boost::errinfo_file_open_mode_ *] = rb
+In some development environments, the first line in that message can be clicked to show the location of the throw in the debugger, so it's easy to set a break point and run again to see the unexpected throw in the context of its call stack.
+Why doesn't boost::exception derive from std::exception?
+Despite that virtual inheritance should be used in deriving from base exception types, quite often exception types (including the ones defined in the standard library) don't derive from std::exception virtually.
+If boost::exception derives from std::exception, using the enable_error_info function with such user-defined types would introduce dangerous ambiguity which would break all catch(std::exception &) statements.
+Of course, boost::exception should not be used to replace std::exception as a base type in exception type hierarchies. Instead, it should be included as a virtual base, in addition to std::exception (which should probably also be derived virtually.)
+Why is boost::exception abstract?
+To prevent exception-neutral contexts from erroneously erasing the type of the original exception when adding error_info to an active exception object:
+catch( boost::exception & e )
+    {
+    e << foo_info(foo);
+    throw e; //Compile error: boost::exception is abstract
+    }
+The correct code is:
+catch( boost::exception & e )
+    {
+    e << foo_info(foo);
+    throw; //Okay, re-throwing the original exception object.
+    }
+Why use operator<< overload for adding info to exceptions?
+Before throwing an object of type that derives from boost::exception, it is often desirable to add one or more error_info objects in it. The syntactic sugar provided by operator<< allows this to be done directly in a throw expression:
+throw error() << foo_info(foo) << bar_info(bar);
+Why is operator<< allowed to throw?
+This question is referring to the following issue. Consider this throw statement example:
+throw file_open_error() << file_name(fn);
+The intention here is to throw a file_open_error, however if operator<< fails to copy the std::string contained in the file_name error_info wrapper, a std::bad_alloc could propagate instead. This behavior seems undesirable to some programmers.
+Bjarne Stroustrup, The C++ Programming Language, 3rd Edition, page 371:
+"Throwing an exception requires an object to throw.  A C++ implementation is required to have enough spare memory to be able to throw bad_alloc in case of memory exhaustion.  However, it is possible that throwing some other exception will cause memory exhaustion."
+Therefore, the language itself does not guarantee that an attempt to throw an exception is guaranteed to throw an object of the specified type; propagating a std::bad_alloc seems to be a possibility even outside of the scope of Boost Exception.
+See also: Boost Exception | Motivation
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

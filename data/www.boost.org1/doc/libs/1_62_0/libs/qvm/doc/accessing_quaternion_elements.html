@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	accessing quaternion elements - 1.62.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+Accessing Quaternion Elements
+include <boost/qvm/quat_access.hpp>
+namespace boost
+{
+    namespace qvm
+    {
+        //Only enabled if:
+        //  is_quat<Q>::value
+        
+        template <class Q> -unspecified-return-type- S( Q & q );
+        template <class Q> -unspecified-return-type- V( Q & q );
+        template <class Q> -unspecified-return-type- X( Q & q );
+        template <class Q> -unspecified-return-type- Y( Q & q );
+        template <class Q> -unspecified-return-type- Z( Q & q );
+    }
+}
+An expression of the form S(q) can be used to access the scalar component of the quaternion q. For example,
+S(q) *= 42;
+multiplies the scalar component of q by the scalar 42.
+An expression of the form V(q) can be used to access the vector component of the quaternion q. For example,
+V(q) *= 42
+multiplies the vector component of q by the scalar 42.
+The X, Y and Z elements of the vector component can also be accessed directly using X(q), Y(q) and Z(q).
+See also: Boost QVM | boost/qvm/quat_access.hpp | Synopsis
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

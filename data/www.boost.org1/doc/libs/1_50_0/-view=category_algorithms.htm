@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Boost 1.50.0 Library Documentation - Algorithms
+  
+  
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  
+    
+      
+        
+          
+            
+              Boost 1.50.0 Library Documentation - Algorithms
+            
+            
+              
+                  
+                    
+                    All Categorized Condensed                     Standard Proposals TR1 libraries                     
+                  
+                  
+                    Sort by:
+                    
+                    Name First Release                     
+                  
+              
+              
+              Algorithms              
+                              Algorithm
+                
+                  A collection of useful generic algorithms.
+                  
+                    Author(s)
+                    Marshall Clow
+                    First Release
+                    1.50.0
+                    Standard
+                     
+                    Categories
+                    Algorithms
+                  
+                
+                              Foreach
+                
+                  In C++, writing a loop that iterates over a sequence is tedious. We can either use iterators, which requires a considerable amount of boiler-plate, or we can use the std::for_each() algorithm and move our loop body into a predicate, which requires no less boiler-plate and forces us to move our logic far from where it will be used. In contrast, some other languages, like Perl, provide a dedicated "foreach" construct that automates this process. BOOST_FOREACH is just such a construct for C++. It iterates over sequences for us, freeing us from having to deal directly with iterators or write predicates.
+                  
+                    Author(s)
+                    Eric Niebler
+                    First Release
+                    1.34.0
+                    Standard
+                     
+                    Categories
+                    Algorithms, Language Features Emulation
+                  
+                
+                              Geometry
+                
+                  Geometry Library.
+                  
+                    Author(s)
+                    Barend Gehrels, Bruno Lalande and Mateusz Loskot
+                    First Release
+                    1.47.0
+                    Standard
+                     
+                    Categories
+                    Algorithms, Math and numerics
+                  
+                
+                              GIL
+                
+                  Generic Image Library
+                  
+                    Author(s)
+                    Lubomir Bourdev and Hailin Jin
+                    First Release
+                    1.35.0
+                    Standard
+                     
+                    Categories
+                    Algorithms, Containers, Generic Programming, Image processing, Iterators
+                  
+                
+                              Graph
+                
+                  The BGL graph interface and graph components are generic, in the same sense as the the Standard Template Library (STL).
+                  
+                    Author(s)
+                    Jeremy Siek and a University of Notre Dame team; now maintained by Andrew Sutton and Jeremiah Willcock.
+                    First Release
+                    1.18.0
+                    Standard
+                     
+                    Categories
+                    Algorithms, Containers, Iterators
+                  
+                
+                              GraphParallel
+                
+                  The PBGL graph interface and graph components are generic, in the same sense as the the Standard Template Library (STL).
+                  
+                    Author(s)
+                    Jeremy Siek, Doug Gregor, and a University of Notre Dame team.
+                    First Release
+                    1.40.0
+                    Standard
+                     
+                    Categories
+                    Algorithms, Containers, Iterators
+                  
+                
+                              Min-Max
+                
+                  Standard library extensions for simultaneous min/max and min/max element computations.
+                  
+                    Author(s)
+                    Herv Brnnimann
+                    First Release
+                    1.32.0
+                    Standard
+                     
+                    Categories
+                    Algorithms
+                  
+                
+                              Range
+                
+                  A new infrastructure for generic algorithms that builds on top of the new iterator concepts.
+                  
+                    Author(s)
+                    Niel Groves and Thorsten Ottosen
+                    First Release
+                    1.32.0
+                    Standard
+                     
+                    Categories
+                    Algorithms
+                  
+                
+                              String Algo
+                
+                  String algorithms library.
+                  
+                    Author(s)
+                    Pavol Droba
+                    First Release
+                    1.32.0
+                    Standard
+                     
+                    Categories
+                    Algorithms, String and text processing
+                  
+                
+                              Utility
+                
+                  Class noncopyable plus checked_delete(), checked_array_delete(), next(), prior() function templates, plus base-from-member idiom.
+                  
+                    Author(s)
+                    Dave Abrahams and others
+                    First Release
+                    1.13.0
+                    Standard
+                     
+                    Categories
+                    Algorithms, Function objects and higher-order programming, Memory, Miscellaneous, Patterns and Idioms
+                  
+                
+                            
+                          
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+  
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Revised $Date$
+      
+      
+        Copyright Beman Dawes, David Abrahams, 1998-2005.
+        Copyright Rene Rivera 2004-2005.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 9. Boost.Chrono 2.0.5 - 1.63.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 9. Boost.Chrono 2.0.5
+Howard Hinnant
+Beman Dawes
+Vicente J. Botet Escriba
+Copyright  2008 Howard Hinnant
+Copyright  2006, 2008 Beman Dawes
+Copyright  2009-2013 Vicente J. Botet Escriba
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Overview
+Motivation
+Description
+User's Guide
+Getting Started
+Tutorial
+Examples
+External Resources
+Reference 
+Header <boost/chrono/include.hpp>
+Included on the C++11 Recommendation
+Chrono I/O V1
+Chrono I/O V2
+Chrono Rounding Utilities
+Other Clocks
+Appendices
+Appendix: History
+Appendix: Rationale
+Appendix: Implementation
+      Notes
+Appendix: FAQ
+Appendix: Acknowledgements
+Appendix: Future plans
+    ]
+  
+    ]
+  
+Overview
+Motivation
+Description
+        What is time, then? If nobody asks me, I know; if I have to explain
+        it to someone who has asked me, I do not know."
+      
+        -- Augustine 
+      
+      How
+      to Use This Documentation
+    
+      This documentation makes use of the following naming and formatting conventions.
+    
+          Code is in fixed width
+          font and is syntax-highlighted.
+        
+          Replaceable text that you will need to supply is in italics.
+        
+          Free functions are rendered in the code font followed by (), as in free_function().
+        
+          If a name refers to a class template, it is specified like this: class_template<>;
+          that is, it is in code font and its name is followed by <>
+          to indicate that it is a class template.
+        
+          If a name refers to a function-like macro, it is specified like this:
+          MACRO();
+          that is, it is uppercase in code font and its name is followed by () to indicate that it is a function-like
+          macro. Object-like macros appear without the trailing ().
+        
+          Names that refer to concepts in the generic programming
+          sense are specified in CamelCase.
+        
+Note
+        In addition, notes such as this one specify non-essential information that
+        provides additional background or rationale.
+      
+      Finally, you can mentally add the following to any code fragments in this document:
+    
+// Include all of Chrono files
+#include <boost/chrono.hpp>
+Motivation
+        Time
+      
+        We all deal with time every day of our lives. We've intuitively known it
+        since birth. Thus we are all very familiar with it and believe it to be a
+        simple matter. The modeling of time in computer programs should be similarly
+        simple. The unfortunate truth is that this perceived simplicity is only skin
+        deep. Fortunately, we do not need a terribly complicated solution to meet
+        the bulk of our needs. However, overly simplistic solutions can be dangerous
+        and inefficient, and won't adapt as the computer industry evolves.
+      
+        Boost.Chrono implements the new time facilities
+        in C++11, as proposed in N2661 - A Foundation to Sleep On. That document
+        provides background and motivation for key design decisions and is the source
+        of a good deal of information in this documentation.
+      
+        In addition to the clocks provided by the standard proposal, Boost.Chrono
+        provides specific process and thread clocks.
+      
+        Wall
+        clock versus system and user time
+      
+        To make the timing facilities of Boost.Chrono more generally useful, the
+        library provides a number of clocks that are thin wrappers around the operating
+        system's process time API, thereby allowing the extraction of wall clock
+        time, user CPU time, and system CPU time of the process. Wall clock time
+        is the sum of CPU time and system CPU time. (On POSIX-like systems, this
+        relies on times().
+        On Windows, it relies on GetProcessTimes().)
+      
+Description
+        The Boost.Chrono library provides:
+      
+        Standard
+      
+            A means to represent time durations: managed by the generic duration class . Examples of
+            time durations include days, minutes, seconds and nanoseconds, which can be represented
+            with a fixed number of clock ticks per unit. All of these units of time
+            duration are united with a generic interface by the duration facility.
+          
+            A type for representing points in time: time_point. A time_point represents an epoch
+            plus or minus a duration. The library leaves
+            epochs unspecified. A time_point is associated with
+            a clock.
+          
+            Several clocks, some of which may not be available on a particular platform:
+            system_clock, steady_clock and high_resolution_clock. A clock
+            is a pairing of a time_point and duration, and a function which
+            returns a time_point representing now.
+          
+        Other
+        clocks
+      
+        To make the timing facilities more generally useful, Boost.Chrono
+        provides a number of clocks that are thin wrappers around the operating system's
+        time APIs, thereby allowing the extraction of wall clock time, user CPU time,
+        system CPU time spent by the process,
+      
+            process_real_cpu_clock, captures
+            wall clock CPU time spent by the current process.
+          
+            process_user_cpu_clock, captures
+            user-CPU time spent by the current process.
+          
+            process_system_cpu_clock, captures
+            system-CPU time spent by the current process.
+          
+            A tuple-like class process_cpu_clock, that captures
+            real, user-CPU, and system-CPU process times together.
+          
+            A thread_clock thread steady clock
+            giving the time spent by the current thread (when supported by a platform).
+          
+        Lastly, Boost.Chrono includes typeof
+        registration for duration and time_point to permit using emulated
+        auto with C++03 compilers.
+      
+        I/O
+      
+        It provides I/O for duration and time_point. This I/O makes use of
+        these types much more convenient. In following the "you only pay for
+        what you use" philosophy, this extra functionality is located in a header
+        separate from <boost/chrono/chrono.hpp>, namely <boost/chrono/chrono_io.hpp>.
+      
+        It builds on <boost/ratio/ratio_io.hpp>
+        to provide readable and flexible formatting and parsing for types in <boost/chrono.hpp>.
+        This textural representation uses SI
+        prefixes whenever possible. This makes it easy for boost::milliseconds to be represented by the text
+        "milliseconds", or a hypothetical meter class to print out "millimeter".
+        The duration and the time_point i/o can be customized
+        through the new facets: duration_units and time_point_units. The user can specialize
+        these facets so that the chrono i/o could be localizable. However Boost.Chrono
+        doesn't provides a complete locale solution.
+      
+        system_clock::time_point I/O is proposed in terms of
+        UTC timepoints, strongly guided by ISO 9899:1999, Programming languages -
+        C, ISO 9945:2003, Information Technology - Portable Operating System Interface
+        (POSIX) and ISO 8601:2004, Data elements and interchange formats - Information
+        interchange - Representation of dates and times.
+      
+        Rounding
+        utilities
+      
+        A few simple rounding utility functions for working with durations.
+      
+        Caveat
+        Emptor
+      
+        The underlying clocks provided by operating systems are subject to many seemingly
+        arbitrary policies and implementation irregularities. That's a polite way
+        of saying they tend to be flakey, and each operating system or even each
+        clock has its own cruel and unusual forms of flakiness. Don't bet the farm
+        on their accuracy, unless you have become deeply familiar with exactly what
+        the specific operating system is guaranteeing, which is often very little.
+      
+Last revised: December 22, 2016 at 12:37:17 GMT

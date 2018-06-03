@@ -1,0 +1,454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Boost FAQ
+  
+  
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+    
+      
+        
+          
+            
+              Boost FAQ
+            
+            
+              How do I download the
+              libraries? See the downloads.
+              What do the Boost
+              version numbers mean? The scheme is x.y.z, where x is
+              incremented only for massive changes, such as a reorganization
+              of many libraries, y is incremented whenever a new library is
+              added, and z is incremented for maintenance releases. y and z
+              are reset to 0 if the value to the left changes.
+              Is there any
+              assurance libraries actually work as claimed? No. The
+              review process will hopefully eliminate the most seriously
+              flawed libraries, but a well constructed library with hidden
+              defects is likely to slip through. Encouraging ordinary users
+              to report their experience with a library is intended to
+              address such concerns. Consult the test results for an
+              indication of how well a library works on specific
+              platforms.
+              How can the Boost
+              libraries be used successfully for important projects?
+              Many of the Boost libraries are actively maintained and
+              improved, so backward compatibility with prior version isn't
+              always possible. Deal with this by freezing the version of the
+              Boost libraries used by your project. Only upgrade at points in
+              your project's life cycle where a bit of change will not cause
+              problems. Individual bug fixes can always be obtained from the
+              boost repository.
+              How can I contribute
+              to development? To participate in development, you need
+              to subscribe to the Boost
+              developers' list. Once you've done that, some paths to
+              contribution are:
+              
+                Submit patches for new features or bug fixes. Pick any
+                ticket from our bug
+                tracking system and get started. If existing library
+                maintainers don't already know your work, this is a good way
+                to become known as someone they can trust to do good
+                work.
+                Become part of a particular library's community, and
+                become known to the library maintainer(s) by participating in
+                design discussions (some libraries, e.g. Spirit, have their
+                own mailing
+                lists where you'd do that).
+                Come up with a library idea of your own and begin the
+                library submission
+                process.
+              
+              How is a library
+              accepted for posting on the site? See Library Submission
+              Process
+              How does someone
+              submit a Formal Review comment? Send email to boost@lists.boost.org. See
+              the Formal Review page
+              for more information.
+              How does someone
+              submit a library? See Library Guidelines
+              Are commercial
+              libraries requiring a fee acceptable? No. However, a
+              library that a commercial enterprise makes available without
+              fee is acceptable. If the description of the library makes a
+              low-key plug for the supplier, that is acceptable as long as
+              the library delivers real value and isn't just a Trojan horse
+              for the plug.
+              Are shareware
+              libraries acceptable? No. Only free libraries will be
+              accepted.
+              Are open source
+              license libraries acceptable? Some are, many are not.
+              Open source licenses often require redistribution or
+              availability of source code, inclusion of license document with
+              machine-executable redistribution, give the initial developer
+              rights to licensee modifications, or need a lawyer to
+              understand. These would be immediate disqualifications for many
+              business, commercial, and consumer applications. Boost aims to
+              avoid subjecting users to hard-to-comply-with license terms.
+              See License
+              requirements.
+              This is subject to review for a particularly
+              important piece of software, or as the industry changes.
+              Must full source code
+              be provided? Yes, these are source code libraries.
+              What about
+              documentation? A very simple library might be accepted
+              with only a well commented header file. For more substantial
+              libraries, some form of documentation is certainly going to be
+              expected. HTML is the preferred form.
+              Are platform specific
+              libraries acceptable? There is a preference for portable
+              libraries. Libraries will be accepted that have portable
+              interfaces but require platform specific implementations, as
+              long as the author supplies implementations for a couple of
+              disparate major operating systems.
+              Must a library do
+              useful work? No. A library meant as a teaching example
+              or demonstration might not actually do any work.
+              Can an existing
+              library be accepted by Boost? Yes, although it would
+              have to be "Boostified" to meet the requirements.  The
+              Boost Graph and Regex libraries are examples of libraries which
+              began life elsewhere.
+              Who owns the
+              libraries? Presumably many authors will copyright their
+              libraries. Others authors may wish to place their libraries in
+              the public domain. The Boost.org policy is to only accept
+              libraries with a clear copyright notice and meeting the
+              License
+              requirements. It is up to potential users to decide if the
+              terms acceptable, and not to use libraries with unacceptable
+              copyrights or licenses.
+              Is there a formal
+              relationship between Boost.org and the C++ Standards
+              Committee? No, although there is a strong informal
+              relationship in that many members of the committee participate
+              in Boost, and the people who started Boost were all committee
+              members.
+              Will the Boost.org
+              libraries become part of the next C++ Standard? Some
+              might, someday, but that is up to the standards committee.
+              Committee members who also participate in Boost will definitely
+              be proposing at least some Boost libraries for
+              standardization.
+              Libraries which are "existing practice" are most
+              likely to be accepted by the C++ committee for future
+              standardization. Having a library accepted by Boost is one way
+              to establish existing practice.
+              Where does the name
+              "Boost" come from? Boost began with Robert Klarer and I
+              fantasizing about a new library effort over dinner at a C++
+              committee meeting in Sofia Antipolis, France, in 1998. Robert
+              mentioned that Herb Sutter was working on a spoof proposal for
+              a new language named Booze, which was supposed to be better
+              than Java. Somehow that kicked off the idea of "Boost" as a
+              name. We'd probably had a couple of glasses of good French wine
+              at that point. It was just a working name, but no one ever came
+              up with a replacement. (Beman Dawes)
+              Is the web site a
+              commercial business? No. It is just some people getting
+              together as a kind of cyberspace civic association. If it ever
+              needs to incorporate, it would be as a non-profit
+              organization.
+              Is there any charge
+              for submitting libraries or reviews to Boost.org? No.
+              Unlike the standards committees, you don't have to pay to
+              volunteer!
+              Will the site include
+              material beyond libraries? The main focus is on
+              libraries, but if people contribute occasional articles or
+              other material to make the site more interesting, that could be
+              a nice fit.
+              Why isn't there a
+              separate boost mailing list for my favorite library? One
+              of the reasons for boost's success has been the
+              cross-pollination of ideas between diverse library projects and
+              the occasional look into other threads by otherwise
+              uninterested parties. The more people participate, the less
+              they tend to be annoyed by "noise".
+              How can I cope with
+              the large volume of boost mailing list messages? One
+              approach is to use the "digest" option; that cuts the email
+              blizzard down to several (long) messages per day, so you can
+              glance over the subjects summary at the top and quickly read
+              what you think is important. The "no mail" option turns off
+              list email entirely.
+              Another approach is to follow the list traffic
+              via an NTTP newsgroup reader. See Mailing List newsgroup
+              information.
+              Why do Boost headers
+              have a .hpp suffix rather than .h or none at all? File
+              extensions communicate the "type" of the file, both to humans
+              and to computer programs. The '.h' extension is used for C
+              header files, and therefore communicates the wrong thing about
+              C++ header files. Using no extension communicates nothing and
+              forces inspection of file contents to determine type. Using
+              '.hpp' unambiguously identifies it as C++ header file, and
+              works well in actual practice. (Rainer Deyke)
+              What should I do if I
+              spot a bug in the Boost code or documentation? See the
+              suggestions on the Bugs
+              page.
+              How can I request a
+              new feature in a Boost Library? See the Requesting New Features
+              page.
+              Who's idea was
+              Boost? See the original
+              proposal (PDF).
+            
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+          
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Revised $Date$
+      
+      
+        Copyright Beman Dawes 2001.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

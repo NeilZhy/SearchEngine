@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 12. Boost.Date_Time - 1.63.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 12. Boost.Date_Time
+Jeff Garland
+Copyright  2001-2005 CrystalClear Software, Inc
+Subject to the Boost Software License, Version 1.0. (See accompanying file
+    LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+Table of Contents
+Conceptual
+Motivation
+Domain Concepts
+Design Concepts
+General Usage Examples
+Gregorian
+Date
+Date Duration (aka Days)
+Date Period
+Date Iterators
+Date Generators/Algorithms
+Gregorian Calendar
+Posix Time
+Ptime
+Time Duration
+Time Period
+Time Iterators
+Local Time
+Time Zone (abstract)
+Posix Time Zone
+Time Zone Database
+Custom Time Zone
+Local Date Time
+Local Time Period
+Date Time Input/Output
+Format Flags
+Date Facet
+Date Input Facet
+Time Facet
+Time Input Facet
+Date Time Formatter/Parser Objects
+Date Time IO Tutorial
+Serialization
+Details
+Calculations
+Design Goals
+Tradeoffs: Stability, Predictability, and Approximations
+Terminology
+References
+Build-Compiler Information
+Tests
+Change History
+Acknowledgements
+Examples
+Dates as Strings
+Days Alive
+Days Between New Years
+Last Day of the Months
+Localization Demonstration
+Date Period Calculations
+Print Holidays
+Print Month
+Month Adding
+Time Math
+Print Hours
+Local to UTC Conversion
+Time Periods
+Simple Time Zones
+Daylight Savings Calc Rules
+Flight Time Example
+Seconds Since Epoch
+Library Reference
+Date Time Reference
+Gregorian Reference
+Posix Time Reference
+Local Time Reference
+Introduction
+    A set of date-time libraries based on generic programming concepts.
+  
+This documentation is also available in PDF format. It can be found at:
+    
+http://www.crystalclearsoftware.com/libraries/date_time/date_time.pdf
+    In addition, a full doxygen reference can be found at:
+    
+http://www.crystalclearsoftware.com/libraries/date_time/ref_guide/index.html
+    The most current version of the documentation can be found at:
+    
+http://www.crystalclearsoftware.com/libraries/date_time/index.html
+  
+Conceptual
+Motivation
+Domain Concepts
+Design Concepts
+Motivation
+    The motivation for this library comes from working with and helping build several date-time libraries on several projects. Date-time libraries provide fundamental infrastructure for most development projects. However, most of them have limitations in their ability to calculate, format, convert, or perform some other functionality. For example, most libraries do not correctly handle leap seconds, provide concepts such as infinity, or provide the ability to use high resolution or network time sources.  These libraries also tend to be rigid in their representation of dates and times. Thus customized policies for a project or subproject are not possible.
+  
+    Programming with dates and times should be almost as simple and natural as programming with strings and integers.  Applications with lots of temporal logic can be radically simplified by having a robust set of operators and calculation capabilities. Classes should provide the ability to compare dates and times, add lengths or time durations, retrieve dates and times from  clocks, and work naturally with date and time intervals.
+  
+    Another motivation for development of the library was to apply modern C++ library design techniques to the date-time domain.  Really to build a framework for the construction of building temporal types. For example, by providing iterators and traits classes to control fundamental properties of the library. To the authors knowledge this library is the only substantial attempt to apply modern C++ to a date-time library.
+  
+Domain Concepts
+    The date time domain is rich in terminology and problems. 
+    The following is a brief introduction to the concepts you 
+    will find reflected in the library. 
+  
+    The library supports 3 basic temporal types:
+    
+Time Point -- Specifier 
+	for a location in the time continuum.
+      
+Time Duration -- A 
+	length of time unattached to any point on the time continuum.
+      
+Time Interval -- A duration 
+	of time attached to a specific point in the time continuum. 
+	Also known as a time period. 
+      
+  
+    Each of these temporal types has a Resolution which is defined by the smallest representable duration. A Time system provides all these categories of temporal types as well as the rules for labeling and calculating with time points. Calendar Systems are simply time systems with a maximum resolution of one day. The Gregorian system is the most widely used calendar system today (the ISO system is basically a derivative of this). However, there are many other calendar systems as well. UTC (Coordinated Universal Time) is a widely used civil time system. UTC is adjusted for earth rotation at longitude 0 by the use of leap seconds (This is not predictable, only as necessary). Most local time systems are based on UTC but are also adjusted for earth rotation so that daylight hours are similar everywhere. In addition, some local times include daylight savings time (DST) adjustments to shift the daylight hours during the summer.
+  
+    A Clock Device is software component (tied to some hardware) that provides the current date or time with respect to a time system. A clock can measure the current time to a known resolution which may be higher or lower than a particular time representation. 
+  
+    The library provides support for calculating with dates and times. However, time calculations are not quite the same as calculating with integers. If you are serious about the accuracy of your time calculations need to read about Stability, Predictability, and Approximations. 
+  
+    
+Basic Terminology
+Calculations
+Stability, Predictability, and Approximations
+References
+  
+Design Concepts
+    A large part of the genesis of this library has been the observation that few date-time libraries are built in a fashion that allows customization and extension. A typical example, the calendar logic is built directly into the date class. Or the clock retrieval functions are built directly into the time class. These design decisions usually make it impossible to extend or change the library behavior. At a more fundamental level, there are usually assumptions about the resolution of time representation or the gregorian calendar. 
+  
+    Often times, the result is that a project must settle for a less than complete library because of a requirement for high resolution time representation or other assumptions that do not match the implementation of the library. This is extremely unfortunate because development of a library of this sort is far from a trivial task. 
+  
+    While the design is far from perfect the current design is far more flexible than any date-time library the author is aware of. It is expected that the various aspects of extensibility will be better documented in future versions. Information about the design goals of the library is summarized here. 
+  

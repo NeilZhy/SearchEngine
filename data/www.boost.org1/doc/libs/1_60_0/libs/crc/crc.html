@@ -1,0 +1,504 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+Boost CRC Library Documentation - 1.60.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Header <boost/crc.hpp>
+The header <boost/crc.hpp> supplies two
+class templates in namespace boost.  These templates define
+objects that can compute the CRC, or cyclic redundancy code
+(or check), of a given stream of data.  The header also supplies
+function templates to compute a CRC in one step.
+Contents
+	Contents
+	Header Synopsis
+	Rationale
+	Background
+		
+			CRC Parameters
+		
+	Theoretical CRC Computer
+	Optimized CRC Computer
+	Computer Usage
+	CRC Function
+	Augmented-CRC Functions
+	Pre-Defined CRC Samples
+	References
+	Credits
+		
+			Contributors
+			Acknowledgements
+			History
+		
+Header Synopsis
+#include <boost/integer.hpp>  // for boost::uint_t
+#include <cstddef>            // for std::size_t
+namespace boost
+{
+template < std::size_t Bits >
+    class crc_basic;
+template < std::size_t Bits, impl_def TruncPoly = 0u,
+           impl_def InitRem = 0u,
+           impl_def FinalXor = 0u, bool ReflectIn = false,
+           bool ReflectRem = false >
+    class crc_optimal;
+template < std::size_t Bits, impl_def TruncPoly,
+           impl_def InitRem, impl_def FinalXor,
+           bool ReflectIn, bool ReflectRem >
+    typename uint_t<Bits>::fast  crc( void const *buffer,
+     std::size_t byte_count );
+template < std::size_t Bits, impl_def TruncPoly >
+    typename uint_t<Bits>::fast  augmented_crc( void const *buffer,
+     std::size_t byte_count,
+     typename uint_t<Bits>::fast initial_remainder );
+template < std::size_t Bits, impl_def TruncPoly >
+    typename uint_t<Bits>::fast  augmented_crc( void const *buffer,
+     std::size_t byte_count );
+typedef crc_optimal<16, 0x8005, 0, 0, true, true>         crc_16_type;
+typedef crc_optimal<16, 0x1021, 0xFFFF, 0, false, false>  crc_ccitt_type;
+typedef crc_optimal<16, 0x8408, 0, 0, true, true>         crc_xmodem_type;
+typedef crc_optimal<32, 0x04C11DB7, 0xFFFFFFFF, 0xFFFFFFFF, true, true>
+  crc_32_type;
+}
+The implementation-defined type impl_def stands for the
+quickest-to-manipulate built-in unsigned integral type that can
+represent at least Bits bits.
+Rationale
+A common error detection technique, especially with electronic
+communications, is an appended checksum.  The transmitter sends its data
+bits, followed by the bits of the checksum.  The checksum is based on
+operations done on the data bit stream.  The receiver applies the same
+operations on the bits it gets, and then gets the checksum.  If the
+computed checksum doesn't match the received checksum, then an error
+ocurred in the transmission.  There is the slight chance that the error
+is only in the checksum, and an actually-correct data stream is
+rejected.  There is also the chance of an error occurring that does not
+change the checksum, making that error invisible.  CRC is a common
+checksum type, used for error detection for hardware interfaces and
+encoding formats.
+Background
+CRCs work by computing the remainder of a modulo-2 polynominal
+division.  The message is treated as the (binary) coefficents of a long
+polynominal for the dividend, with the earlier bits of the message fed
+first as the polynominal's highest coefficents.  A particular CRC
+algorithm has another polynominal associated with it to be used as the
+divisor.  The quotient is ignored.  The remainder of the division
+considered the checksum.  However, the division uses modulo-2 rules (no
+carries) for the coefficents.
+See A
+Painless Guide to CRC Error Detection Algorithms for complete
+information.  A clearer guide is at the Easier Said Than
+Done web page.
+CRC Parameters
+	Truncated polynominal
+	The divisor polynominal has a degree one bit larger than the
+		checksum (remainder) size.  That highest bit is always one, so
+		it is ignored when describing a particular CRC type.  Excluding
+		this bit makes the divisor fit in the same data type as the
+		checksum.
+	Initial remainder
+	The interim CRC remainder changes as each bit is processed. 
+		Usually, the interim remainder starts at zero, but some CRCs use
+		a different initial value to avoid "blind spots."  A
+		blind spot is when a common sequence of message bits does not
+		change certain interim remainder values.
+	Final XOR value
+	A CRC remainder can be combined with a defined value, via
+		a bitwise exclusive-or operation, before being returned to the
+		user.  The value is usually zero, meaning the interim remainder
+		is returned unchanged.  The other common value is an all-ones
+		value, meaning that the bitwise complement of the interim
+		remainder is returned.
+	Reflected input
+	A message's bits are usually fed a byte at a time, with the
+		highest bits of the byte treated as the higher bits of the
+		dividend polynominal.  Some CRCs reflect the bits (about the
+		byte's center, so the first and last bits are switched,
+		etc.) before feeding.
+	Reflected (remainder) output
+	Some CRCs return the reflection of the interim remainder (taking
+		place before the final XOR value stage).
+Theoretical CRC Computer
+template < std::size_t Bits >
+class boost::crc_basic
+{
+public:
+    // Type
+    typedef implementation_defined  value_type;
+    // Constant reflecting template parameter
+    static  std::size_t const  bit_count = Bits;
+    // Constructor
+    explicit  crc_basic( value_type truncated_polynominal,
+               value_type initial_remainder = 0, value_type final_xor_value = 0,
+               bool reflect_input = false, bool reflect_remainder = false );
+    // Internal Operations
+    value_type  get_truncated_polynominal() const;
+    value_type  get_initial_remainder() const;
+    value_type  get_final_xor_value() const;
+    bool        get_reflect_input() const;
+    bool        get_reflect_remainder() const;
+    value_type  get_interim_remainder() const;
+    void        reset( value_type new_rem );
+    void        reset();
+    // External Operations
+    void  process_bit( bool bit );
+    void  process_bits( unsigned char bits, std::size_t bit_count );
+    void  process_byte( unsigned char byte );
+    void  process_block( void const *bytes_begin, void const *bytes_end );
+    void  process_bytes( void const *buffer, std::size_t byte_count );
+    value_type  checksum() const;
+};
+The value_type is the smallest built-in type that can
+hold the specified (by Bits) number of bits.  This should
+be boost::uint_t<Bits>::least, see the documentation for integer type
+selection for details.
+This implementation is slow since it computes its CRC the same way as
+in theory, bit by bit.  No optimizations are performed.  It wastes space
+since most of the CRC parameters are specified at run-time as
+constructor parameters.
+Optimized CRC Computer
+template < std::size_t Bits, impl_def TruncPoly,
+           impl_def InitRem, impl_def FinalXor,
+           bool ReflectIn, bool ReflectRem >
+class boost::crc_optimal
+{
+public:
+    // Type
+    typedef implementation_defined  value_type;
+    // Constants reflecting template parameters
+    static  std::size_t const  bit_count = Bits;
+    static  value_type const   truncated_polynominal = TruncPoly;
+    static  value_type const   initial_remainder = InitRem;
+    static  value_type const   final_xor_value = FinalXor;
+    static  bool const         reflect_input = ReflectIn;
+    static  bool const         reflect_remainder = ReflectRem;
+    // Constructor
+    explicit  crc_optimal( value_type init_rem = InitRem );
+    // Internal Operations
+    value_type  get_truncated_polynominal() const;
+    value_type  get_initial_remainder() const;
+    value_type  get_final_xor_value() const;
+    bool        get_reflect_input() const;
+    bool        get_reflect_remainder() const;
+    value_type  get_interim_remainder() const;
+    void        reset( value_type new_rem = InitRem );
+    // External Operations
+    void  process_byte( unsigned char byte );
+    void  process_block( void const *bytes_begin, void const *bytes_end );
+    void  process_bytes( void const *buffer, std::size_t byte_count );
+    value_type  checksum() const;
+    // Operators
+    void        operator ()( unsigned char byte );
+    value_type  operator ()() const;
+};
+The value_type is the quickest-to-manipulate built-in
+type that can hold at least the specified (by Bits) number
+of bits.  This should be boost::uint_t<Bits>::fast. 
+See the integer type selection
+documentation for details.  The TruncPoly,
+InitRem, and FinalXor template parameters also
+are of this type.
+This implementation is fast since it uses as many optimizations as
+practical.  All of the CRC parameters are specified at compile-time as
+template parameters.  No individual bits are considered; only whole
+bytes are passed.  A table of interim CRC values versus byte values is
+pre-computed when the first object using a particular bit size,
+truncated polynominal, and input reflection state is processed.
+Computer Usage
+The two class templates have different policies on where the CRC's
+parameters go.  Both class templates use the number of bits in the CRC
+as the first template parameter.  The theoretical computer class
+template has the bit count as its only template parameter, all the other
+CRC parameters are entered through the constructor.  The optimized
+computer class template obtains all its CRC parameters as template
+parameters, and instantiated objects are usually
+default-constructed.
+The CRC parameters can be inspected at run-time with the following
+member functions: get_truncated_polynominal,
+get_initial_remainder, get_final_xor_value,
+get_reflect_input, and get_reflect_remainder. 
+The fast computer also provides compile-time constants for its CRC
+parameters.
+The get_interim_remainder member function returns the
+internal state of the CRC remainder.  It represents the unreflected
+remainder of the last division.  Saving an interim remainder allows the
+freezing of CRC processing, as long as the other CRC parameters and the
+current position of the bit stream are saved.  Restarting a frozen
+stream involves constructing a new computer with the most of the old
+computer's parameters.  The only change is to use the frozen remainder
+as the new computer's initial remainder.  Then the interrupted bit
+stream can be fed as if nothing happened.  The fast CRC computer has a
+special constructor that takes one argument, an interim remainder, for
+this purpose (overriding the initial remainder CRC parameter).
+The reset member functions reset the internal state of
+the CRC remainder to the given value.  If no value is given, then the
+internal remainder is set to the initial remainder value when the object
+was created.  The remainder must be unreflected.  When a CRC calculation
+is finished, calling reset lets the object be reused for a
+new session.
+After any construction, both CRC computers work the same way. 
+Feeding new data to a computer is in a seperate operation(s) from
+extracting the current CRC value from the computer.  The following table
+lists the feeding and extracting operations.
+	Regular CRC Operations
+	
+		Operation
+		Description
+	
+	
+		void process_bit( bool bit );
+		Feeds the single bit to the computer, updating
+			the interim CRC.  It is only defined for the slow CRC
+			computer.
+	
+	
+		void process_bits( unsigned char bits, std::size_t
+			bit_count );
+		Acts as applying process_bit to the lowest
+			bit_count bits given in bits, most
+			significant relevant bit first.  The results are undefined
+			if bit_count exceeds the number of bits per byte.
+			It is only defined for the slow CRC computer.
+	
+	
+		void process_byte( unsigned char byte );
+		Acts as applying process_bit to the all the
+			bits in byte.  If reflection is not desired, the
+			bits are fed from the most to least significant.  The bits
+			are fed in the opposite order if reflection is desired.
+	
+	
+		void process_block( void const *bytes_begin, void
+			const *bytes_end );
+		Acts as applying process_byte to each byte in
+			the given memory block.  This memory block starts at
+			bytes_begin and finishes before
+			bytes_end.  The bytes are processed in that
+			order.
+	
+	
+		void  process_bytes( void const *buffer, std::size_t
+			byte_count );
+		Acts as applying process_byte to each byte in
+			the given memory block.  This memory block starts at
+			buffer and lasts for byte_count bytes.
+			 The bytes are processed in ascending order.
+	
+	
+		value_type checksum() const;
+		Returns the CRC checksum of the data passed in so far,
+			possibly after applying the remainder-reflection and
+			exclusive-or operations.
+	
+	
+		void  operator ()( unsigned char byte );
+		Calls process_byte.  This member function lets
+			its object act as a (stateful) function object.  It is only
+			defined for the fast CRC computer.
+	
+	
+		value_type  operator ()() const;
+		Calls checksum.  This member function lets
+			its object act as a generator function object.  It is only
+			defined for the fast CRC computer.
+	
+You can use them like this:
+#include <boost/crc.hpp>      // for boost::crc_basic, boost::crc_optimal
+#include <boost/cstdint.hpp>  // for boost::uint16_t
+#include <algorithm>  // for std::for_each
+#include <cassert>    // for assert
+#include <cstddef>    // for std::size_t
+#include <iostream>   // for std::cout
+#include <ostream>    // for std::endl
+// Main function
+int
+main ()
+{
+    // This is "123456789" in ASCII
+    unsigned char const  data[] = { 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37,
+     0x38, 0x39 };
+    std::size_t const    data_len = sizeof( data ) / sizeof( data[0] );
+    // The expected CRC for the given data
+    boost::uint16_t const  expected = 0x29B1;
+    // Simulate CRC-CCITT
+    boost::crc_basic<16>  crc_ccitt1( 0x1021, 0xFFFF, 0, false, false );
+    crc_ccitt1.process_bytes( data, data_len );
+    assert( crc_ccitt1.checksum() == expected );
+    // Repeat with the optimal version (assuming a 16-bit type exists)
+    boost::crc_optimal<16, 0x1021, 0xFFFF, 0, false, false>  crc_ccitt2;
+    crc_ccitt2 = std::for_each( data, data + data_len, crc_ccitt2 );
+    assert( crc_ccitt2() == expected );
+    std::cout << "All tests passed." << std::endl;
+    return 0;
+}
+CRC Function
+template < std::size_t Bits, impl_def TruncPoly,
+ impl_def InitRem, impl_def FinalXor,
+ bool ReflectIn, bool ReflectRem >
+typename boost::uint_t<Bits>::fast
+boost::crc( void const *buffer, std::size_t byte_count );
+The boost::crc function template computes the CRC of a
+given data block.  The data block starts at the address given by
+buffer and lasts for byte_count bytes.  The CRC
+parameters are passed through template arguments, identical to the
+optimized CRC computer (see above).  In fact,
+such a computer is used to implement this function.
+Augmented-CRC Functions
+template < std::size_t Bits, impl_def TruncPoly >
+typename boost::uint_t<Bits>::fast
+boost::augmented_crc( void const *buffer, std::size_t byte_count,
+ typename boost::uint_t<Bits>::fast initial_remainder );
+template < std::size_t Bits, impl_def TruncPoly >
+typename boost::uint_t<Bits>::fast
+boost::augmented_crc( void const *buffer, std::size_t byte_count );
+All the other CRC-computing function or class templates work assuming
+that the division steps start immediately on the first message bits. 
+The two boost::augmented_crc function templates have a
+different division order.  Instead of combining (via bitwise
+exclusive-or) the current message bit with the highest bit of a separate
+remainder, these templates shift a new message bit into the low bit of a
+remainder register as the highest bit is shifted out.  The new method
+means that the bits in the inital remainder value are processed before
+any of the actual message bits are processed.  To compensate, the real
+CRC can only be extracted after feeding enough zero bits (the same count
+as the register size) after the message bits.
+The template parameters of both versions of the function template are
+the CRC's bit size (Bits) and the truncated polynominal
+(TruncPoly).  The version of the function template that
+takes two arguments calls the three-argument version with the
+initial_remainder parameter filled as zero.  Both versions
+work on the data block starting at the address buffer for
+byte_count bytes.
+These function templates are useful if the bytes of the CRC directly
+follow the message's bytes.  First, set the bytes of where the CRC will
+go to zero.  Then use augmented_crc over the augmented
+message, i.e. the message bytes and the appended CRC bytes.  Then
+assign the result to the CRC.  To later check a received message, either
+use augmented_crc (with the same parameters as
+transmission, of course) on the received unaugmented message
+and check if the result equals the CRC, or use
+augmented_crc on the received augmented message
+and check if the result equals zero.  Note that the CRC has to be stored
+with the more-significant bytes first (big-endian).
+Interruptions in the CRC data can be handled by feeding the result of
+augmented_crc of the previous data block as the
+initial_remainder when calling augmented_crc on
+the next data block.  Remember that the actual CRC can only be
+determined after feeding the augmented bytes.  Since this method uses
+modulo-2 polynominal division at its most raw, neither final XOR values
+nor reflection can be used.
+Note that for the same CRC system, the initial remainder for
+augmented message method will be different than for the unaugmented
+message method.  The main exception is zero; if the augmented-CRC
+algorithm uses a zero initial remainder, the equivalent unaugmented-CRC
+algorithm will also use a zero initial remainder.  Given an initial
+remainder for a augmented-CRC algorithm, the result from processing just
+zero-valued CRC bytes without any message bytes is the equivalent inital
+remainder for the unaugmented-CRC algorithm.  An example follows:
+#include <boost/crc.hpp>      // for boost::crc_basic, boost::augmented_crc
+#include <boost/cstdint.hpp>  // for boost::uint16_t
+#include <cassert>    // for assert
+#include <iostream>   // for std::cout
+#include <ostream>    // for std::endl
+// Main function
+int
+main ()
+{
+    using boost::uint16_t;
+    using boost::augmented_crc;
+    uint16_t        data[6] = { 2, 4, 31, 67, 98, 0 };
+    uint16_t const  init_rem = 0x123;
+    uint16_t  crc1 = augmented_crc<16, 0x8005>( data, sizeof(data), init_rem );
+    uint16_t const  zero = 0;
+    uint16_t const  new_init_rem = augmented_crc<16, 0x8005>( &zero, sizeof(zero) );
+    boost::crc_basic<16>  crc2( 0x8005, new_init_rem );
+    crc2.process_block( data, &data[5] );  // don't include CRC
+    assert( crc2.checksum() == crc1 );
+    std::cout << "All tests passed." << std::endl;
+    return 0;
+}
+Pre-Defined CRC Samples
+Four sample CRC types are given, representing several common CRC
+algorithms.  For example, computations from boost::crc_32_type
+can be used for implementing the PKZip standard.  Note that, in general, this
+library is concerned with CRC implementation, and not with determining
+"good" sets of CRC parameters.
+	Common CRCs
+	
+		Algorithm
+		Example Protocols
+	
+	
+		crc_16_type
+		BISYNCH, ARC
+	
+	
+		crc_ccitt_type
+		designated by CCITT (Comit Consultatif International
+		    Tlgraphique et Tlphonique)
+	
+	
+		crc_xmodem_type
+		XMODEM
+	
+	
+		crc_32_type
+		PKZip, AUTODIN II, Ethernet, FDDI
+	
+References
+	The CRC header itself: crc.hpp
+	Some test code: crc_test.cpp
+	Some example code: crc_example.cpp
+Credits
+Contributors
+	Michael Barr (mbarr@netrino.com)
+	Wrote Easier Said
+		Than Done, a less-confusing guide to implementing CRC
+		algorithms.  (Originally published as "Slow and Steady
+		Never Lost the Race" in the January 2000 issue of Embedded Systems
+		Programming, pages 3746.)
+	Daryle Walker
+	Started the library and contributed the theoretical and optimal
+		CRC computation class templates and the CRC computing function
+		template.  Contributed crc_test.cpp and crc_example.cpp.
+	Ross N. Williams
+	Wrote A
+		Painless Guide to CRC Error Detection Algorithms, a
+		definitive source of CRC information.
+Acknowledgements
+For giving advice on compiler/C++ compliance, implementation,
+interface, algorithms, and bug reports:
+	Darin Adler
+	Beman Dawes
+	Doug Gregor
+	John Maddock
+	Joe Mariadassou
+	Jens Maurer
+	Vladimir Prus
+	Joel Young
+History
+	15 Jun 2003, Daryle Walker
+	Added example program.
+	14 May 2001, Daryle Walker
+	Initial version.
+Revised: 15 June 2003
+Copyright 2001, 2003 Daryle Walker.  Use, modification, and distribution
+are subject to the Boost Software License, Version 1.0.  (See accompanying
+file LICENSE_1_0.txt or a copy at
+<http://www.boost.org/LICENSE_1_0.txt>.)

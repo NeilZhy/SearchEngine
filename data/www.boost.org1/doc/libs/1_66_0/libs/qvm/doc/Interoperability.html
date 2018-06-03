@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	Interoperability - 1.66.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+Interoperability
+An important design goal of Boost QVM is that it works seamlessly with 3rd-party quaternion, vector and matrix types and libraries. Even when such libraries overload the same C++ operators as Boost QVM, it is safe to bring the entire boost::qvm namespace in scope by specifying:
+using namespace boost::qvm;
+The above using directive does not introduce ambiguities with function and operator overloads a 3rd-party library may define because:
+Most boost::qvm function overloads and all operator overloads use SFINAE/enable_if, which makes them disappear unless an expression uses types that have the appropriate Boost QVM-specific type traits defined;
+Whenever such overloads are compatible with a given expression, their signature is extremely generic, which means that any other (user-defined) compatible overload will be a better match in any overload resolution.
+Bringing the boost::qvm namespace in scope lets you mix vector and matrix types that come from different APIs into a common, type-safe framework. In this case however, it should be considered what types should be returned by binary operations that return an object by value. For example, if you multiply a 3x3 matrix m1 of type user_matrix1 by a 3x3 matrix m2 of type user_matrix2, what type should that operation return?
+The answer is that by default, Boost QVM returns some kind of compatible matrix type, so it is always safe to write:
+auto & m = m1 * m2;
+However, the type deduced by default converts implicitly to any compatible matrix type, so the following is also valid, at the cost of a temporary:
+user_matrix1 m = m1 * m2;
+While the temporary object can be optimized away by many compilers, it can be avoided altogether by specializing the deduce_mat2 template. For example, to specify that multiplying a user_matrix1 by a user_matrix2 should always produce a user_matrix1 object, you could specify:
+namespace
+boost
+    {
+    namespace
+    qvm
+        {
+        template <>
+        struct deduce_mat2<user_matrix1,user_matrix2,3,3>
+            { typedef user_matrix1 type; };
+        template <>
+        struct deduce_mat2<user_matrix2,user_matrix1,3,3>
+            { typedef user_matrix1 type; };
+        }
+    }
+Finally, any time you need to create a matrix of a particular C++ type from any other compatible matrix type, you can use the convert_to function:
+user_matrix2 m=convert_to<user_matrix2>(m1 * m2);
+Perhaps surprisingly, unary operations that return an object by value have a similar, though simpler issue. That's because the argument they're called with may not be copyable, as in:
+float m[3][3];
+auto & inv = inverse(m);
+Again, Boost QVM "just works", returning an object of suitable matrix type that is copyable. This deduction process can also be controlled, by specializing the deduce_mat template.
+Note: Bringing the entire boost::qvm namespace in scope may introduce ambiguities when accessing types (as opposed to functions) defined in 3rd-party libraries. In that case, you can safely bring namespace boost::qvm::sfinae in scope instead, which contains only function and operator overloads that use SFINAE/enable_if.
+Warning: Be mindful of potential ODR violation when using deduce_quat2, deduce_vec2 and deduce_mat2 in 3rd party libraries. For example this could happen if lib1 defines deduce_vec2<lib1::vec,lib2::vec>::type as lib1::vec and in the same program lib2 defines deduce_vec2<lib1::vec,lib2::vec>::type as lib2::vec. It is best to keep such specializations out of lib1 and lib2. Of course, it is always safe for lib1 and lib2 to use convert_to to convert between the lib1::vec and lib2::vec types as needed.
+Tutorial navigation: Quaternions, Vectors, Matrices | C Arrays | Views | Swizzling | Interoperability 
+ 
+See also: Boost QVM
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  
+  
+  Boost Function Object Adapter Library - 1.67.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+  
+  Negators
+  The header functional.hpp
+  provides enhanced versions of both the negator adapters from the C++
+  Standard Library (20.3.5):
+  
+    unary_negate
+    binary_negate
+  
+  As well as the corresponding helper functions
+  
+    not1
+    not2
+  
+  However, the negators in this library improve on the standard versions
+  in two ways:
+  
+    They use function object traits to
+    avoid the need for ptr_fun when negating a function rather than
+    an adaptable function object.
+    They use Boost call traits to determine the best
+    way to declare their arguments and pass them through to the adapted
+    function (see below).
+  
+  Usage
+  Usage is identical to the standard negators. For example,
+  
+    
+bool bad(const Foo &foo) { ... }
+...
+std::vector<Foo> c;
+...
+std::find_if(c.begin(), c.end(), boost::not1(bad));
+  
+  Argument Types
+  The C++ Standard (20.3.5) defines unary negate like this (binary
+  negate is similar):
+  
+    
+template <class Predicate>
+  class unary_negate
+    : public unary_function<typename Predicate::argument_type,bool> {
+public:
+  explicit unary_negate(const Predicate& pred);
+  bool operator()(const typename Predicate::argument_type& x) const;
+};
+  
+  Note that if the Predicate's argument_type is a reference, the
+  type of operator()'s argument would be a reference to a reference.
+  Currently this is illegal in C++ (but see the C++
+  standard core language active issues list).
+  However, if we instead defined operator() to accept Predicate's
+  argument_type unmodified, this would be needlessly inefficient if it were a
+  value type; the argument would be copied twice - once when calling
+  unary_negate's operator(), and again when
+  operator() called the adapted function.
+  So how we want to declare the argument for operator() depends
+  on whether or not the Predicate's argument_type is a reference. If
+  it is a reference, we want to declare it simply as argument_type;
+  if it is a value we want to declare it as
+  const argument_type&.
+  The Boost call_traits class
+  template contains a param_type typedef, which uses partial
+  specialisation to make precisely this decision. If we were to declare
+  operator() as
+  
+    
+bool operator()(typename call_traits<typename Predicate::argument_type>::param_type x) const
+  
+  the desired result would be achieved - we would eliminate references to
+  references without loss of efficiency. In fact, the actual declaration is
+  slightly more complicated because of the use of function object traits, but
+  the effect remains the same.
+  Limitations
+  Both the function object traits and call traits used to realise these
+  improvements rely on partial specialisation, these improvements are only
+  available on compilers that support that feature. With other compilers, the
+  negators in this library behave very much like those in the Standard -
+  ptr_fun will be required to adapt functions, and references to
+  references will not be avoided.
+  
+  
+  Revised 
+  02
+  December, 2006
+  Copyright  2000 Cadenza New Zealand Ltd.
+  Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file LICENSE_1_0.txt or
+  copy at http://www.boost.org/LICENSE_1_0.txt)

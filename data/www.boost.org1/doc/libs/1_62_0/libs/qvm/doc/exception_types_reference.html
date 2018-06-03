@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	exception types - 1.62.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+Exception Types
+include <boost/qvm/error.hpp> 
+namespace boost
+{
+    namespace qvm
+    {
+        //*** Exception types ***
+        
+        struct error:
+            virtual boost::exception,
+            virtual std::exception
+        {
+        };        
+        
+        struct zero_determinant_error: virtual error { };        
+        struct zero_magnitude_error: virtual error { };
+    }
+}
+See also: Boost QVM | Synopsis
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

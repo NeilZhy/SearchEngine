@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	view proxy - 1.63.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+QVM: Quaternions, Vectors, Matrices
+View Proxies
+Boost QVM defines various function templates which take a reference to a quaternion/vector/matrix object and return it by reference as a different unspecified static type with quaternion/vector/matrix semantics for which the quat_traits/vec_traits/mat_traits template is specialized.
+For example, given a vector v, the expression col_mat(v) returns a view proxy that makes v "look and feel" like a matrix-column. More complex views are created by simple composition, for example transposed(col_mat(v)) is equivalent to row_mat(v).
+Below is a list of all view proxies supported by Boost QVM:
+Accessing Matrix Elements
+Accessing Quaternion Elements
+Accessing Vector Elements
+Accessing Vector Elements by Swizzling
+col
+col_mat
+del_col
+del_row
+del_row_col
+diag
+diag_mat
+mref
+qref
+rotx_mat(scalar)
+rotx_quat(scalar)
+roty_mat(scalar)
+roty_quat(scalar)
+rotz_mat(scalar)
+rotz_quat(scalar)
+row
+row_mat
+scalar_cast(mat)
+scalar_cast(quat)
+scalar_cast(vec)
+swap_cols
+swap_rows
+translation
+translation_mat
+transposed
+vref
+See also: Accessing Vector Elements by Swizzling | Boost QVM | boost/qvm/map.hpp | boost/qvm/map_mat_mat.hpp | boost/qvm/map_mat_vec.hpp | boost/qvm/map_vec_mat.hpp | boost/qvm/swizzle.hpp | col | col_mat | del_col | del_row | del_row_col | diag | diag_mat | Known Quirks and Issues | mref | neg_col | neg_row | qref | rot_mat | rot_quat | rotx_mat(scalar) | rotx_quat(scalar) | roty_mat(scalar) | roty_quat(scalar) | rotz_mat(scalar) | rotz_quat(scalar) | row | row_mat | scalar_cast(mat) | scalar_cast(quat) | scalar_cast(vec) | swap_cols | swap_rows | translation | translation_mat | transposed | vref
+Copyright (c) 2008-2016 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

@@ -1,0 +1,44 @@
+
+Boost Conversion Library - 1.62.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost
+Conversion Library
+The Conversion Library improves program safety and clarity by performing
+otherwise messy conversions.  It includes cast-style function templates designed to complement the C++
+Standard's built-in casts.
+To reduce coupling, particularly to standard library IOStreams, the Boost
+Conversion Library is
+supplied by several headers:
+  The boost/polymorphic_cast.hpp and boost/polymorphic_pointer_cast.hpp 
+    headers provide polymorphic_cast<>,
+    polymorphic_downcast<> and polymorphic_pointer_downcast<> to perform safe casting between
+  polymorphic types.
+  
+  The boost/implicit_cast.hpp header provides implicit_cast<>
+    to perform implicit casts only (no down-cast, no void*->T*, no U->T if T has only explicit constructors for U).
+  
+  The boost/lexical_cast header provides lexical_cast<>
+    general literal text conversions, such as an int represented as
+    a string, or vice-versa.
+Revised June 23, 2005
+    Copyright 2001 Beman Dawes.
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	using virtual inheritance in exception types - 1.66.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Using Virtual Inheritance in Exception Types
+Exception types should use virtual inheritance when deriving from other exception types. This insight is due to Andrew Koenig. Using virtual inheritance prevents ambiguity problems in the exception handler:
+#include <iostream>
+struct my_exc1 : std::exception { char const* what() const throw(); };
+struct my_exc2 : std::exception { char const* what() const throw(); };
+struct your_exc3 : my_exc1, my_exc2 {};
+int
+main()
+    {
+    try { throw your_exc3(); }
+    catch(std::exception const& e) {}
+    catch(...) { std::cout << "whoops!" << std::endl; }
+    }
+The program above outputs "whoops!" because the conversion to std::exception is ambiguous.
+The overhead introduced by virtual inheritance is always negligible in the context of exception handling. Note that virtual bases are initialized directly by the constructor of the most-derived-type (the type passed to the throw statement, in case of exceptions.) However, typically this detail is of no concern when boost::exception is used, because it enables exception types to be trivial structs with no members (there's nothing to initialize.) See Exception Types as Simple Semantic Tags.
+See also: Boost Exception | Frequently Asked Questions
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

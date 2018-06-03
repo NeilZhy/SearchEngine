@@ -1,0 +1,395 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+	
+		Boost: mem_fn.hpp documentation - 1.35.0
+		
+	
+	  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+		
+					mem_fn.hpp
+				
+		Contents
+		Purpose
+		Frequently Asked Questions
+		Can mem_fn be used instead of the 
+				standard std::mem_fun[_ref] adaptors?
+		Should I replace every occurence of std::mem_fun[_ref]
+				with mem_fn in my existing code?
+		Does mem_fn work with COM methods?
+		Why isn't BOOST_MEM_FN_ENABLE_STDCALL 
+				defined automatically?
+		Interface
+		Synopsis
+		Common requirements
+		get_pointer
+		mem_fn
+		Implementation
+		Files
+		Dependencies
+		Number of Arguments
+		"__stdcall", "__cdecl" and 
+				"__fastcall" Support
+		Acknowledgements
+		Purpose
+		
+			boost::mem_fn is a generalization of the standard functions std::mem_fun
+			and std::mem_fun_ref. It supports member function pointers with more 
+			than one argument, and the returned function object can take a pointer, a 
+			reference, or a smart pointer to an object instance as its first argument. mem_fn
+			also supports pointers to data members by treating them as functions taking no 
+			arguments and returning a (const) reference to the member.
+		
+		
+			The purpose of mem_fn is twofold. First, it allows users to invoke a 
+			member function on a container with the familiar
+		
+		
+    std::for_each(v.begin(), v.end(), boost::mem_fn(&Shape::draw));
+		
+			syntax, even when the container stores smart pointers.
+		
+		
+			Second, it can be used as a building block by library developers that want to 
+			treat a pointer to member function as a function object. A library might define 
+			an enhanced for_each algorithm with an overload of the form:
+		
+		
+template<class It, class R, class T> void for_each(It first, It last, R (T::*pmf) ())
+{
+    std::for_each(first, last, boost::mem_fn(pmf));
+}
+		
+			that will allow the convenient syntax:
+		
+		
+    for_each(v.begin(), v.end(), &Shape::draw);
+		
+			When documenting the feature, the library author will simply state:
+		
+		template<class It, class R, class T> void 
+			for_each(It first, It last, R (T::*pmf) ());
+		
+			Effects: equivalent to std::for_each(first, last, boost::mem_fn(pmf));
+		
+		
+			where boost::mem_fn can be a link to this page. See the 
+				documentation of bind for an example.
+		
+		
+			mem_fn takes one argument, a pointer to a member, and returns a function 
+			object suitable for use with standard or user-defined algorithms:
+		
+		
+struct X
+{
+    void f();
+};
+void g(std::vector<X> & v)
+{
+    std::for_each(v.begin(), v.end(), boost::mem_fn(&X::f));
+};
+void h(std::vector<X *> const & v)
+{
+    std::for_each(v.begin(), v.end(), boost::mem_fn(&X::f));
+};
+void k(std::vector<boost::shared_ptr<X> > const & v)
+{
+    std::for_each(v.begin(), v.end(), boost::mem_fn(&X::f));
+};
+		
+			The returned function object takes the same arguments as the input member 
+			function plus a "flexible" first argument that represents the object instance.
+		
+		
+			When the function object is invoked with a first argument x that is 
+			neither a pointer nor a reference to the appropriate class (X in the 
+			example above), it uses get_pointer(x) to obtain a pointer from x. 
+			Library authors can "register" their smart pointer classes by supplying an 
+			appropriate get_pointer overload, allowing mem_fn to recognize 
+			and support them.
+		
+		
+			[Note: get_pointer is not restricted to return a pointer. Any object 
+			that can be used in a member function call expression (x->*pmf)(...)
+			will work.]
+		
+		
+			[Note: the library uses an unqualified call to get_pointer. Therefore, 
+			it will find, through argument-dependent lookup, get_pointer overloads 
+			that are defined in the same namespace as the corresponding smart pointer 
+			class, in addition to any boost::get_pointer overloads.]
+		
+		
+			All function objects returned by mem_fn expose a result_type typedef 
+			that represents the return type of the member function. For data members, result_type
+			is defined as the type of the member.
+		
+		Frequently Asked Questions
+		Can mem_fn be used instead of the standard std::mem_fun[_ref]
+				adaptors?
+		
+			Yes. For simple uses, mem_fn provides additional functionality that the 
+			standard adaptors do not. Complicated expressions that use std::bind1st, std::bind2nd
+			or Boost.Compose along with the 
+			standard adaptors can be rewritten using boost::bind
+			that automatically takes advantage of mem_fn.
+		
+		Should I replace every occurence of std::mem_fun[_ref] with mem_fn
+				in my existing code?
+		
+			No, unless you have good reasons to do so. mem_fn is not 100% compatible 
+			with the standard adaptors, although it comes pretty close. In particular, mem_fn
+			does not return objects of type std::[const_]mem_fun[1][_ref]_t, as the 
+			standard adaptors do, and it is not possible to fully describe the type of the 
+			first argument using the standard argument_type and first_argument_type
+			nested typedefs. Libraries that need adaptable function objects in order to 
+			function might not like mem_fn.
+		
+		Does mem_fn work with COM methods?
+		
+			Yes, if you #define BOOST_MEM_FN_ENABLE_STDCALL.
+		
+		Why isn't BOOST_MEM_FN_ENABLE_STDCALL defined automatically?
+		
+			Non-portable extensions, in general, should default to off to prevent vendor 
+			lock-in. Had BOOST_MEM_FN_ENABLE_STDCALL been defined automatically, you could 
+			have accidentally taken advantage of it without realizing that your code is, 
+			perhaps, no longer portable. In addition, it is possible for the default 
+			calling convention to be __stdcall, in which case enabling __stdcall support 
+			will result in duplicate definitions.
+		
+		Interface
+		Synopsis
+		
+namespace boost
+{
+template<class T> T * get_pointer(T * p);
+template<class R, class T> unspecified-1 mem_fn(R (T::*pmf) ());
+template<class R, class T> unspecified-2 mem_fn(R (T::*pmf) () const);
+template<class R, class T> unspecified-2-1 mem_fn(R T::*pm);
+template<class R, class T, class A1> unspecified-3 mem_fn(R (T::*pmf) (A1));
+template<class R, class T, class A1> unspecified-4 mem_fn(R (T::*pmf) (A1) const);
+template<class R, class T, class A1, class A2> unspecified-5 mem_fn(R (T::*pmf) (A1, A2));
+template<class R, class T, class A1, class A2> unspecified-6 mem_fn(R (T::*pmf) (A1, A2) const);
+// implementation defined number of additional overloads for more arguments
+}
+		Common requirements
+		
+			All unspecified-N types mentioned in the Synopsis are CopyConstructible
+			and Assignable. Their copy constructors and assignment operators do not 
+			throw exceptions. unspecified-N::result_type is defined as the 
+			return type of the member function pointer passed as an argument to mem_fn
+			(R in the Synopsis.) unspecified-2-1::result_type is 
+			defined as R.
+		
+		get_pointer
+		template<class T> T * get_pointer(T * p)
+		
+			
+				Returns: p.
+			
+			
+				Throws: Nothing.
+			
+		
+		mem_fn
+		template<class R, class T> unspecified-1 mem_fn(R 
+				(T::*pmf) ())
+		
+			
+				Returns: a function object f such that the expression f(t)
+				is equivalent to (t.*pmf)() when t is an l-value of type T 
+				or derived, (get_pointer(t)->*pmf)() otherwise.
+			
+			
+				Throws: Nothing.
+			
+		
+		template<class R, class T> unspecified-2 mem_fn(R 
+				(T::*pmf) () const)
+		
+			
+				Returns: a function object f such that the expression f(t)
+				is equivalent to (t.*pmf)() when t is of type T
+				[const] or derived, (get_pointer(t)->*pmf)()
+				otherwise.
+			
+			
+				Throws: Nothing.
+			
+		
+		template<class R, class T> unspecified-2-1 mem_fn(R 
+				T::*pm)
+		
+			
+				Returns: a function object f such that the expression f(t)
+				is equivalent to t.*pm when t is of type T [const]
+					or derived, get_pointer(t)->*pm otherwise.
+			
+			
+				Throws: Nothing.
+			
+		
+		template<class R, class T, class A1> unspecified-3 mem_fn(R 
+				(T::*pmf) (A1))
+		
+			
+				Returns: a function object f such that the expression f(t, a1)
+				is equivalent to (t.*pmf)(a1) when t is an l-value of type T
+				or derived, (get_pointer(t)->*pmf)(a1) otherwise.
+			
+			
+				Throws: Nothing.
+			
+		
+		template<class R, class T, class A1> unspecified-4 mem_fn(R 
+				(T::*pmf) (A1) const)
+		
+			
+				Returns: a function object f such that the expression f(t, a1)
+				is equivalent to (t.*pmf)(a1) when t is of type T
+				[const] or derived, (get_pointer(t)->*pmf)(a1)
+				otherwise.
+			
+			
+				Throws: Nothing.
+			
+		
+		template<class R, class T, class A1, class A2> unspecified-5
+				mem_fn(R (T::*pmf) (A1, A2))
+		
+			
+				Returns: a function object f such that the expression f(t, a1, a2)
+				is equivalent to (t.*pmf)(a1, a2) when t is an l-value of type 
+					T or derived, (get_pointer(t)->*pmf)(a1, a2) otherwise.
+			
+			
+				Throws: Nothing.
+			
+		
+		template<class R, class T, class A1, class A2> unspecified-6
+				mem_fn(R (T::*pmf) (A1, A2) const)
+		
+			
+				Returns: a function object f such that the expression f(t, a1, a2)
+				is equivalent to (t.*pmf)(a1, a2) when t is of type T
+				[const] or derived, (get_pointer(t)->*pmf)(a1, a2) otherwise.
+			
+			
+				Throws: Nothing.
+			
+		
+		Implementation
+		Files
+		
+			
+				boost/mem_fn.hpp
+			(main header)
+			
+				boost/bind/mem_fn_cc.hpp
+			(used by mem_fn.hpp, do not include directly)
+			
+				boost/bind/mem_fn_vw.hpp
+			(used by mem_fn.hpp, do not include directly)
+			
+				boost/bind/mem_fn_template.hpp
+			(used by mem_fn.hpp, do not include directly)
+			
+				libs/bind/test/mem_fn_test.cpp
+			(test)
+			
+				libs/bind/test/mem_fn_derived_test.cpp
+			(test with derived objects)
+			
+				libs/bind/test/mem_fn_fastcall_test.cpp
+			(test for __fastcall)
+			
+				libs/bind/test/mem_fn_stdcall_test.cpp
+			(test for __stdcall)
+			
+				libs/bind/test/mem_fn_void_test.cpp (test 
+				for void returns)
+		
+		Dependencies
+		
+			
+				Boost.Config
+		
+		Number of Arguments
+		
+			This implementation supports member functions with up to eight arguments. This 
+			is not an inherent limitation of the design, but an implementation detail.
+		
+		"__stdcall", "__cdecl" and "__fastcall" Support
+		
+			Some platforms allow several types of member functions that differ by their calling 
+				convention (the rules by which the function is invoked: how are 
+			arguments passed, how is the return value handled, and who cleans up the stack 
+			- if any.)
+		
+		
+			For example, Windows API functions and COM interface member functions use a 
+			calling convention known as __stdcall. Borland VCL components use __fastcall. 
+			UDK, the component model of OpenOffice.org, uses __cdecl.
+		
+		
+			To use mem_fn with __stdcall member functions, #define the 
+			macro BOOST_MEM_FN_ENABLE_STDCALL before including, directly or 
+			indirectly, <boost/mem_fn.hpp>.
+		
+		To use mem_fn with __fastcall member functions, #define the 
+			macro BOOST_MEM_FN_ENABLE_FASTCALL before including <boost/mem_fn.hpp>.
+		
+		To use mem_fn with __cdecl member functions, #define the 
+			macro BOOST_MEM_FN_ENABLE_CDECL before including <boost/mem_fn.hpp>.
+		
+		It is best to define these macros in the project options, via -D on the 
+				command line, or as the first line in the translation unit (.cpp file) where 
+				mem_fn is used. Not following this rule can lead to obscure errors 
+			when a header includes mem_fn.hpp before the macro has been defined.
+		[Note: this is a non-portable extension. It is not part of the interface.]
+		
+		
+			[Note: Some compilers provide only minimal support for the __stdcall keyword.]
+		
+		Acknowledgements
+		
+			Rene Jager's initial suggestion of using traits classes to make mem_fn adapt 
+			to user-defined smart pointers inspired the get_pointer-based design.
+		
+		
+			Numerous improvements were suggested during the formal review period by Richard 
+			Crossley, Jens Maurer, Ed Brey, and others. Review manager was Darin Adler.
+		
+		
+			Steve Anichini pointed out that COM interfaces use __stdcall.
+		
+		
+			Dave Abrahams modified bind and mem_fn to support void returns on 
+			deficient compilers.
+		
+		Daniel Boelzle pointed out that UDK uses __cdecl.
+			
+			
+			Copyright © 2001, 2002 by Peter Dimov and Multi Media Ltd. Copyright 
+				2003-2005 Peter Dimov. Distributed under the Boost Software License, Version 
+				1.0. See accompanying file LICENSE_1_0.txt or 
+				copy at http://www.boost.org/LICENSE_1_0.txt.
+	

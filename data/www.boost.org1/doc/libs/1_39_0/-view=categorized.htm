@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Boost 1.39.0 Library Documentation
+  
+  
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  
+    
+      
+        
+          
+            
+              Boost 1.39.0 Library Documentation
+            
+            
+              
+                  
+                    
+                    All Categorized Condensed                     Standard Proposals TR1 libraries                     
+                  
+                  
+                    Sort by:
+                    
+                    Name First Release                     
+                  
+              
+              
+              By Category
+              
+String and text processingConversion: Polymorphic and lexical casts.
+Format: The format library provides a class for formatting arguments according to a format-string, as does printf, but with two major differences: format sends the arguments to an internal stream, and so is entirely type-safe and naturally supports all user-defined types; the ellipsis (...) can not be used correctly in the strongly typed context of format, and thus the function call with arbitrary arguments is replaced by successive calls to an argument feeding operator%.
+Iostreams: Boost.IOStreams provides a framework for defining streams, stream buffers and i/o filters.
+Lexical Cast: General literal text conversions, such as an int represented a string, or vice-versa.
+Regex: Regular expression library.
+Spirit: LL parser framework represents parsers directly as EBNF grammars in inlined C++.
+String Algo: String algorithms library.
+Tokenizer: Break of a string or other character sequence into a series of tokens.
+Wave: The Boost.Wave library is a Standards conformant, and highly configurable implementation of the mandated C99/C++ preprocessor functionality packed behind an easy to use iterator interface.
+Xpressive: Regular expressions that can be written as strings or as expression templates, and which can refer to each other and themselves recursively with the power of context-free grammars.
+ContainersArray: STL compliant container wrapper for arrays of constant size.
+Bimap: Bidirectional maps library for C++. With Boost.Bimap you can create associative containers in which both types can be used as key.
+Circular Buffer: A STL compliant container also known as ring or cyclic buffer.
+Dynamic Bitset: The dynamic_bitset class represents a set of bits. It provides accesses to the value of individual bits via an operator[] and provides all of the bitwise operators that one can apply to builtin integers, such as operator& and operator<<. The number of bits in the set is specified at runtime via a parameter to the constructor of the dynamic_bitset.
+GIL: Generic Image Library
+Graph: The BGL graph interface and graph components are generic, in the same sense as the the Standard Template Library (STL).
+Intrusive: Intrusive containers and algorithms.
+Multi-Array: Boost.MultiArray provides a generic N-dimensional array concept definition and common implementations of that interface.
+Multi-Index: The Boost Multi-index Containers Library provides a class template named multi_index_container which enables the construction of containers maintaining one or more indices with different sorting and access semantics.
+Pointer Container: Containers for storing heap-allocated polymorphic objects to ease OO-programming.
+Property Map: Concepts defining interfaces which map key objects to value objects.
+Unordered: Unordered associative containers.
+Variant: Safe, generic, stack-based discriminated union container.
+IteratorsGIL: Generic Image Library
+Graph: The BGL graph interface and graph components are generic, in the same sense as the the Standard Template Library (STL).
+Iterator: The Boost Iterator Library contains two parts. The first is a system of concepts which extend the C++ standard iterator requirements. The second is a framework of components for building iterators based on these extended concepts and includes several useful iterator adaptors.
+Operators: Templates ease arithmetic classes and iterators.
+Tokenizer: Break of a string or other character sequence into a series of tokens.
+AlgorithmsForeach: In C++, writing a loop that iterates over a sequence is tedious. We can either use iterators, which requires a considerable amount of boiler-plate, or we can use the std::for_each() algorithm and move our loop body into a predicate, which requires no less boiler-plate and forces us to move our logic far from where it will be used. In contrast, some other languages, like Perl, provide a dedicated "foreach" construct that automates this process. BOOST_FOREACH is just such a construct for C++. It iterates over sequences for us, freeing us from having to deal directly with iterators or write predicates.
+GIL: Generic Image Library
+Graph: The BGL graph interface and graph components are generic, in the same sense as the the Standard Template Library (STL).
+Min-Max: Standard library extensions for simultaneous min/max and min/max element computations.
+Range: A new infrastructure for generic algorithms that builds on top of the new iterator concepts.
+String Algo: String algorithms library.
+Utility: Class noncopyable plus checked_delete(), checked_array_delete(), next(), prior() function templates, plus base-from-member idiom.
+Function objects and higher-order programmingBind: boost::bind is a generalization of the standard functions std::bind1st and std::bind2nd. It supports arbitrary function objects, functions, function pointers, and member function pointers, and is able to bind any argument to a specific value or route input arguments into arbitrary positions.
+Function: Function object wrappers for deferred calls or callbacks.
+Functional: The Boost.Function library contains a family of class templates that are function object wrappers.
+Functional/Hash: A TR1 hash function object that can be extended to hash user defined types.
+Lambda: Define small unnamed function objects at the actual call site, and more.
+Member Function: Generalized binders for function/object/pointers and member functions.
+Ref: A utility library for passing references to generic functions.
+Result Of: Determines the type of a function call expression.
+Signals: Managed signals & slots callback implementation.
+Signals2: Managed signals & slots callback implementation (thread-safe version 2).
+Utility: Class noncopyable plus checked_delete(), checked_array_delete(), next(), prior() function templates, plus base-from-member idiom.
+Generic ProgrammingCall Traits: Defines types for passing parameters.
+Concept Check: Tools for generic programming.
+Enable If: Selective inclusion of function template overloads.
+Function Types: Boost.FunctionTypes provides functionality to classify, decompose and synthesize function, function pointer, function reference and pointer to member types.
+GIL: Generic Image Library
+In Place Factory, Typed In Place Factory: Generic in-place construction of contained objects with a variadic argument-list.
+Operators: Templates ease arithmetic classes and iterators.
+Property Map: Concepts defining interfaces which map key objects to value objects.
+Static Assert: Static assertions (compile time assertions).
+Type Traits: Templates for fundamental properties of types.
+Template  MetaprogrammingFunction Types: Boost.FunctionTypes provides functionality to classify, decompose and synthesize function, function pointer, function reference and pointer to member types.
+Fusion: Library for working with tuples, including various containers, algorithms, etc.
+MPL: The Boost.MPL library is a general-purpose, high-level C++ template metaprogramming framework of compile-time algorithms, sequences and metafunctions. It provides a conceptual foundation and an extensive set of powerful and coherent tools that make doing explict metaprogramming in C++ as easy and enjoyable as possible within the current language.
+Proto: Expression template library and compiler construction toolkit for domain-specific embedded languages.
+Static Assert: Static assertions (compile time assertions).
+Type Traits: Templates for fundamental properties of types.
+Preprocessor MetaprogrammingPreprocessor: Preprocessor metaprogramming tools including repetition and recursion.
+Concurrent ProgrammingAsio: Portable networking, including sockets, timers, hostname resolution and socket iostreams.
+Interprocess: Shared memory, memory mapped files, process-shared mutexes, condition variables, containers and allocators.
+MPI: Message Passing Interface library, for use in distributed-memory parallel application programming.
+Thread: Portable C++ multi-threading.
+Math and numericsAccumulators: Framework for incremental calculation, and collection of statistical accumulators.
+Integer: The organization of boost integer headers and classes is designed to take advantage of <stdint.h> types from the 1999 C standard without resorting to undefined behavior in terms of the 1998 C++ standard. The header <boost/cstdint.hpp> makes the standard integer types safely available in namespace boost without placing any names in namespace std.
+Interval: Extends the usual arithmetic functions to mathematical intervals.
+Math: Boost.Math includes several contributions in the domain of mathematics: The Greatest Common Divisor and Least Common Multiple library provides run-time and compile-time evaluation of the greatest common divisor (GCD) or least common multiple (LCM) of two integers. The Special Functions library currently provides eight templated special functions, in namespace boost. The Complex Number Inverse Trigonometric Functions are the inverses of trigonometric functions currently present in the C++ standard. Quaternions are a relative of complex numbers often used to parameterise rotations in three dimentional space. Octonions, like quaternions, are a relative of complex numbers.
+Math Common Factor: Greatest common divisor and least common multiple.
+Math Octonion: Octonions.
+Math Quaternion: Quaternions.
+Math/Special Functions: A wide selection of mathematical special functions.
+Math/Statistical Distributions: A wide selection of univariate statistical distributions and functions that operate on them.
+Multi-Array: Boost.MultiArray provides a generic N-dimensional array concept definition and common implementations of that interface.
+Numeric Conversion: Optimized Policy-based Numeric Conversions.
+Operators: Templates ease arithmetic classes and iterators.
+Random: A complete system for random number generation.
+Rational: A rational number class.
+uBLAS: uBLAS provides matrix and vector classes as well as basic linear algebra routines. Several dense, packed and sparse storage schemes are supported.
+Correctness and testingConcept Check: Tools for generic programming.
+Static Assert: Static assertions (compile time assertions).
+Test: Support for simple program testing, full unit testing, and for program execution monitoring.
+Data structuresAny: Safe, generic container for single values of different value types.
+Bimap: Bidirectional maps library for C++. With Boost.Bimap you can create associative containers in which both types can be used as key.
+Compressed Pair: Empty member optimization.
+Fusion: Library for working with tuples, including various containers, algorithms, etc.
+Multi-Index: The Boost Multi-index Containers Library provides a class template named multi_index_container which enables the construction of containers maintaining one or more indices with different sorting and access semantics.
+Pointer Container: Containers for storing heap-allocated polymorphic objects to ease OO-programming.
+Tuple: Ease definition of functions returning multiple values, and more.
+Variant: Safe, generic, stack-based discriminated union container.
+Domain SpecificCRC: The Boost CRC Library provides two implementations of CRC (cyclic redundancy code) computation objects and two implementations of CRC computation functions. The implementations are template-based.
+Date Time: A set of date-time libraries based on generic programming concepts.
+Units: Zero-overhead dimensional analysis and unit/quantity manipulation and conversion.
+Image processingGIL: Generic Image Library
+Input/OutputAsio: Portable networking, including sockets, timers, hostname resolution and socket iostreams.
+Assign: Filling containers with constant or generated data has never been easier.
+Format: The format library provides a class for formatting arguments according to a format-string, as does printf, but with two major differences: format sends the arguments to an internal stream, and so is entirely type-safe and naturally supports all user-defined types; the ellipsis (...) can not be used correctly in the strongly typed context of format, and thus the function call with arbitrary arguments is replaced by successive calls to an argument feeding operator%.
+IO State Savers: The I/O sub-library of Boost helps segregate the large number of Boost headers. This sub-library should contain various items to use with/for the standard I/O library.
+Iostreams: Boost.IOStreams provides a framework for defining streams, stream buffers and i/o filters.
+Program Options: The program_options library allows program developers to obtain program options, that is (name, value) pairs from the user, via conventional methods such as command line and config file.
+Serialization: Serialization for persistence and marshalling.
+Inter-language supportPython: The Boost Python Library is a framework for interfacing Python and C++. It allows you to quickly and seamlessly expose C++ classes functions and objects to Python, and vice-versa, using no special tools -- just your C++ compiler.
+Language Features EmulationException: The Boost Exception library supports transporting of arbitrary data in exception objects, and transporting of exceptions between threads.
+Foreach: In C++, writing a loop that iterates over a sequence is tedious. We can either use iterators, which requires a considerable amount of boiler-plate, or we can use the std::for_each() algorithm and move our loop body into a predicate, which requires no less boiler-plate and forces us to move our logic far from where it will be used. In contrast, some other languages, like Perl, provide a dedicated "foreach" construct that automates this process. BOOST_FOREACH is just such a construct for C++. It iterates over sequences for us, freeing us from having to deal directly with iterators or write predicates.
+Parameter: Boost.Parameter Library - Write functions that accept arguments by name.
+Scope Exit: Execute arbitrary code at scope exit.
+Typeof: Typeof operator emulation.
+MemoryPool: Memory pool management.
+Smart Ptr: Smart pointer class templates.
+Utility: Class noncopyable plus checked_delete(), checked_array_delete(), next(), prior() function templates, plus base-from-member idiom.
+ParsingSpirit: LL parser framework represents parsers directly as EBNF grammars in inlined C++.
+Patterns and IdiomsCompressed Pair: Empty member optimization.
+Flyweight: Design pattern to manage large quantities of highly redundant objects.
+Signals: Managed signals & slots callback implementation.
+Signals2: Managed signals & slots callback implementation (thread-safe version 2).
+Utility: Class noncopyable plus checked_delete(), checked_array_delete(), next(), prior() function templates, plus base-from-member idiom.
+Programming InterfacesFunction: Function object wrappers for deferred calls or callbacks.
+Parameter: Boost.Parameter Library - Write functions that accept arguments by name.
+State MachinesStatechart: Boost.Statechart - Arbitrarily complex finite state machines can be implemented in easily readable and maintainable C++ code.
+SystemDate Time: A set of date-time libraries based on generic programming concepts.
+Filesystem: The Boost Filesystem Library provides portable facilities to query and manipulate paths, files, and directories.
+System: Operating system support, including the diagnostics support that will be part of the C++0x standard library.
+Thread: Portable C++ multi-threading.
+MiscellaneousConversion: Polymorphic and lexical casts.
+Lexical Cast: General literal text conversions, such as an int represented a string, or vice-versa.
+Numeric Conversion: Optimized Policy-based Numeric Conversions.
+Optional: Discriminated-union wrapper for optional values.
+Program Options: The program_options library allows program developers to obtain program options, that is (name, value) pairs from the user, via conventional methods such as command line and config file.
+Swap: Enhanced generic swap function.
+Timer: Event timer, progress timer, and progress display classes.
+TR1: The TR1 library provides an implementation of the C++ Technical Report on Standard Library Extensions. This library does not itself implement the TR1 components, rather it's a thin wrapper that will include your standard library's TR1 implementation (if it has one), otherwise it will include the Boost Library equivalents, and import them into namespace std::tr1.
+Tribool: 3-state boolean type library.
+Utility: Class noncopyable plus checked_delete(), checked_array_delete(), next(), prior() function templates, plus base-from-member idiom.
+Value Initialized: Wrapper for uniform-syntax value initialization, based on the original idea of David Abrahams.
+Broken compiler workaroundsCompatibility: Help for non-conforming standard libraries.
+Config: Helps Boost library developers adapt to compiler idiosyncrasies; not intended for library users.
+                          
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+  
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Revised $Date$
+      
+      
+        Copyright Beman Dawes, David Abrahams, 1998-2005.
+        Copyright Rene Rivera 2004-2005.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

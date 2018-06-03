@@ -1,0 +1,69 @@
+
+noncopyable - 1.62.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+noncopyable
+Header
+      <boost/core/noncopyable.hpp>
+Authors
+          Dave Abrahams
+        
+Header
+      <boost/core/noncopyable.hpp>
+        The header <boost/noncopyable.hpp>
+        defines the class boost::noncopyable. It is intended to be used
+        as a private base. boost::noncopyable
+        has private (under C++03) or deleted (under C++11) copy constructor and a
+        copy assignment operator and can't be copied or assigned; a class that derives
+        from it inherits these properties.
+      
+        boost::noncopyable was originally contributed
+        by Dave Abrahams.
+      
+Synopsis
+namespace boost
+{
+    class noncopyable;
+}
+Example
+#include <boost/core/noncopyable.hpp>
+class X: private boost::noncopyable
+{
+};
+Rationale
+          Class noncopyable has protected constructor and destructor members to emphasize
+          that it is to be used only as a base class. Dave Abrahams notes concern
+          about the effect on compiler optimization of adding (even trivial inline)
+          destructor declarations. He says:
+        
+          Probably this concern is misplaced, because noncopyable
+          will be used mostly for classes which own resources and thus have non-trivial
+          destruction semantics.
+        
+          With C++2011, using an optimized and trivial constructor and similar destructor
+          can be enforced by declaring both and marking them default.
+          This is done in the current implementation.
+        
+Copyright  2014 Peter Dimov
+Copyright  2014 Glen Fernandes
+Copyright  2014 Andrey Semashev
+        Distributed under the Boost
+        Software License, Version 1.0.
+      

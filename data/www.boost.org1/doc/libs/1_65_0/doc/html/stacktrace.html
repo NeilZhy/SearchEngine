@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 37. Boost.Stacktrace 1.0 - 1.65.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 37. Boost.Stacktrace 1.0
+Copyright  2016, 2017 Antony Polukhin
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Motivation
+Getting Started
+How
+      to print current call stack
+Handle
+      terminates, aborts and Segmentation Faults
+Better asserts
+Exceptions
+      with stacktrace
+Enabling
+      and disabling stacktraces
+Saving
+      stacktraces by specified format
+Getting
+      function information from pointer
+Global
+      control over stacktrace output format
+Configuration and Build
+Acknowledgements
+Reference
+Header <boost/stacktrace/stacktrace.hpp>
+Header <boost/stacktrace/detail/frame_decl.hpp>
+Header <boost/stacktrace/frame.hpp>
+Header <boost/stacktrace/safe_dump_to.hpp>
+Header <boost/stacktrace/stacktrace_fwd.hpp>
+Motivation
+      How can one display the call sequence in C++? What function called the current
+      function? What call sequence led to an exception?
+    
+      Boost.Stacktrace library is a simple C++03 library that provides information
+      about call sequence in a human-readable form.
+    
+Last revised: August 19, 2017 at 16:57:02 GMT

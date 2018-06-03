@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	transporting of exceptions between threads - 1.62.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Transporting of Exceptions Between Threads
+Boost Exception supports transporting of exception objects between threads through cloning. This system is similar to N2179, but because Boost Exception can not rely on language support, the use of enable_current_exception at the time of the throw is required in order to use cloning.
+Note:
+All exceptions emitted by the familiar function boost::throw_exception are guaranteed to derive from boost::exception and to support cloning.
+Using enable_current_exception at the Time of the Throw
+Here is how cloning can be enabled in a throw-expression (15.1):
+#include <boost/exception/info.hpp>
+#include <boost/exception/errinfo_errno.hpp>
+#include <stdio.h>
+#include <errno.h>
+struct file_read_error: virtual boost::exception { };
+void
+file_read( FILE * f, void * buffer, size_t size )
+    {
+    if( size!=fread(buffer,1,size,f) )
+        throw boost::enable_current_exception(file_read_error()) <<
+            boost::errinfo_errno(errno);
+    }
+Of course, enable_current_exception may be used with any exception type; there is no requirement that it should derive from boost::exception.
+Cloning and Re-Throwing an Exception
+When you catch an exception, you can call current_exception to get an exception_ptr object:
+#include <boost/exception_ptr.hpp>
+#include <boost/thread.hpp>
+#include <boost/bind.hpp>
+void do_work(); //throws cloning-enabled boost::exceptions
+void
+worker_thread( boost::exception_ptr & error )
+    {
+    try
+        {
+        do_work();
+        error = boost::exception_ptr();
+        }
+    catch(
+    ... )
+        {
+        error = boost::current_exception();
+        }
+    }
+In the above example, note that current_exception captures the original type of the exception object. The exception can be thrown again using the rethrow_exception function:
+// ...continued
+void
+work()
+    {
+    boost::exception_ptr error;
+    boost::thread t( boost::bind(worker_thread,boost::ref(error)) );
+    t.join();
+    if( error )
+        boost::rethrow_exception(error);
+    }
+Note that current_exception could fail to copy the original exception object in the following cases:
+ if there is not enough memory, in which case the returned exception_ptr points to an instance of std::bad_alloc, or
+ if enable_current_exception was not used in the throw-expression passed to the original throw statement and the current implementation does not have the necessary compiler-specific support to copy the exception automatically, in which case the returned exception_ptr points to an instance of unknown_exception.
+Regardless, the use of current_exception and rethrow_exception in the above examples is well-formed.
+See also: Boost Exception
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

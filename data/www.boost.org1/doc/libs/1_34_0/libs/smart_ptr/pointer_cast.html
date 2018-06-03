@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+	
+		pointer_cast.hpp - 1.34.0
+	
+	  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of boost.
+                Click here for the latest Boost documentation.
+		Pointer 
+			cast functions
+		The pointer cast functions (boost::static_pointer_cast boost::dynamic_pointer_cast
+			boost::reinterpret_pointer_cast boost::const_pointer_cast) 
+			provide a way to write generic pointer castings for raw pointers. The functions 
+			are defined in boost/pointer_cast.hpp.
+		There is test/example code in pointer_cast_test.cpp.
+			Rationale
+		Boost smart pointers usually overload those functions to provide a mechanism to 
+			emulate pointers casts. For example, boost::shared_ptr<...> implements 
+			a static pointer cast this way:
+		
+template<class T, class U>
+    shared_ptr<T> static_pointer_cast(shared_ptr<U> const &r);
+		Pointer cast functions from boost/pointer_cast.hpp
+			are overloads of boost::static_pointer_cast, boost::dynamic_pointer_cast,
+			boost::reinterpret_pointer_cast and boost::const_pointer_cast
+			for raw pointers. This way when developing pointer type independent classes, 
+			for example, memory managers or shared memory compatible classes, the same code 
+			can be used for raw and smart pointers.
+			Synopsis
+			
+				
+namespace boost {
+template<class T, class U>
+inline T* static_pointer_cast(U *ptr)
+  { return static_cast<T*>(ptr); }
+template<class T, class U>
+inline T* dynamic_pointer_cast(U *ptr)
+  { return dynamic_cast<T*>(ptr); }
+template<class T, class U>
+inline T* const_pointer_cast(U *ptr)
+  { return const_cast<T*>(ptr); }
+template<class T, class U>
+inline T* reinterpret_pointer_cast(U *ptr)
+  { return reinterpret_cast<T*>(ptr); }
+  
+} // namespace boost
+			
+		As you can see from the above synopsis, the pointer cast functions are just 
+			wrappers around standard C++ cast operators.
+		Example
+		
+			
+#include <boost/pointer_cast.hpp>
+#include <boost/shared_ptr.hpp>
+class base
+{
+public:
+   virtual ~base()
+   {
+   }
+};
+class derived: public base
+{
+};
+template <class BasePtr>
+void check_if_it_is_derived(const BasePtr &ptr)
+{
+   assert(boost::dynamic_pointer_cast<derived>(ptr) != 0);
+}
+int main()
+{
+   // Create a raw and a shared_ptr
+   base *ptr = new derived;
+   boost::shared_ptr<base> sptr(new derived);
+   
+   // Check that base pointer points actually to derived class
+   check_if_it_is_derived(ptr);
+   check_if_it_is_derived(sptr);
+   
+   // Ok!
+   
+   delete ptr;
+   return 0;
+}
+		
+		The example demonstrates how the generic pointer casts help us create pointer 
+			independent code.
+		
+		Revised: $Date: 2005/12/06 13:26:13 $
+		Copyright 2005 Ion Gaztañaga. Use, modification, and distribution are subject to 
+			the Boost Software License, Version 1.0. (See accompanying file 
+				LICENSE_1_0.txt or a copy at <http://www.boost.org/LICENSE_1_0.txt>.)
+	

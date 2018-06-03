@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 27. Boost.Program_options - 1.62.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 27. Boost.Program_options
+Vladimir Prus
+Copyright  2002-2004 Vladimir Prus
+Distributed under the Boost Software License, Version 1.0.
+      (See accompanying file LICENSE_1_0.txt or copy at 
+      http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Introduction
+Tutorial
+Getting Started
+Option Details
+Multiple Sources
+Library Overview
+Options Description Component
+Parsers Component
+Storage Component
+Specific parsers
+Annotated List of Symbols
+How To
+Non-conventional Syntax
+Response Files
+Winmain Command Line
+Option Groups and Hidden Options
+Custom Validators
+Unicode Support
+Allowing Unknown Options
+Design Discussion
+Unicode Support
+Acknowledgements
+Reference
+Header <boost/program_options/cmdline.hpp>
+Header <boost/program_options/config.hpp>
+Header <boost/program_options/environment_iterator.hpp>
+Header <boost/program_options/eof_iterator.hpp>
+Header <boost/program_options/errors.hpp>
+Header <boost/program_options/option.hpp>
+Header <boost/program_options/options_description.hpp>
+Header <boost/program_options/parsers.hpp>
+Header <boost/program_options/positional_options.hpp>
+Header <boost/program_options/value_semantic.hpp>
+Header <boost/program_options/variables_map.hpp>
+Header <boost/program_options/version.hpp>
+Introduction
+The program_options library allows program developers to obtain
+    program options, that is (name, value) pairs from the user,
+    via conventional methods such as command line and config file.
+Why would you use such a library, and why is it better than parsing
+    your command line by straightforward hand-written code?
+      
+It's easier. The syntax for declaring options is simple, and
+          the library itself is small. Things like conversion of option values to
+          desired type and storing into program variables are handled
+          automatically.
+          
+Error reporting is better. All the problems with the command line are
+            reported, while hand-written code can just misparse the input. In
+            addition, the usage message can be automatically generated, to
+            avoid falling out of sync with the real list of options.
+Options can be read from anywhere. Sooner or later the command
+          line will be not enough for your users, and you'll want config files
+          or maybe even environment variables. These can be added without significant 
+          effort on your part.
+          
+    
+      Now let's see some examples of the library usage in the the section called Tutorial.
+    

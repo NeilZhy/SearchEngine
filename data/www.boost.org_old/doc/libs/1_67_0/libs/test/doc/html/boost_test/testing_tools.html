@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Writing unit tests - 1.67.0</title>
+<link rel="stylesheet" href="../../../../../../release/libs/atomic/boostbook.css" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="../index.html" title="Boost.Test">
+<link rel="up" href="../index.html" title="Boost.Test">
+<link rel="prev" href="tests_organization/summary_of_the_api_for_declaring.html" title="Summary of the API for declaring and organizing tests">
+<link rel="next" href="testing_tools/tools_assertion_severity_level.html" title="Assertion severity level">
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/config/10173  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/config/10173'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/tests_organization/summary_of_the_api_for_declaring.html"><img src="../../../../../../release/libs/beast/prev.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html"><img src="../../../../../../release/libs/beast/up.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html"><img src="../../../../../../release/libs/beast/home.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9785  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9785'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/tools_assertion_severity_level.html"><img src="../../../../../../release/libs/beast/next.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_test.testing_tools"></a><a class="link" href="testing_tools.html" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools.html" title="Writing unit tests">Writing unit tests</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9785  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9785'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/tools_assertion_severity_level.html">Assertion
+      severity level</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/10460  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/10460'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/boost_test_universal_macro.html">BOOST_TEST:
+      universal and general purpose assertions</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/6227  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/6227'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/reports.html">Reported information</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/10298  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/10298'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison.html">Extended
+      comparisons support</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/circular_buffer/10300  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/circular_buffer/10300'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison/floating_point.html">Floating
+        point comparison</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/interprocess/10552  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/interprocess/10552'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison/floating_point/customizing_for_tolerance.html">Enabling
+          tolerance for user-defined types</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/interprocess/6782  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/interprocess/6782'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison/floating_point/floating_points_comparison_impl.html">Tolerance-based
+          comparisons</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_54_0/libs/interprocess/9307  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_54_0/libs/interprocess/9307'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison/floating_point/floating_points_comparison_theory.html">Theory
+          behind floating point comparisons</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/circular_buffer/strings.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/circular_buffer/strings.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison/strings.html">Strings
+        and C-strings comparison</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/circular_buffer/collections.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/circular_buffer/collections.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison/collections.html">Collections
+        comparison</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/circular_buffer/9308  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/circular_buffer/9308'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/extended_comparison/bitwise.html">Bitwise
+        comparison</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9310  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9310'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/exception_correctness.html">Exception
+      correctness</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9425  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9425'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/timeout.html">Time-out for test cases</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9558  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9558'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/expected_failures.html">Expected
+      failures specification</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9787  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9787'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/custom_predicates.html">Custom predicate
+      support</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9880  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9880'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/output_stream_testing.html">Output
+      streams testing tool</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/10159  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/10159'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/internal_details.html"><code class="computeroutput"><span class="identifier">BOOST_TEST</span></code>: details on expressions</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/6712  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/6712'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/debugging.html">Debugging the assertions</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/summary.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/summary.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/summary.html">Summary of the API
+      for writing tests</a></span></dt>
+</dl></div>
+<p>
+      Once a test case has been declared, the body of this test should be written.
+      A test case is a sequence of operations in which <span class="bold"><strong>assertions</strong></span>
+      are inserted. Those assertions evaluate <span class="emphasis"><em>statements</em></span> that
+      implement the expectation being validated, and report failures and/or informations
+      in a uniform manner, depending on the <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/bimap/10196  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/bimap/10196'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/utf_reference/rt_param_reference/log_level.html" title="log_level">log
+      level</a>.
+    </p>
+<p>
+      The <span class="emphasis"><em>Unit Test Framework</em></span>'s supplies a toolbox of assertions
+      to ease the creation and maintenance of test cases and provide a uniform error
+      reporting mechanism. The toolbox supplied is in most part in a form of macro
+      declarations. An (almost) unique interface to all of them implemented by the
+      macro <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/chrono/assertion_boost_test_universal_macro.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/chrono/assertion_boost_test_universal_macro.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/utf_reference/testing_tool_ref/assertion_boost_test_universal_macro.html" title="BOOST_TEST"><code class="computeroutput"><span class="identifier">BOOST_TEST</span></code></a>.
+    </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../release/libs/beast/2921" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        All macros arguments are calculated once, so it's safe to pass complex expressions
+        in their place.
+      </p></td></tr>
+</table></div>
+<p>
+      All tools automatically supply an error location: a file name and a line number,
+      which can also be overridden.
+    </p>
+<div class="caution"><table border="0" summary="Caution">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Caution]" src="../../../../../../release/libs/beast/10296" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/caution.png"></td>
+<th align="left">Caution</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        The testing tools are intended for unit test code rather than library or
+        production code, where throwing exceptions, using <code class="computeroutput"><span class="identifier">assert</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">concept_check</span></code>
+        or <code class="computeroutput"><span class="identifier">BOOST_STATIC_ASSERT</span><span class="special">()</span></code>
+        may be more suitable ways to detect and report errors.
+      </p></td></tr>
+</table></div>
+<p>
+      For a list of all supplied testing tools and usage examples, see the <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/summary.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/summary.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/summary.html" title="Summary of the API for writing tests">summary</a> or the <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/crc/10297  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/crc/10297'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/utf_reference/testing_tool_ref.html" title="Reference API for writing tests">reference</a>.
+    </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2001-2018 Boost.Test contributors<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="../../../../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/config/10173  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/config/10173'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/tests_organization/summary_of_the_api_for_declaring.html"><img src="../../../../../../release/libs/beast/prev.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html"><img src="../../../../../../release/libs/beast/up.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_67_0/libs/atomic/index.html'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html"><img src="../../../../../../release/libs/beast/home.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9785  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_53_0/libs/dynamic_bitset/9785'" tppabs="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/boost_test/testing_tools/tools_assertion_severity_level.html"><img src="../../../../../../release/libs/beast/next.png" tppabs="https://www.boost.org/doc/libs/1_67_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

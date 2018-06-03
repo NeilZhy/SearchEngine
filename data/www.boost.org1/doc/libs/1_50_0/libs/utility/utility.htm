@@ -1,0 +1,302 @@
+
+	
+		
+		Header boost/utility.hpp Documentation - 1.50.0
+	
+	  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+		Header
+			boost/utility.hpp
+		The entire contents of the header <boost/utility.hpp>
+			are in namespace boost.
+		Contents
+		
+			
+				Class templates supporting the base-from-member 
+					idiom
+			
+				Function templates checked_delete() and 
+					checked_array_delete()
+			
+				Function templates next() and prior()
+			
+				Class noncopyable
+			
+				Function template addressof()
+                        Class template result_of
+                        
+				Macro BOOST_BINARY
+                        Other utilities not part of utility.hpp
+		
+		
+			Function templates checked_delete() and 
+			checked_array_delete()
+		See separate documentation.
+		
+			Function templates next() and prior()
+		Certain data types, such as the C++ Standard Library's forward and bidirectional 
+			iterators, do not provide addition and subtraction via operator+() or 
+			operator-().  This means that non-modifying computation of the next or 
+			prior value requires a temporary, even though operator++() or operator--() is 
+			provided.  It also means that writing code like itr+1 inside 
+			a template restricts the iterator category to random access iterators.
+		The next() and prior() functions provide a simple way around these problems:
+		
+			template <class T>
+T next(T x) { return ++x; }
+template <class T, class Distance>
+T next(T x, Distance n)
+{
+    std::advance(x, n);
+    return x;
+}
+template <class T>
+T prior(T x) { return --x; }
+template <class T, class Distance>
+T prior(T x, Distance n)
+{
+    std::advance(x, -n);
+    return x;
+}
+		
+		Usage is simple:
+		
+			const std::list<T>::iterator p = get_some_iterator();
+const std::list<T>::iterator prev = boost::prior(p);
+const std::list<T>::iterator next = boost::next(prev, 2);
+		
+                The distance from the given iterator should be supplied as an absolute value. For
+			example, the iterator four iterators prior to the given iterator p
+			may be obtained by prior(p, 4).
+		Contributed by Dave Abrahams.  Two-argument versions by Daniel Walker.
+		Class noncopyable
+		Class noncopyable is a base class.  Derive your own class 
+			from noncopyable when you want to prohibit copy construction 
+			and copy assignment.
+		Some objects, particularly those which hold complex resources like files or 
+			network connections, have no sensible copy semantics.  Sometimes there are 
+			possible copy semantics, but these would be of very limited usefulness and be 
+			very difficult to implement correctly.  Sometimes you're implementing a 
+			class that doesn't need to be copied just yet and you don't want to take the 
+			time to write the appropriate functions.  Deriving from noncopyable 
+			will prevent the otherwise implicitly-generated functions (which don't have the 
+			proper semantics) from becoming a trap for other programmers.
+		The traditional way to deal with these is to declare a private copy constructor 
+			and copy assignment, and then document why this is done.  But deriving 
+			from noncopyable is simpler and clearer, and doesn't require additional 
+			documentation.
+		The program noncopyable_test.cpp can be used 
+			to verify class noncopyable works as expected. It has have been run 
+			successfully under GCC 2.95, Metrowerks CodeWarrior 5.0, and Microsoft Visual 
+			C++ 6.0 sp 3.
+		Contributed by Dave Abrahams.
+		Example
+		
+			// inside one of your own headers ...
+#include <boost/utility.hpp>
+class ResourceLadenFileSystem : boost::noncopyable {
+...
+		
+		Rationale
+		Class noncopyable has protected constructor and destructor members to emphasize 
+			that it is to be used only as a base class.  Dave Abrahams notes concern 
+			about the effect on compiler optimization of adding (even trivial inline) 
+			destructor declarations. He says "Probably this concern is misplaced, 
+			because noncopyable will be used mostly for classes which own resources and 
+			thus have non-trivial destruction semantics."
+		Function template addressof()
+		Function addressof() returns the address of an object.
+		
+			template <typename T> inline T*                addressof(T& v);
+template <typename T> inline const T*          addressof(const T& v);
+template <typename T> inline volatile T*       addressof(volatile T& v);
+template <typename T> inline const volatile T* addressof(const volatile T& v);
+		
+		C++ allows programmers to replace the unary operator&() class 
+			member used to get the address of an object. Getting the real address of an 
+			object requires ugly casting tricks to avoid invoking the overloaded operator&(). 
+			Function addressof() provides a wrapper around the necessary 
+			code to make it easy to get an object's real address.
+		
+		The program addressof_test.cpp can be used to 
+			verify that addressof() works as expected.
+		Contributed by Brad King based on ideas from discussion with Doug Gregor.
+		Example
+		
+			#include <boost/utility.hpp>
+struct useless_type {};
+class nonaddressable {
+  useless_type operator&() const;
+};
+void f() {
+  nonaddressable x;
+  nonaddressable* xp = boost::addressof(x);
+  // nonaddressable* xpe =  /* error */
+}
+		
+                Class template
+                result_of The class template
+                result_of helps determine the type of a
+                call expression. Given an lvalue f of
+                type F and lvalues t1,
+                t2, ..., tN of
+                types T1, T2, ...,
+                TN, respectively, the type
+                result_of<F(T1, T2, ...,
+                TN)>::type defines the result type
+                of the expression f(t1, t2,
+                ...,tN). This implementation permits
+                the type F to be a function pointer,
+                function reference, member function pointer, or class
+                type. By default, N may be any value between 0 and
+                10. To change the upper limit, define the macro
+                BOOST_RESULT_OF_NUM_ARGS to the maximum
+                value for N. Class template result_of
+                resides in the header <boost/utility/result_of.hpp>.
+                If your compiler supports decltype,
+                then you can enable automatic result type deduction by
+                defining the macro BOOST_RESULT_OF_USE_DECLTYPE,
+                as in the following example.
+                
+                #define BOOST_RESULT_OF_USE_DECLTYPE
+#include <boost/utility/result_of.hpp>
+struct functor {
+    template<class T>
+    T operator()(T x)
+    {
+        return x;
+    }
+};
+typedef boost::result_of<
+    functor(int)
+>::type type;
+                
+                If decltype is not enabled,
+                then automatic result type deduction of function
+                objects is not possible. Instead, result_of
+                uses the following protocol to allow the programmer to
+                specify a type. When F is a class type with a
+                member type result_type,
+                result_of<F(T1, T2, ...,
+                TN)> is
+                F::result_type. When F does
+                not contain result_type,
+                result_of<F(T1, T2, ...,
+                TN)> is F::result<F(T1,
+                T2, ..., TN)>::type when
+                N > 0 or void
+                when N = 0. Note that it is the
+                responsibility of the programmer to ensure that
+                function objects accurately advertise their result
+                type via this protocol, as in the following
+                example.
+                
+                struct functor {
+    template<class> struct result;
+    template<class F, class T>
+    struct result<F(T)> {
+        typedef T type;
+    };
+    template<class T>
+    T operator()(T x)
+    {
+        return x;
+    }
+};
+typedef boost::result_of<
+    functor(int)
+>::type type;
+                
+                In a future
+                release, BOOST_RESULT_OF_USE_DECLTYPE
+                may be enabled by default on compilers that
+                support decltype, so if you use the above
+                protocol please take care to ensure that
+                the result_type
+                and result<> members accurately
+                represent the result type. If you wish to continue to
+                use the protocol on compilers that
+                support decltype,
+                use boost::tr1_result_of, which is also
+                defined
+                in <boost/utility/result_of.hpp>.
+                
+                This implementation of result_of
+                requires class template partial specialization, the
+                ability to parse function types properly, and support
+                for SFINAE. If result_of is not supported
+                by your compiler, including the header 
+                boost/utility/result_of.hpp will
+                define the macro BOOST_NO_RESULT_OF.
+                For additional information
+                about result_of, see the C++ Library
+                Technical Report,
+                N1836,
+                or, for motivation and design rationale,
+                the result_of proposal.
+                Contributed by Doug Gregor.
+		Class templates for the Base-from-Member Idiom
+		See separate documentation.
+		Macro BOOST_BINARY
+		The macro BOOST_BINARY is used for the
+                representation of binary literals. It takes as an argument
+                a binary number arranged as an arbitrary amount of 1s and 0s in
+                groupings of length 1 to 8, with groups separated
+                by spaces. The type of the literal yielded is determined by
+                the same rules as those of hex and octal
+                literals (2.13.1p1). By implementation, this macro
+                expands directly to an octal literal during preprocessing, so
+                there is no overhead at runtime and the result is useable in
+                any place that an octal literal would be.
+		In order to directly support binary literals with suffixes,
+                additional macros of the form BOOST_BINARY_XXX are also
+                provided, where XXX is a standard integer suffix in all capital
+                letters. In addition, LL and ULL suffixes may be used for representing
+                long long and unsigned long long types in compilers which provide
+                them as an extension.
+                The BOOST_BINARY family of macros resides in the header
+                <boost/utility/binary.hpp>
+                which is automatically included by
+                <boost/utility.hpp>.
+		Contributed by Matt Calabrese.
+		Example
+		
+			
+void foo( int );
+void foo( unsigned long );
+void bar()
+{
+  int value1 = BOOST_BINARY( 100 111000 01 1 110 );
+  unsigned long value2 = BOOST_BINARY_UL( 100 001 ); // unsigned long
+  long long value3 = BOOST_BINARY_LL( 11 000 ); // long long if supported
+  assert(    BOOST_BINARY( 10010 )
+          &  BOOST_BINARY( 11000 )
+          == BOOST_BINARY( 10000 )
+        );
+  foo( BOOST_BINARY( 1010 ) ); // calls the first foo
+  foo( BOOST_BINARY_LU( 1010 ) ); // calls the second foo
+}
+		
+		Revised  04 September, 2008
+		
+		 Copyright Beman Dawes 1999-2003.
+Distributed under the Boost Software License, Version 1.0. See
+www.boost.org/LICENSE_1_0.txt
+	

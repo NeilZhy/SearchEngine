@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	boost exception - 1.36.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Introduction
+The purpose of Boost Exception is to ease the design of exception class hierarchies and to help write exception handling and error reporting code.
+It supports transporting of arbitrary data to the catch site, which is otherwise tricky due to the no-throw requirements (15.5.1) for exception types. Data can be added to any exception object, either directly in the throw-expression (15.1), or at a later time as the exception object propagates up the call stack.
+The ability to add data to exception objects after they have been passed to throw is important, because often some of the information needed to handle an exception is unavailable in the context where the failure is detected. 
+Boost Exception also supports N2179-style copying of exception objects, implemented non-intrusively and automatically by the boost::throw_exception function.
+Contents
+TutorialTransporting of Arbitrary Data to the Catch Site
+Integrating Boost Exception in Existing Exception Class Hierarchies
+Transporting of Exceptions Between Threads
+Diagnostic Information
+DocumentationClass exception
+Transporting of Arbitrary Data to the Catch Siteerror_info
+operator<</exception
+operator<</tuple
+get_error_info
+enable_error_info
+BOOST_ERROR_INFO
+N2179 Transporting of Exceptions between Threadsexception_ptr
+enable_current_exception
+current_exception
+copy_exception
+rethrow_exception
+unknown_exception
+diagnostic_information
+throw_exception
+Headersboost/exception.hpp
+boost/exception/diagnostic_information.hpp
+boost/exception/enable_current_exception.hpp
+boost/exception/enable_error_info.hpp
+boost/exception/error_info.hpp
+boost/exception/exception.hpp
+boost/exception/info.hpp
+boost/exception/info_tuple.hpp
+boost/exception_ptr.hpp
+boost/throw_exception.hpp
+Index
+Synopsis
+include <boost/exception.hpp>
+namespace
+boost
+    {
+    class
+    exception
+        {
+        public:
+    
+        virtual char const * diagnostic_information() const throw();    
+    
+        protected:
+    
+        exception();
+        exception( exception const & x );    
+        ~exception();    
+        };
+    template <class Tag,class T>
+    class
+    error_info
+        {
+        public:
+    
+        typedef T value_type;
+    
+        error_info( value_type const & );
+        };    
+    
+    template <class ErrorInfo,class E>
+    shared_ptr<typename ErrorInfo::value_type const> get_error_info( E const & x );    
+    
+    typedef error_info<struct tag_throw_function,char const *> throw_function;
+    typedef error_info<struct tag_throw_file,char const *> throw_file;
+    typedef error_info<struct tag_throw_line,int> throw_line;
+    
+    #define BOOST_ERROR_INFO\
+        ::boost::throw_function(BOOST_CURRENT_FUNCTION) <<\
+        ::boost::throw_file(__FILE__) <<\
+        ::boost::throw_line((int)__LINE__)    
+    
+    template <class E, class Tag, class T>
+    E const & operator<<( E const & x, error_info<Tag,T> const & v );
+    template <class E, class Tag1, class T1, ..., class TagN, class TN>
+    E const & operator<<( E const & x,
+        tuple<
+            error_info<Tag1,T1>,
+            ...,
+            error_info<TagN,TN> > const & v );
+    template <class T>
+    ---unspecified--- enable_error_info( T const & x );
+    std::string diagnostic_information( std::exception const & x );
+    class
+    unknown_exception:
+        public std::exception
+        public boost::exception
+        {
+        ---unspecified---
+        };    
+    
+    typedef ---unspecified--- exception_ptr;    
+    
+    template <class T>
+    exception_ptr copy_exception( T const & e );    
+    
+    exception_ptr current_exception();    
+    
+    void rethrow_exception( exception_ptr const & ep );
+    template <class T>
+    ---unspecified--- enable_current_exception( T const & e );
+    #ifdef BOOST_NO_EXCEPTIONS
+    
+    void throw_exception( std::exception const & e ); // user defined
+    
+    #else
+    
+    template <class E>
+    void throw_exception( E const & e );
+    
+    #endif
+    }
+Class exception
+exception
+include <boost/exception/exception.hpp>
+namespace
+boost
+    {
+    class
+    exception
+        {
+        public:
+    
+        virtual char const * diagnostic_information() const throw();    
+    
+        protected:
+    
+        exception();
+        exception( exception const & x );    
+        ~exception();    
+        };
+    }
+Class boost::exception is designed to be used as a universal base for user-defined exception types.
+An object of any type deriving from boost::exception can store data of arbitrary types, using the error_info wrapper and operator<<.
+To retrieve data from a boost::exception object, use the get_error_info function template.
+exception::exception
+exception();
+exception( exception const & x );
+Effects:
+ Default constructor: initializes an empty boost::exception object.
+ Copy constructor: initializes a boost::exception object which shares with x all data added through operator<<, including data that is added at a future time.
+Throws:
+Nothing.
+exception::~exception
+~exception();
+Effects:
+Frees all resources associated with a boost::exception object.
+Throws:
+Nothing.
+exception::diagnostic_information
+virtual char const * diagnostic_information() const throw();
+Returns:
+A string representation of all data stored in the boost::exception object by the operator<< function. See "Diagnostic Information" for details.
+Throws:
+Nothing.
+Notes:
+The return value remains valid until the exception object from which it was obtained is destroyed or modified.
+The header boost/exception/diagnostic_information.hpp provides a namespace-scope function diagnostic_information which takes a std::exception. It calls exception::diagnostic_information if its argument can be converted to boost::exception; otherwise it returns a string that combines the value of std::exception::what and the exception's dynamic type.
+Transporting of Arbitrary Data to the Catch Site
+error_info
+include <boost/exception/info.hpp>
+namespace
+boost
+    {
+    template <class Tag,class T>
+    class
+    error_info
+        {
+        public:
+    
+        typedef T value_type;
+    
+        error_info( value_type const & );
+        };
+    }
+Requirements:
+T must have accessible copy constructor and must not be a reference (there is no requirement that T's copy constructor does not throw.)
+Description:
+This class template is used to associate a Tag type with a value type T. Objects of type error_info<Tag,T> can be passed to operator<< to be stored in objects of type boost::exception.
+Note:
+The header <boost/exception/error_info.hpp> provides a declaration of the error_info template, which is sufficient for the purpose of typedefing an instance for specific Tag and T, like this:
+#include <boost/exception/error_info.hpp>
+typedef boost::error_info<struct tag_errno,int> errno_info;
+Of course, to actually add an error_info object to exceptions using operator<<, or to retrieve it using get_error_info, you must first #include <boost/exception/info.hpp>.
+operator<</exception
+include <boost/exception/info.hpp> 
+namespace
+boost
+    {
+    template <class E, class Tag, class T>
+    E const & operator<<( E const & x, error_info<Tag,T> const & v );
+    }
+Requirements:
+E must be boost::exception, or a type that derives (indirectly) from boost::exception.
+Effects:
+Stores a copy of v into x. If x already contains data of type error_info<Tag,T>, that data is overwritten.
+Returns:
+x.
+Throws:
+std::bad_alloc, or any exception emitted by the T copy constructor.
+operator<</tuple
+include <boost/exception/info_tuple.hpp>
+namespace
+boost
+    {
+    template <class E, class Tag1, class T1, ..., class TagN, class TN>
+    E const & operator<<( E const & x,
+        tuple<
+            error_info<Tag1,T1>,
+            ...,
+            error_info<TagN,TN> > const & v );
+    }
+Requirements:
+E must be boost::exception, or a type that derives (indirectly) from boost::exception.
+Effects:
+Equivalent to x << v.get<0>() << ... << v.get<N>().
+Returns:
+x.
+Throws:
+std::bad_alloc, or any exception emitted by T1..TN copy constructor.
+get_error_info
+include <boost/exception/info.hpp>
+namespace
+boost
+    {
+    template <class ErrorInfo,class E>
+    shared_ptr<typename ErrorInfo::value_type const> get_error_info( E const & x );
+    }
+Requirements:
+ ErrorInfo must be an instance of the error_info template.
+ E must be polymorphic.
+Returns:
+ If dynamic_cast<boost::exception const *>(&x) is 0, or if x does not store an object of type ErrorInfo, the returned value is an empty shared_ptr.
+ Otherwise, the returned shared_ptr points to the stored value (use operator<< to store values in exception objects.) The shared_ptr is valid even after x has been destroyed.
+Throws:
+Nothing.
+enable_error_info
+include <boost/exception/enable_error_info.hpp>
+namespace
+boost
+    {
+    template <class T>
+    ---unspecified--- enable_error_info( T const & x );
+    }
+Requirements:
+T must be a user-defined type with accessible no-throw copy constructor as per (15.5.1).
+Returns:
+ If T derives from boost::exception, the returned object is of type T and is a copy of x.
+ Otherwise, the returned object is of an unspecified type that derives publicly from both T and boost::exception. The T sub-object is initialized from x by the T copy constructor.
+Throws:
+Nothing.
+BOOST_ERROR_INFO
+include <boost/exception/info.hpp>
+namespace
+boost
+    {
+    typedef error_info<struct tag_throw_function,char const *> throw_function;
+    typedef error_info<struct tag_throw_file,char const *> throw_file;
+    typedef error_info<struct tag_throw_line,int> throw_line;
+    
+    #define BOOST_ERROR_INFO\
+        ::boost::throw_function(BOOST_CURRENT_FUNCTION) <<\
+        ::boost::throw_file(__FILE__) <<\
+        ::boost::throw_line((int)__LINE__)
+    }
+This macro is designed to be used with operator<< when throwing a boost::exception, to store information about the location of the throw statement. It can be chained with other error_infos in a single throw expression.
+Transporting of Exceptions between Threads
+exception_ptr
+include <boost/exception_ptr.hpp>
+namespace
+boost
+    {
+    typedef ---unspecified--- exception_ptr;
+    }
+The exception_ptr type can be used to refer to a copy of an exception object. It is Default Constructible, Copy Constructible, Assignable and Equality Comparable; exception_ptr's operations do not throw.
+Two instances of exception_ptr are equivalent and compare equal if and only if they refer to the same exception.
+The default constructor of exception_ptr produces the null value of the type. The null value is equivalent only to itself.
+enable_current_exception
+include <boost/exception/enable_current_exception.hpp>
+namespace
+boost
+    {
+    template <class T>
+    ---unspecified--- enable_current_exception( T const & e );
+    }
+Requirements:
+T must be of user-defined type with an accessible no-throw copy constructor.
+Returns:
+An object of unspecified type which derives publicly from T. That is, the returned object can be intercepted by a catch(T &).
+Description:
+This function is designed to be used directly in a throw-expression to enable the exception_ptr support in Boost Exception. For example:
+class
+my_exception:
+    public std::exception
+    {
+    };
+....
+throw boost::enable_current_exception(my_exception());
+Unless enable_current_exception is called at the time an exception object is used in a throw-expression, an attempt to copy it using current_exception may return an exception_ptr which refers to an instance of unknown_exception. See current_exception for details.
+Note:
+Instead of using the throw keyword directly, it is preferable to call boost::throw_exception. This is guaranteed to throw an exception that derives from boost::exception and supports the exception_ptr functionality.
+current_exception
+include <boost/exception_ptr.hpp>
+namespace
+boost
+    {
+    exception_ptr current_exception();
+    }
+Requirements:
+The current_exception function must not be called outside of a catch block.
+Returns:
+ An exception_ptr that refers to the currently handled exception or a copy of the currently handled exception.
+ If the function needs to allocate memory and the attempt fails, it returns an exception_ptr that refers to an instance of std::bad_alloc.
+Throws:
+Nothing.
+Notes:
+ It is unspecified whether the return values of two successive calls to current_exception refer to the same exception object.
+ Correct implementation of current_exception may require compiler support, unless enable_current_exception was used at the time the currently handled exception object was passed to throw. If enable_current_exception was not used, and if the compiler does not provide the necessary support, then current_exception may return an exception_ptr that refers to an instance of unknown_exception. In this case, if the original exception object derives from boost::exception, then the boost::exception sub-object of the unknown_exception object is initialized by the boost::exception copy constructor.
+copy_exception
+include <boost/exception_ptr.hpp>
+namespace
+boost
+    {
+    template <class T>
+    exception_ptr copy_exception( T const & e );
+    }
+Effects:
+As if try { throw e; } catch( ... ) { return current_exception(); }
+rethrow_exception
+include <boost/exception_ptr.hpp>
+namespace
+boost
+    {
+    void rethrow_exception( exception_ptr const & ep );
+    }
+Precondition:
+ep shall not be null.
+Throws:
+The exception to which ep refers.
+unknown_exception
+include <boost/exception_ptr.hpp>
+namespace
+boost
+    {
+    class
+    unknown_exception:
+        public std::exception
+        public boost::exception
+        {
+        ---unspecified---
+        };
+    }
+This type is used by the exception_ptr support in Boost Exception. Please see current_exception.
+Printing Diagnostic Information
+diagnostic_information
+include <boost/exception/diagnostic_information.hpp>
+namespace
+boost
+    {
+    std::string diagnostic_information( std::exception const & x );
+    }
+Returns:
+If dynamic_cast<boost::exception const *>(&x) is not null, the returned string is initialized by a call to exception::diagnostic_information; otherwise, the returned string combines the output of x.what() and typeid(x).name().
+Throwing Exceptions
+throw_exception
+include <boost/throw_exception.hpp>
+namespace
+boost
+    {
+    #ifdef BOOST_NO_EXCEPTIONS
+    
+    void throw_exception( std::exception const & e ); // user defined
+    
+    #else
+    
+    template <class E>
+    void throw_exception( E const & e );
+    
+    #endif
+    }
+Requirements:
+E must derive publicly from std::exception.
+Effects:
+ If BOOST_NO_EXCEPTIONS is not defined, boost::throw_exception(e) is equivalent to throw boost::enable_current_exception(boost::enable_error_info(e)), unless BOOST_EXCEPTION_DISABLE is defined, in which case boost::throw_exception(e) is equivalent to throw e;
+ If BOOST_NO_EXCEPTIONS is defined, the function is left undefined, and the user is expected to supply an appropriate definition. Callers of throw_exception are allowed to assume that the function never returns; therefore, if the user-defined throw_exception returns, the behavior is undefined.
+ 
+Copyright (c) 2006-2008 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

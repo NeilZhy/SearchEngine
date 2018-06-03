@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	Motivation - 1.66.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Motivation
+Traditionally, when using exceptions to report failures, the throw site:
+creates an exception object of the appropriate type, and
+stuffs it with data relevant to the detected error.
+A higher context in the program contains a catch statement which:
+selects failures based on exception types, and
+inspects exception objects for data required to deal with the problem.
+The main issue with this "traditional" approach is that often, the data available at the point of the throw is insufficient for the catch site to handle the failure.
+Here is an example of a catch statement:
+catch( file_read_error & e )
+    {
+    std::cerr << e.file_name();
+    }
+And here is a possible matching throw:
+void
+read_file( FILE * f )
+    {
+    ....
+    size_t nr=fread(buf,1,count,f);
+    if( ferror(f) )
+        throw file_read_error(???);
+    ....
+    }
+Clearly, the problem is that the handler requires a file name but the read_file function does not have a file name to put in the exception object; all it has is a FILE pointer!
+In an attempt to deal with this problem, we could modify read_file to accept a file name:
+void
+read_file( FILE * f, char const * name )
+    {
+    ....
+    size_t nr=fread(buf,1,count,f);
+    if( ferror(f) )
+        throw file_read_error(name);
+    ....
+    }
+This is not a real solution: it simply shifts the burden of supplying a file name to the immediate caller of the read_file function.
+In general, the data required to handle a given library-emitted exception depends on the program that links to it. Many contexts between the throw and the catch may have relevant information which must be transported to the exception handler.
+Exception wrapping
+The idea of exception wrapping is to catch an exception from a lower level function (such as the read_file function above), and throw a new exception object that contains the original exception (and also carries a file name.) This method seems to be particularly popular with C++ programmers with Java background.
+Exception wrapping leads to the following problems:
+To wrap an exception object it must be copied, which may result in slicing.
+Wrapping is practically impossible to use in generic contexts.
+The second point is actually special case of violating the exception neutrality principle. Most contexts in a program can not handle exceptions; such contexts should not interfere with the process of exception handling.
+The boost::exception solution
+Simply derive your exception types from boost::exception.
+Confidently limit the throw site to provide only data that is available naturally.
+Use exception-neutral contexts between the throw and the catch to augment exceptions with more relevant data as they bubble up.
+For example, in the throw statement below we only add the errno code, since this is the only failure-relevant information available in this context:
+struct exception_base: virtual std::exception, virtual boost::exception { };
+struct io_error: virtual exception_base { };
+struct file_read_error: virtual io_error { };
+typedef boost::error_info<struct tag_errno_code,int> errno_code;
+void
+read_file( FILE * f )
+    {
+    ....
+    size_t nr=fread(buf,1,count,f);
+    if( ferror(f) )
+        throw file_read_error() << errno_code(errno);
+    ....
+    }
+In a higher exception-neutral context, we add the file name to any exception that derives from boost::exception:
+typedef boost::error_info<struct tag_file_name,std::string> file_name;
+....
+try
+    {
+    if( FILE * fp=fopen("foo.txt","rt") )
+        {
+        shared_ptr<FILE> f(fp,fclose);
+        ....
+        read_file(fp); //throws types deriving from boost::exception
+        do_something();
+        ....
+        }
+    else
+        throw file_open_error() << errno_code(errno);
+    }
+catch( boost::exception & e )
+    {
+    e << file_name("foo.txt");
+    throw;
+    }
+Finally here is how the handler retrieves data from exceptions that derive from boost::exception:
+catch( io_error & e )
+    {
+    std::cerr << "I/O Error!\n";
+    if( std::string const * fn=get_error_info<file_name>(e) )
+        std::cerr << "File name: " << *fn << "\n";
+    if( int const * c=get_error_info<errno_code>(e) )
+        std::cerr << "OS says: " << strerror(*c) << "\n";
+    }
+In addition, boost::diagnostic_information can be used to compose an automatic (if not user-friendly) message that contains all of the error_info objects added to a boost::exception. This is useful for inclusion in logs and other diagnostic objects.
+See also: Boost Exception | Exception Types as Simple Semantic Tags | Frequently Asked Questions | Integrating Boost Exception in Existing Exception Class Hierarchies
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

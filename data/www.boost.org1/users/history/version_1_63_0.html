@@ -1,0 +1,1268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  Version 1.63.0
+  
+  
+  
+  
+/*<![CDATA[*/
+  #content .news-description ul {
+    list-style: none;
+  }
+  #content .news-description ul ul {
+    list-style: circle;
+  }
+  /*]]>*/
+  
+  <!--[if IE 7]>  <![endif]-->
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+    
+      
+        
+          
+            
+              Version 1.63.0
+            
+            
+              Version 1.63.0
+              December 26th, 2016 23:43 GMT
+              Documentation
+              DownloadsPlatformFileSHA256 Hash
+unixboost_1_63_0.tar.bz2beae2529f759f6b3bf3f4969a19c2e9d6f0c503edcb2de4a61d1428519fcb3b0boost_1_63_0.tar.gzfe34a4e119798e10b8cc9e565b3b0284e9fd3977ec8a1b19586ad1dec397088b
+windowsboost_1_63_0.7z25db3956a8d58187ac7a0702cc917e9bab47ff90baafc35e4e789dca1ce5f423boost_1_63_0.zip97ce6635df1f44653a597343cd5757bb8b6b992beb3720f5fc761e3644bcbe7b
+Third Party Downloads
+Windows Binaries
+              
+                
+  
+    Post-release Patches
+    
+      
+        
+          Atomic:
+          
+            
+              
+                Using 64-bit atomic operations on 32-bit x86 with gcc versions older
+                than 4.7 and compatible compilers can result in generation of incorrect
+                code. This problem is fixed in this
+                commit.
+              
+            
+          
+        
+      
+    
+  
+  
+    Updated Libraries
+    
+      
+        
+          Atomic:
+          
+            
+              
+                Added the static constant atomic<T>::is_always_lock_free
+                for conformance with C++17. The constant indicates that the given
+                specialization always provides lock-free implementation of atomic
+                operations.
+              
+            
+            
+              
+                Improved support of Oracle Studio on x86 targets.
+              
+            
+          
+        
+      
+      
+        
+          Container:
+          
+            
+              
+                Fixed bugs:
+                
+                  
+                    
+                      Trac
+                      #12534: "flat_map fails to compile if included
+                      after type_traits is instantiated under gcc".
+                    
+                  
+                  
+                    
+                      Trac
+                      #12577: "Null reference in pair.hpp triggers
+                      runtime warning with -fsanitize=undefined".
+                    
+                  
+                  
+                    
+                      GitHub
+                      #40: Fix parameter types in copy_move_algo.hpp: iterator_traits::difference_type
+                      -> allocator_traits::size_type.
+                    
+                  
+                  
+                    
+                      GitHub
+                      #41: Avoid -Wunreachable-code in do_allocate().
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Context:
+          
+            
+              
+                #11687 Xcode (Apple clang) and thread_local
+              
+            
+            
+              
+                #12114 context does not preserve fpu context on ios arm64 devices
+                (fixed for other architecturs too)
+              
+            
+            
+              
+                #12411 fpu registers not preserved with O2 optimizations in Visual
+                Studio (fixed for other architecturs too)
+              
+            
+            
+              
+                #12551 building boost on arm64 causes error: unknown directive
+              
+            
+            
+              
+                reduced signatur for ontop-functions
+              
+            
+            
+              
+                unit-test for private fcontext-API
+              
+            
+            
+              
+                performance-test for ucontext and fcontext fixed
+              
+            
+          
+        
+      
+      
+        
+          Fiber:
+          
+            
+              
+                unbounded_channel and bounded_channel marked as deprecated
+              
+            
+            
+              
+                new classes buffered_channel and unbuffered_channel
+              
+            
+            
+              
+                performance improved
+              
+            
+          
+        
+      
+      
+        
+          Fusion:
+          
+            
+              
+                Fixed fusion::vector buggy constructors (Thanks
+                to Lee Clagett).
+              
+            
+            
+              
+                BOOST_FUSION_ADAPT* and BOOST_FUSION_DEFINE* now allow empty structures. (#6592)
+              
+            
+            
+              
+                BOOST_FUSION_DEFINE* allows move constructor and assignment.
+                (#10099)
+              
+            
+            
+              
+                Adaptor for std::array (Thanks to Mateusz Łoskot).
+                (#8241)
+              
+            
+            
+              
+                Fixed returning temporary variable warnings on MSVC.
+              
+            
+          
+        
+      
+      
+        
+          Geometry:
+          
+            
+              
+                Improvements:
+                
+                  
+                    
+                      Intersection: take care that output is valid (work in progres,
+                      not yet finished - but more is valid)
+                    
+                  
+                
+              
+            
+            
+              
+                Solved tickets:
+                
+                  
+                    
+                      #12289
+                      Avoid warning/compilation error for std::cout
+                    
+                  
+                  
+                    
+                      #12412
+                      Invalid result of covered_by() with geographic Points and Boxes
+                    
+                  
+                  
+                    
+                      #12413
+                      rtree::remove() not working properly with geographic Points
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Hash:
+          
+            
+              
+                Fixed some warnings.
+              
+            
+          
+        
+      
+      
+        
+          Interprocess:
+          
+            
+              
+                Fixed bugs:
+                
+                  
+                    
+                      Trac
+                      #12499 ("Memory allocation fails").
+                    
+                  
+                  
+                    
+                      GitHub
+                      Pull #30 ("Provide extension point so library
+                      user can provide default temp folder").
+                    
+                  
+                  
+                    
+                      GitHub
+                      Pull #31 ("Add xsi_key(key_t) constructor").
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Intrusive:
+          
+            
+              
+                Fixed bugs:
+                
+                  
+                    
+                      Boost
+                      Trac #12556: member_value_traits.hpp has a missing
+                      #include
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Lexical Cast:
+          
+            
+              
+                Fixed issue found by -fsanitize=undefined #21
+              
+            
+          
+        
+      
+      
+        
+          Log:
+          
+            
+              
+                General changes:
+                
+                  
+                    
+                      Removed the previously deprecated type_info_wrapper.
+                    
+                  
+                
+              
+            
+            
+              
+                New features:
+                
+                  
+                    
+                      Added a way to access the current file name from the text file
+                      sink backend. The file name can be obtained with the get_current_file_name method.
+                    
+                  
+                
+              
+            
+            
+              
+                Bug fixes:
+                
+                  
+                    
+                      Fixed compilation errors for Android API prior to version 21.
+                    
+                  
+                  
+                    
+                      Streaming operators now take scalar types and enums by value.
+                      This allows to output static constants and bitfields directly
+                      into formatting stream and record stream. (#11998)
+                    
+                  
+                  
+                    
+                      Fixed auto-detection of native syslog API. (#12600)
+                    
+                  
+                  
+                    
+                      In UDP socket based syslog backend implementation, changed
+                      the syslog message format for better compliance with RFC3164.
+                    
+                  
+                  
+                    
+                      File close handler installed in text file sink backend is no
+                      longer called if the file is not open yet.
+                    
+                  
+                
+              
+            
+            
+              
+                See changelog
+                for more details.
+              
+            
+          
+        
+      
+      
+        
+          Metaparse:
+          
+            
+              
+                Improved the implementation of BOOST_METAPARSE_STRING
+                
+                  
+                    
+                      The maximal string length limit has been increased to 2048
+                    
+                  
+                  
+                    
+                      The maximal string length limit can be extended beyond 2048
+                      by regenerating some of the Boost headers using a script (part
+                      of the library)
+                    
+                  
+                  
+                    
+                      The string length limit can be changed within a compilation
+                      unit
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          Move:
+          
+            
+              
+                Improved experimental adaptive sort algorithm performance
+              
+            
+            
+              
+                Activate BOOST_MOVE_FORCEINLINE
+              
+            
+          
+        
+      
+      
+        
+          Optional:
+          
+            
+              
+                Added two new in-place constructors. They work similarly to emplace()
+                functions: they initialize the contained value by perfect-forwarding
+                the obtained arguments. One constructor always initializes the contained
+                value, the other based on a boolean condition.
+              
+            
+            
+              
+                Syntax o =
+                {} now correctly un-initializes
+                an optional, just
+                like in std::optional.
+              
+            
+            
+              
+                Fixed optional<optional<T>&>
+                initialization. (#12203)
+              
+            
+            
+              
+                Optional constructors are sfinae-friendly. This fixes interaction
+                with std::tuple. (#12563)
+              
+            
+          
+        
+      
+      
+        
+          Phoenix:
+          
+            
+              
+                Most of modules now support C++11 variadic templates.
+              
+            
+            
+              
+                Fixed type deduction failure with result type.
+              
+            
+            
+              
+                Suppress unused warnings.
+              
+            
+            
+              
+                Fixed too few arguments error on binary math functions.
+              
+            
+            
+              
+                Added workarounds for older compiler.
+              
+            
+          
+        
+      
+      
+        
+          Python:
+          
+            
+              
+                Added (basic) support for C++11 (std::shared_ptr, std::unique_ptr)
+              
+            
+            
+              
+                Incorporated an extension API to wrap NumPy
+              
+            
+            
+              
+                Removed obsolete bits and pieces
+              
+            
+          
+        
+      
+      
+        
+          Test:
+          
+            
+              
+                Boost.test v3.4 see the Change
+                log section for more details.
+              
+            
+            
+              
+                New feature: per_element
+                and lexicographic
+                modifiers of BOOST_TEST
+                can also be applied to string comparison
+              
+            
+            
+              
+                Breaking change: colons that appear in test case names are replaced
+                with underscores
+              
+            
+            
+              
+                Bug fixes
+                
+                  
+                    
+                      Trac tickets #11756, #11907, #12339, #12506,
+                      #12507, #12530,
+                    
+                  
+                  
+                    
+                      Trac tickets #12531
+                    
+                  
+                  
+                    
+                      Pull request PR103,
+                      PR104
+                    
+                  
+                
+              
+            
+          
+        
+      
+      
+        
+          TypeIndex:
+          
+            
+              
+                Added runtime_cast
+                to the library as an emulation of dynamic_cast.
+                Thanks to Chris Glover for the implementation. See runtime_cast
+                reference for more info.
+              
+            
+            
+              
+                Internals of the CTTI were made more platform independant, due to
+                change of the std::size_t
+                type to unsigned int.
+              
+            
+          
+        
+      
+      
+        
+          Units:
+          
+            
+              
+                Fix inspection warnings
+              
+            
+            
+              
+                updated physico-chemical constants to CODATA 2014 values
+              
+            
+            
+              
+                define biot correctly as 10 Ampere
+              
+            
+          
+        
+      
+      
+        
+          Unordered:
+          
+            
+              
+                Fix an exception safety issue in assignment.
+              
+            
+            
+              
+                Use std::allocator_traits where available,
+                and support modern style rebind (#12459).
+              
+            
+            
+              
+                Add some allocator aware constructors.
+              
+            
+            
+              
+                Use the hint iterator in emplace_hint.
+              
+            
+            
+              
+                Fixed some warnings.
+              
+            
+            
+              
+                See the changelog
+                for more details.
+              
+            
+          
+        
+      
+    
+  
+  
+    Compilers Tested
+    
+      Boost's primary test compilers are:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                Clang: 3.0, 3.8.1
+              
+            
+            
+              
+                Clang, C++11: 3.0, 3.1, 3.2, 3.3, 3.4, 3.8.1
+              
+            
+            
+              
+                Clang, C++14: 3.5, 3.6, 3.7, 3.8.1
+              
+            
+            
+              
+                Clang, C++1z: 3.8.1
+              
+            
+            
+              
+                GCC: 4.4.7, 4.5.3, 4.6.3, 4.7.2, 5.2.0, 6.2.0
+              
+            
+            
+              
+                GCC, C++11: 4.4.7, 4.7.2, 4.7.3, 4.8.5, 4.9.3, 5.2.0, 6.1.1, 6.2.0
+              
+            
+            
+              
+                GCC, C++14: 5.2.0, 5.3.0, 6.1.1, 6.2.0
+              
+            
+            
+              
+                Intel: 16.0, 17.0
+              
+            
+            
+              
+                Intel, C++11: 16.0, 17.0
+              
+            
+            
+              
+                Intel, C++14: 16.0, 17.0
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Apple Clang: 7.0.2
+              
+            
+            
+              
+                Apple Clang, C++11: 7.0.2
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                GCC, C++03, mingw: 3.4.5, 4.1.2, 4.2.4, 4.3.3, 4.4.0
+              
+            
+            
+              
+                GCC, C++11, mingw: 4.6.4, 4.7.3, 4.8.1
+              
+            
+            
+              
+                GCC, C++14, mingw: 4.9.3, 5.1.0, 5.2.0, 5.3.0, 6.1.0
+              
+            
+            
+              
+                Visual C++: 7.1, 8.0, 9.0, 10.0, 11.0, 12.0, 14.0
+              
+            
+          
+        
+      
+      
+        
+          Android:
+          
+            
+              
+                Clang: 3.6, 3.7, 3.8
+              
+            
+            
+              
+                GCC: 4.9, 5.4, 6.2
+              
+            
+          
+        
+      
+      
+        
+          QNX:
+          
+            
+              
+                QCC: 4.4.2
+              
+            
+          
+        
+      
+      
+        
+          SunOS:
+          
+            
+              
+                Oracle Solaris Studio: 12.5
+              
+            
+            
+              
+                Oracle Solaris Studio, C++11: 12.5
+              
+            
+          
+        
+      
+    
+    
+      Boost's additional test compilers include:
+    
+    
+      
+        
+          Linux:
+          
+            
+              
+                Clang: 3.0, 3.8.1
+              
+            
+            
+              
+                Clang, C++11: 3.0, 3.1, 3.2, 3.3, 3.4, 3.8.1
+              
+            
+            
+              
+                Clang, C++14: 3.5, 3.6, 3.7, 3.8.1
+              
+            
+            
+              
+                Clang, C++1z: 3.8.1
+              
+            
+            
+              
+                GCC: 4.4.7, 4.5.3, 4.6.3, 4.7.2, 5.2.0, 6.1.1, 6.2.0
+              
+            
+            
+              
+                GCC, C++11: 4.4.7, 4.7.2, 4.7.3, 4.8.5, 4.9.3, 5.2.0, 6.1.1, 6.2.0
+              
+            
+            
+              
+                GCC, C++14: 5.2.0, 5.3.0, 6.1.1, 6.2.0, 7.0.0 (experimental)
+              
+            
+            
+              
+                GCC, C++1z: 6.1.1
+              
+            
+            
+              
+                Intel: 16.0, 17.0
+              
+            
+            
+              
+                Intel, C++11: 16.0, 17.0
+              
+            
+            
+              
+                Intel, C++14: 16.0, 17.0
+              
+            
+          
+        
+      
+      
+        
+          OS X:
+          
+            
+              
+                Apple Clang: 7.0.2
+              
+            
+            
+              
+                Apple Clang, C++11: 7.0.2
+              
+            
+          
+        
+      
+      
+        
+          Windows:
+          
+            
+              
+                GCC, C++03, mingw: 3.4.5, 4.1.2, 4.2.4, 4.3.3, 4.4.0
+              
+            
+            
+              
+                GCC, C++11, mingw: 4.6.4, 4.7.3, 4.8.1
+              
+            
+            
+              
+                GCC, C++14, mingw: 4.9.3, 5.1.0, 5.2.0, 5.3.0, 6.1.0
+              
+            
+            
+              
+                Visual C++: 7.1, 8.0, 9.0, 10.0, 11.0, 12.0, 14.0
+              
+            
+          
+        
+      
+      
+        
+          Android:
+          
+            
+              
+                Clang: 3.6, 3.7, 3.8
+              
+            
+            
+              
+                GCC: 4.9, 5.4, 6.2
+              
+            
+            
+              
+                GCC,C++14: 6.1.0
+              
+            
+          
+        
+      
+      
+        
+          QNX:
+          
+            
+              
+                QCC: 4.4.2
+              
+            
+          
+        
+      
+      
+        
+          SunOS:
+          
+            
+              
+                Oracle Solaris Studio: 12.5
+              
+            
+            
+              
+                Oracle Solaris Studio, C++11: 12.5
+              
+            
+          
+        
+      
+    
+  
+  
+    Acknowledgements
+    
+      Beman Dawes, Eric Niebler,
+      Rene Rivera, Daniel James,
+      Vladimir Prus and Marshall Clow managed this release.
+    
+  
+              
+            
+          
+        
+      
+      
+          
+    
+  
+  
+  
+  
+  
+    
+      
+        Welcome >
+  
+    Getting Started >
+    Download >
+    Libraries >
+    Mailing Lists >
+    Reporting and
+    Fixing Bugs>
+    Wiki>
+  
+      
+        Introduction >
+  
+    Download >
+    News >
+    Version History
+    >
+    License >
+    People >
+    Bibliography
+    >
+    Who's Using Boost
+    >
+    FAQ >
+    How Boost Started >
+    Index >
+  
+      
+        Community >
+  
+    Discussion Groups >
+    Discussion Policy >
+    
+      C++ >
+      
+        Committee Meetings
+        >
+        
+        Official Library Maintainer Program>
+        
+        Generic Progamming
+        Techniques >
+        Error and Exception
+        Handling >
+        Exception-Safety in
+        Generic Components >
+        Counted Body Techniques
+        >
+        Implementation Variations
+        >
+        Feature Model
+        Diagrams >
+      
+    
+    Acknowledgements >
+    Mailing Lists >
+    Moderators >
+    Steering
+    Committee >
+    Requesting a New Feature
+    >
+    
+      Reviews >
+      
+        Schedule >
+      
+    
+    Sandbox >
+    
+      IRC >
+    
+    
+      Google Summer of Code >
+      
+        2006 Overview
+        >
+      
+    
+    C++Now >
+  
+      
+        Development >
+  
+    
+      Submissions >
+    
+    Reporting and Fixing
+    Bugs>
+    Open Pull
+    Requests Report>
+    
+      Testing >
+      
+        Master Summary
+        >
+        Master Issues
+        >
+        Develop
+        Summary >
+        Develop
+        Issues >
+        Running
+        Regression Tests >
+      
+    
+    Requirements and Guidelines
+    >
+      
+        Test policy >
+        Header policy >
+        Separate Source
+        >
+        Library Reuse >
+        Coding
+        Guidelines for Integral Constant Expressions >
+        Library
+        Metadata >
+      
+    
+    
+      Website
+      
+        Updating
+        >
+        Exemplar >
+        Design FAQ >
+        Self Check >
+      
+    
+  
+      
+        Documentation >
+  
+    Getting Started
+    >
+    
+      Libraries >
+      
+        1.67.0 - Current
+        Release >
+        1.66.0 >
+        1.65.1 >
+        1.65.0 >
+        1.64.0 >
+        1.63.0 >
+        1.62.0 >
+        1.61.0 >
+        1.60.0 >
+        1.59.0 >
+        1.58.0 >
+        1.57.0 >
+        1.56.0 >
+        1.55.0 >
+        1.54.0 >
+        1.53.0 >
+        1.52.0 >
+        1.51.0 >
+        1.50.0 >
+        1.49.0 >
+        1.48.0 >
+        1.47.0 >
+        1.46.1 >
+        1.46.0 >
+        1.45.0 >
+        1.44.0 >
+        1.43.0 >
+        1.42.0 >
+        1.41.0 >
+        1.40.0 >
+        1.39.0 >
+        1.38.0 >
+        1.37.0 >
+        1.36.0 >
+        1.35.0 >
+        1.34.1 >
+        1.34.0 >
+        1.33.1 >
+        1.32.0 >
+        1.31.0 >
+      
+    
+    
+      Tools >
+      
+        Boost Build >
+        Regression >
+        Inspect >
+        BoostBook >
+        QuickBook >
+        bcp >
+        Wave >
+        AutoIndex >
+      
+    
+  
+    
+    
+  
+      
+      
+    
+  
+  
+    
+      
+        Copyright Rene Rivera 2006-2007.
+        
+    Distributed under the Boost Software License, Version 1.0.
+  
+    
+    
+        
+    XHTML 1.0
+    CSS
+    OSI
+    Certified
+  
+    
+    
+  

@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	Synopsis - 1.66.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Boost Exception
+Synopsis
+List of documented definitions, declarations and includes by header file:
+include <boost/exception/exception.hpp>
+namespace
+boost
+    {
+    class
+    exception
+        {
+        protected:
+    
+        exception();
+        exception( exception const & x );    
+        ~exception();    
+        };    
+    
+    template <class Tag,class T>
+    class error_info;    
+    
+    typedef error_info<struct throw_function_,char const *> throw_function;
+    typedef error_info<struct throw_file_,char const *> throw_file;
+    typedef error_info<struct throw_line_,int> throw_line;
+    }
+include <boost/exception/error_info.hpp>
+namespace
+boost
+    {
+    template <class Tag,class T>
+    class error_info;
+    }
+include <boost/exception/info.hpp>
+#include <boost/exception/exception.hpp>
+namespace
+boost
+    {
+    template <class Tag,class T>
+    class
+    error_info
+        {
+        public:
+    
+        typedef T value_type;    
+    
+        error_info( value_type const & v );    
+        value_type const & value() const;
+        value_type & value();    
+        };    
+    
+    template <class E, class Tag, class T>
+    E const & operator<<( E const & x, error_info<Tag,T> const & v );
+    }
+include <boost/exception/info_tuple.hpp>
+#include <boost/exception/info.hpp>
+#include <boost/tuple/tuple.hpp>
+namespace
+boost
+    {
+    template <class E, class Tag1, class T1, ..., class TagN, class TN>
+    E const & operator<<( E const & x,
+        tuple<
+            error_info<Tag1,T1>,
+            ...,
+            error_info<TagN,TN> > const & v );
+    }
+include <boost/exception/enable_error_info.hpp>
+#include <boost/exception/exception.hpp>
+namespace
+boost
+    {
+    template <class T>
+    ---unspecified--- enable_error_info( T const & x );
+    }
+include <boost/exception/diagnostic_information.hpp>
+#include <string>
+namespace
+boost
+    {
+    class exception;
+    template <class E>
+    std::string diagnostic_information( E const & e, bool verbose=true );
+    
+    std::string diagnostic_information( exception_ptr const & p, bool verbose=true );    
+    
+    char const * diagnostic_information_what( boost::exception const & e, bool verbose=true ) throw();    
+    
+    std::string current_exception_diagnostic_information();
+    }
+include <boost/exception/current_exception_cast.hpp>
+namespace
+boost
+    {
+    template <class E>
+    E * current_exception_cast();
+    }
+include <boost/exception_ptr.hpp>
+#include <boost/exception/exception.hpp>
+namespace
+boost
+    {
+    class
+    unknown_exception:
+        public std::exception
+        public boost::exception
+        {
+        ---unspecified---
+        };    
+    
+    typedef error_info<struct tag_original_exception_type,std::type_info const *> original_exception_type;    
+    
+    typedef ---unspecified--- exception_ptr;    
+    
+    template <class T>
+    exception_ptr copy_exception( T const & e );    
+    
+    exception_ptr current_exception();    
+    
+    void rethrow_exception( exception_ptr const & ep );
+    }
+include <boost/exception/enable_current_exception.hpp>
+#include <boost/exception/exception.hpp>
+namespace
+boost
+    {
+    template <class T>
+    ---unspecified--- enable_current_exception( T const & e );
+    }
+include <boost/throw_exception.hpp>
+#if !defined( BOOST_EXCEPTION_DISABLE )
+    #include <boost/exception/exception.hpp>
+    #include <boost/current_function.hpp>
+    #define BOOST_THROW_EXCEPTION(x)\
+        ::boost::throw_exception( ::boost::enable_error_info(x) <<\
+        ::boost::throw_function(BOOST_THROW_EXCEPTION_CURRENT_FUNCTION) <<\
+        ::boost::throw_file(__FILE__) <<\
+        ::boost::throw_line((int)__LINE__) )
+#else
+    #define BOOST_THROW_EXCEPTION(x) ::boost::throw_exception(x)
+#endif
+namespace
+boost
+    {
+#ifdef BOOST_NO_EXCEPTIONS
+    void throw_exception( std::exception const & e ); // user defined
+#else
+    template <class E>
+    void throw_exception( E const & e );
+#endif
+    }
+include <boost/exception/errinfo_api_function.hpp>
+#include <boost/exception/error_info.hpp>
+namespace
+boost
+    {
+    typedef error_info<struct errinfo_api_function_,char const *> errinfo_api_function;
+    }
+include <boost/exception/errinfo_at_line.hpp>
+#include <boost/exception/error_info.hpp>
+namespace
+boost
+    {
+    typedef error_info<struct errinfo_at_line_,int> errinfo_at_line;
+    }
+include <boost/exception/errinfo_errno.hpp>
+#include <boost/exception/error_info.hpp>
+#include <errno.h>
+namespace
+boost
+    {
+    typedef error_info<struct errinfo_errno_,int> errinfo_errno;
+    }
+include <boost/exception/errinfo_file_handle.hpp>
+#include <boost/exception/error_info.hpp>
+namespace
+boost
+    {
+    template <class> class weak_ptr;
+    typedef error_info<struct errinfo_file_handle_,weak_ptr<FILE> > errinfo_file_handle;
+    }
+include <boost/exception/errinfo_file_name.hpp>
+#include <boost/exception/error_info.hpp>
+#include <string>
+namespace
+boost
+    {
+    typedef error_info<struct errinfo_file_name_,std::string> errinfo_file_name;
+    }
+include <boost/exception/errinfo_file_open_mode.hpp>
+#include <boost/exception/error_info.hpp>
+#include <string>
+namespace
+boost
+    {
+    typedef error_info<struct errinfo_file_open_mode_,std::string> errinfo_file_open_mode;
+    }
+include <boost/exception/errinfo_nested_exception.hpp>
+#include <boost/exception/error_info.hpp>
+namespace
+boost
+    {
+    typedef ---unspecified--- exception_ptr;
+    typedef error_info<struct errinfo_nested_exception_,exception_ptr> errinfo_nested_exception;
+    }
+include <boost/exception/errinfo_type_info_name.hpp>
+#include <boost/exception/error_info.hpp>
+#include <string>
+namespace
+boost
+    {
+    typedef error_info<struct errinfo_type_info_name_,std::string> errinfo_type_info_name;
+    }
+include <boost/exception/all.hpp>
+#include <boost/exception/diagnostic_information.hpp>
+#include <boost/exception/error_info.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/exception/get_error_info.hpp>
+#include <boost/exception/info.hpp>
+#include <boost/exception/info_tuple.hpp>
+#include <boost/exception/errinfo_api_function.hpp>
+#include <boost/exception/errinfo_at_line.hpp>
+#include <boost/exception/errinfo_errno.hpp>
+#include <boost/exception/errinfo_file_handle.hpp>
+#include <boost/exception/errinfo_file_name.hpp>
+#include <boost/exception/errinfo_file_open_mode.hpp>
+#include <boost/exception/errinfo_type_info_name.hpp>
+#ifndef BOOST_NO_EXCEPTIONS
+#include <boost/exception/errinfo_nested_exception.hpp>
+#include <boost/exception_ptr.hpp>
+#endif
+See also: Boost Exception
+Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

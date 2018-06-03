@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 13. Boost.Functional/Hash - 1.61.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 13. Boost.Functional/Hash
+Daniel James
+Copyright  2005-2008 Daniel
+      James
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Introduction
+Tutorial
+Extending boost::hash for a custom data type
+Combining hash values
+Portability
+Disabling The Extensions
+Change Log
+Rationale
+Reference
+Header <boost/functional/hash.hpp>
+Links
+Acknowledgements
+Introduction
+      boost::hash is an implementation of
+      the hash function
+      object specified by the Draft
+      Technical Report on C++ Library Extensions (TR1). It is the default
+      hash function for Boost.Unordered, Boost.Intrusive's
+      unordered associative containers, and Boost.MultiIndex's
+      hash indicies and Boost.Bimap's
+      unordered_set_of.
+    
+      As it is compliant with TR1,
+      it will work with:
+    
+          integers
+        
+          floats
+        
+          pointers
+        
+          strings
+        
+      It also implements the extension proposed by Peter Dimov in issue 6.18 of the
+      Library
+      Extension Technical Report Issues List (page 63), this adds support
+      for:
+    
+          arrays
+        
+          std::pair
+        
+          the standard containers.
+        
+          extending boost::hash for custom
+          types.
+        
+Note
+        This hash function is designed to be used in containers based on the STL
+        and is not suitable as a general purpose hash function. For more details
+        see the rationale.
+      
+Last revised: May 05, 2016 at 21:18:52 GMT

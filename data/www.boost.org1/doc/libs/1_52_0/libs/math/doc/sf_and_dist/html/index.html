@@ -1,0 +1,469 @@
+
+Math Toolkit - 1.52.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of boost.
+                Click here for the latest Boost documentation.
+Math Toolkit
+John Maddock
+Paul A. Bristow
+Hubert Holin
+Xiaogang Zhang
+Bruno Lalande
+Johan Rde
+Gautam Sewani
+Thijs van den Berg
+Benjamin Sobotta
+Copyright  2006-2010, 2012 John Maddock, Paul A. Bristow, Hubert Holin, Xiaogang
+      Zhang, Bruno Lalande, Johan Rde, Gautam Sewani, Thijs van den Berg and Benjamin
+      Sobotta
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Overview
+About the Math Toolkit
+Navigation
+Document Conventions
+Other Hints and tips
+Directory and
+      File Structure
+Namespaces
+Calculation of
+      the Type of the Result
+Error Handling
+Compilers
+Configuration
+      Macros
+Policies
+Thread Safety
+Performance
+If and How to Build
+      a Boost.Math Library, and its Examples and Tests
+History and What's
+      New
+C99 and C++ TR1 C-style
+      Functions
+Frequently Asked Questions
+      FAQ
+Contact Info and
+      Support
+Statistical Distributions and Functions
+Statistical Distributions
+      Tutorial
+Overview of Distributions
+Headers
+          and Namespaces
+Distributions
+          are Objects
+Generic
+          operations common to all distributions are non-member functions
+Complements
+          are supported too - and when to use them
+Parameters
+          can be calculated
+Summary
+Worked Examples
+Distribution
+          Construction Example
+Student's t
+          Distribution Examples
+Chi Squared
+          Distribution Examples
+F Distribution
+          Examples
+Binomial
+          Distribution Examples
+Geometric
+          Distribution Examples
+Negative
+          Binomial Distribution Examples
+Normal
+          Distribution Examples
+Inverse
+          Chi-Squared Distribution Bayes Example
+Non Central
+          Chi Squared Example
+Error Handling
+          Example
+Find Location
+          and Scale Examples
+Comparison
+          with C, R, FORTRAN-style Free Functions
+Using the
+          Distributions from Within C#
+Random Variates
+        and Distribution Parameters
+Discrete Probability
+        Distributions
+Statistical Distributions
+      Reference
+Non-Member Properties
+Distributions
+Bernoulli
+          Distribution
+Beta
+          Distribution
+Binomial
+          Distribution
+Cauchy-Lorentz
+          Distribution
+Chi
+          Squared Distribution
+Exponential
+          Distribution
+Extreme
+          Value Distribution
+F Distribution
+Gamma
+          (and Erlang) Distribution
+Geometric
+          Distribution
+Hypergeometric
+          Distribution
+Inverse
+          Chi Squared Distribution
+Inverse
+          Gamma Distribution
+Inverse
+          Gaussian (or Inverse Normal) Distribution
+Laplace
+          Distribution
+Logistic
+          Distribution
+Log
+          Normal Distribution
+Negative
+          Binomial Distribution
+Noncentral
+          Beta Distribution
+Noncentral
+          Chi-Squared Distribution
+Noncentral
+          F Distribution
+Noncentral
+          T Distribution
+Normal
+          (Gaussian) Distribution
+Pareto Distribution
+Poisson
+          Distribution
+Rayleigh
+          Distribution
+Skew
+          Normal Distribution
+Students
+          t Distribution
+Triangular
+          Distribution
+Uniform
+          Distribution
+Weibull
+          Distribution
+Distribution
+        Algorithms
+Extras/Future Directions
+Special Functions
+Gamma Functions
+Gamma
+Log Gamma
+Digamma
+Ratios
+        of Gamma Functions
+Incomplete Gamma
+        Functions
+Incomplete
+        Gamma Function Inverses
+Derivative
+        of the Incomplete Gamma Function
+Factorials and Binomial
+      Coefficients
+Factorial
+Double
+        Factorial
+Rising
+        Factorial
+Falling
+        Factorial
+Binomial
+        Coefficients
+Beta Functions
+Beta
+Incomplete
+        Beta Functions
+The
+        Incomplete Beta Function Inverses
+Derivative
+        of the Incomplete Beta Function
+Error Functions
+Error Functions
+Error Function
+        Inverses
+Polynomials
+Legendre (and
+        Associated) Polynomials
+Laguerre (and
+        Associated) Polynomials
+Hermite Polynomials
+Spherical Harmonics
+Bessel Functions
+Bessel Function
+        Overview
+Bessel Functions
+        of the First and Second Kinds
+Modified Bessel
+        Functions of the First and Second Kinds
+Spherical Bessel
+        Functions of the First and Second Kinds
+Hankel Functions
+Cyclic Hankel
+        Functions
+Spherical Hankel
+        Functions
+Airy Functions
+Airy Ai Function
+Airy Bi Function
+Airy Ai' Function
+Airy Bi' Function
+Elliptic Integrals
+Elliptic
+        Integral Overview
+Elliptic
+        Integrals - Carlson Form
+Elliptic Integrals
+        of the First Kind - Legendre Form
+Elliptic Integrals
+        of the Second Kind - Legendre Form
+Elliptic Integrals
+        of the Third Kind - Legendre Form
+Jacobi Elliptic Functions
+Overvew of the
+        Jacobi Elliptic Functions
+Jacobi
+        Elliptic SN, CN and DN
+Jacobi Elliptic
+        Function cd
+Jacobi Elliptic
+        Function cn
+Jacobi Elliptic
+        Function cs
+Jacobi Elliptic
+        Function dc
+Jacobi Elliptic
+        Function dn
+Jacobi Elliptic
+        Function ds
+Jacobi Elliptic
+        Function nc
+Jacobi Elliptic
+        Function nd
+Jacobi Elliptic
+        Function ns
+Jacobi Elliptic
+        Function sc
+Jacobi Elliptic
+        Function sd
+Jacobi Elliptic
+        Function sn
+Zeta Functions
+Riemann Zeta Function
+Exponential Integrals
+Exponential Integral
+        En
+Exponential Integral
+        Ei
+Logs, Powers, Roots and
+      Exponentials
+log1p
+expm1
+cbrt
+sqrt1pm1
+powm1
+hypot
+Compile Time Power
+        of a Runtime Base
+Sinus Cardinal and Hyperbolic
+      Sinus Cardinal Functions
+Sinus Cardinal
+        and Hyperbolic Sinus Cardinal Functions Overview
+sinc_pi
+sinhc_pi
+Inverse Hyperbolic Functions
+Inverse
+        Hyperbolic Functions Overview
+acosh
+asinh
+atanh
+Owen's T function
+Floating Point Utilities
+Rounding Truncation and
+      Integer Conversion
+Rounding Functions
+Truncation Functions
+Integer and Fractional
+        Part Splitting (modf)
+Floating-Point Classification:
+      Infinities and NaNs
+Sign Manipulation
+      Functions
+Facets for Floating-Point
+      Infinities and NaNs
+Introduction
+Reference
+Examples
+Portability
+Design Rationale
+Floating-Point Representation
+      Distance (ULP), and Finding Adjacent Floating-Point Values
+Finding the
+        Next Representable Value in a Specific Direction (nextafter)
+Finding the
+        Next Greater Representable Value (float_next)
+Finding
+        the Next Smaller Representable Value (float_prior)
+Calculating
+        the Representation Distance Between Two Floating Point Values (ULP) float_distance
+Advancing
+        a Floating Point Value by a Specific Representation Distance (ULP) float_advance
+TR1 and C99 external "C"
+    Functions
+C99 and TR1 C Functions Overview
+C99 C Functions
+TR1 C Functions Quick
+      Reference
+Mathematical Constants
+Introduction
+Tutorial
+Use in non-template
+        code
+Use in template
+        code
+Use With
+        User Defined Types
+The Mathematical Constants
+Defining New Constants
+FAQs
+Tools and Internal Details
+Overview
+Utilities & Tools
+Series
+        Evaluation
+Continued Fraction
+        Evaluation
+Polynomial
+        and Rational Function Evaluation
+Root Finding
+        With Derivatives: Newton-Raphson, Halley & Schroeder
+Root Finding
+        Without Derivatives: Bisection, Bracket and TOMS748
+Locating Function
+        Minima: Brent's algorithm
+Tuples
+Testing and Development
+Polynomials
+Minimax Approximations
+        and the Remez Algorithm
+Relative
+        Error and Testing
+Graphing,
+        Profiling, and Generating Test Data for Special Functions
+Use with User-Defined Floating-Point
+    Types
+Using With NTL - a High-Precision
+      Floating-Point Library
+Using With MPFR / GMP
+      - a High-Precision Floating-Point Library
+e_float Support
+Conceptual Requirements
+      for Real Number Types
+Conceptual Requirements
+      for Distribution Types
+Conceptual Archetypes
+      for Reals and Distributions
+Policies
+Policy Overview
+Policy Tutorial
+So
+        Just What is a Policy Anyway?
+Policies
+        Have Sensible Defaults
+So How
+        are Policies Used Anyway?
+Changing
+        the Policy Defaults
+Setting
+        Policies for Distributions on an Ad Hoc Basis
+Changing
+        the Policy on an Ad Hoc Basis for the Special Functions
+Setting
+        Policies at Namespace or Translation Unit Scope
+Calling
+        User Defined Error Handlers
+Understanding
+        Quantiles of Discrete Distributions
+Policy Reference
+Error
+        Handling Policies
+Internal
+        Floating-point Promotion Policies
+Mathematically
+        Undefined Function Policies
+Discrete
+        Quantile Policies
+Precision
+        Policies
+Iteration
+        Limits Policies
+Using
+        Macros to Change the Policy Defaults
+Setting
+        Polices at Namespace Scope
+Policy Class
+        Reference
+Performance
+Performance Overview
+Interpreting these Results
+Getting the Best Performance
+      from this Library
+Comparing Compilers
+Performance Tuning Macros
+Comparisons to Other Open
+      Source Libraries
+The Performance Test
+      Application
+Backgrounders
+Additional
+      Implementation Notes
+Relative Error
+The Lanczos Approximation
+The Remez Method
+References
+Library Status
+History and What's New
+Known Issues, and TODO List
+Credits and Acknowledgements
+Function Index
+Class Index
+Typedef Index
+Macro Index
+Index
+    This manual is also available in printer
+    friendly PDF format, and as a CD ISBN 0-9504833-2-X 978-0-9504833-2-0,
+    Classification 519.2-dc22.
+  
+Last revised: August 23, 2012 at 13:30:39 GMT

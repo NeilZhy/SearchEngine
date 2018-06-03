@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+  
+  
+  Boost.Compatibilty library - 1.56.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  
+    
+    Boost.Compatibilty library
+    This library provides workarounds which allow the other Boost
+    libraries to be used on otherwise non-conforming platforms. We hope that
+    it will be possible to remove this library at some time in the future as
+    standard library suppliers become more conforming.
+    Missing C++ standard library CXX headers (e.g <cstdio>)
+    workaround
+    The Python script: generate_cpp_c_headers.py creates a
+    full set of C++ C header files (e.g. <cstdio>) that are missing on
+    some platforms. The header files created by this script reside in the
+    directory boost/compatibility/cpp_c_headers.
+    To use the header files, add this directory to the include file search
+    path. For example:
+    
+cxx -I/usr/local/boost/boost/compatibility/cpp_c_headers ...
+    Supported platforms are:
+    
+      Compaq Alpha, RedHat 6.2 Linux, Compaq C++ V6.3 (cxx)
+      Compaq Alpha, Tru64 Unix V5.0, Compaq C++ V6.2 (cxx)
+      Silicon Graphics, IRIX 6.5, MIPSpro Compilers: Version 7.3.1.1m
+      (CC)
+    
+    There are more powerful alternatives to using the Boost.Compatibility
+    library CXX headers, e.g. STLport
+    or 
+    ISOCXX. However, in contrast to these alternatives, the
+    generate_cpp_c_headers.py script is very light-weight (less than
+    100 non-comment lines of Python code), much less ambitious, significantly
+    easier to maintain and therefore more suitable as an interim
+    workaround.
+    Contributed by Ralf W. Grosse-Kunstleve.
+    Missing C++ standard library <limits> header workaround
+    boost/limits.hpp
+    Several Boost libraries require the standard library's <limits>
+    header, yet this header is not always supplied by non-conforming
+    compilers and libraries.  Header boost/limits.hpp simply includes the
+    standard library <limits> header if available, otherwise includes
+    boost/detail/limits.hpp. 
+    BOOST_NO_LIMITS from boost/config.hpp
+    is used to determine <limits> availability.
+    Note also the test program limits_test.cpp
+    Contributed by Jens Maurer.
+     
+    
+    
+    Revised 
+    01 December, 2006
+     Copyright Ralf W. Grosse-Kunstleve 2001
+    Distributed under the Boost Software License, Version 1.0. (See
+    accompanying file LICENSE_1_0.txt or
+    copy at http://www.boost.org/LICENSE_1_0.txt)
+  

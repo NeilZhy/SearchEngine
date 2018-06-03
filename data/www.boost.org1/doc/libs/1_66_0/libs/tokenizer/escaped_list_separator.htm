@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  
+  
+  
+  
+  Boost Escaped List Separator - 1.66.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+  
+  Escaped List Separator
+  
+    
+escaped_list_separator<Char, Traits = std::char_traits<Char> >
+  
+  The escaped_list_separator class is an implementation of the
+  TokenizerFunction. The
+  escaped_list_separator parses a superset of the csv (comma separated value)
+  format. The examples of this formate are below. It is assumed that the
+  default characters for separator, quote, and escape are used.
+  Field 1,Field 2,Field 3
+  Field 1,"Field 2, with comma",Field 3
+  Field 1,Field 2 with \"embedded quote\",Field 3
+  Field 1, Field 2 with \n new line,Field 3
+  Field 1, Field 2 with embedded \\ ,Field 3
+  Fields are normally separated by commas. If you want to put a comma in a
+  field, you need to put quotes around it. Also 3 escape sequences are
+  supported
+  
+    
+      
+        Escape Sequence
+      
+      
+        Result
+      
+    
+    
+      <escape><quote>
+      <quote>
+    
+    
+      <escape>n
+      newline
+    
+    
+      <escape><escape>
+      <escape>
+    
+  
+  Where <quote> is any character specified to be a quote
+  and<escape> is any character specified to be an escape character.
+  Example
+  
+// simple_example_2.cpp
+#include<iostream>
+#include<boost/tokenizer.hpp>
+#include<string>
+int main(){
+   using namespace std;
+   using namespace boost;
+   string s = "Field 1,\"putting quotes around fields, allows commas\",Field 3";
+   tokenizer<escaped_list_separator<char> > tok(s);
+   for(tokenizer<escaped_list_separator<char> >::iterator beg=tok.begin(); beg!=tok.end();++beg){
+       cout << *beg << "\n";
+   }
+}
+   
+  Construction and Usage
+  escaped_list_separator has 2 constructors. They are as follows
+  
+explicit escaped_list_separator(Char e = '\\', Char c = ',',Char q = '\"')
+  
+    
+      
+        Parameter
+      
+      
+        Description
+      
+    
+    
+      e
+      Specifies the character to use for escape sequences. It defaults to
+      the C style \ (backslash). However you can override by passing in a
+      different character. An example of when you might want to do this is
+      when you have many fields which are Windows style filenames. Instead of
+      escaping out each \ in the path, you can change the escape to something
+      else.
+    
+    
+      c
+      Specifies the character to use to separate the fields
+    
+    
+      q
+      Specifies the character to use for the quote.
+    
+  
+   
+  
+escaped_list_separator(string_type e, string_type c, string_type q):
+  
+    
+      
+        Parameter
+      
+      
+        Description
+      
+    
+    
+      e
+      Any character in the string e, is considered to be an escape
+      character. If an empty string is given, then there are no escape
+      characters.
+    
+    
+      c
+      Any character in the string c, is considered to be a separator. If
+      an empty string is given, then there are no separator characters.
+    
+    
+      q
+      Any character in the string q, is considered to be a quote. If an
+      empty string is given, then there are no quote characters.
+    
+  
+   
+  To use this class, pass an object of it anywhere in the Tokenizer
+  package where a TokenizerFunction is required.
+   
+  Template Parameters
+  
+    
+      Parameter
+      Description
+    
+    
+      Char
+      The type of the elements within a token, typically
+      char.
+    
+    
+      Traits
+      The traits class for the Char type. This is used for comparing
+      Char's. It defaults to std::char_traits<Char>
+    
+  
+   
+  Model of
+  TokenizerFunction
+   
+  
+  
+  Revised 
+  25
+  December, 2006
+  Copyright  2001 John R. Bandela
+  Distributed under the Boost Software License, Version 1.0. (See
+  accompanying file LICENSE_1_0.txt or
+  copy at http://www.boost.org/LICENSE_1_0.txt)

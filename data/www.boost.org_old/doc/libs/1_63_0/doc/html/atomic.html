@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter&#160;8.&#160;Boost.Atomic - 1.63.0</title>
+<link rel="stylesheet" href="../../../1_56_0/libs/math/doc/html/boostbook.css" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
+<link rel="prev" href="boost_asio/index.html" title="">
+<link rel="next" href="atomic/thread_coordination.html" title="Thread coordination using Boost.Atomic">
+<link rel="icon" href="/favicon.ico" type="image/ico"/><link rel="stylesheet" type="text/css" href="../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/doc/html/atomic.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/doc/html/atomic.html'" tppabs="https://www.boost.org/doc/libs/release/doc/html/atomic.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/signals2/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/signals2/index.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/boost_asio/index.html"><img src="../../../1_56_0/libs/msm/prev.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html"><img src="../../../1_56_0/libs/msm/up.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/index.html"><img src="../../../1_56_0/libs/msm/home.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html"><img src="../../../1_56_0/libs/msm/next.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="chapter">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="atomic"></a>Chapter&#160;8.&#160;Boost.Atomic</h2></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Helge</span> <span class="surname">Bahmann</span>
+</h3></div></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Andrey</span> <span class="surname">Semashev</span>
+</h3></div></div>
+<div><p class="copyright">Copyright &#169; 2011 Helge Bahmann</p></div>
+<div><p class="copyright">Copyright &#169; 2012 Tim Blechmann</p></div>
+<div><p class="copyright">Copyright &#169; 2013 Andrey Semashev</p></div>
+<div><div class="legalnotice">
+<a name="atomic.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc">
+<dt><span class="section"><a href="atomic.html#atomic.introduction" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction">Introduction</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="atomic.html#atomic.introduction.introduction_presenting" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction.introduction_presenting">Presenting
+      Boost.Atomic</a></span></dt>
+<dt><span class="section"><a href="atomic.html#atomic.introduction.introduction_purpose" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction.introduction_purpose">Purpose</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html">Thread coordination using Boost.Atomic</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html#atomic.thread_coordination.mutex'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html#atomic.thread_coordination.mutex">Enforcing <span class="emphasis"><em>happens-before</em></span>
+      through mutual exclusion</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html#atomic.thread_coordination.release_acquire'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html#atomic.thread_coordination.release_acquire"><span class="emphasis"><em>happens-before</em></span>
+      through <code class="literal">release</code> and <code class="literal">acquire</code></a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html#atomic.thread_coordination.fences'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html#atomic.thread_coordination.fences">Fences</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html#atomic.thread_coordination.release_consume'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html#atomic.thread_coordination.release_consume"><span class="emphasis"><em>happens-before</em></span>
+      through <code class="literal">release</code> and <code class="literal">consume</code></a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html#atomic.thread_coordination.seq_cst'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html#atomic.thread_coordination.seq_cst">Sequential consistency</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/interface.html">Programming interfaces</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png#atomic.interface.configuration'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/interface.html#atomic.interface.configuration">Configuration and building</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png#atomic.interface.interface_memory_order'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/interface.html#atomic.interface.interface_memory_order">Memory order</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png#atomic.interface.interface_atomic_object'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/interface.html#atomic.interface.interface_atomic_object">Atomic objects</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png#atomic.interface.interface_fences'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/interface.html#atomic.interface.interface_fences">Fences</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png  \n\n该文件无法用 Teleport Ultra 下载, 因为 它不在项目文件类型规范内。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/warning.png#atomic.interface.feature_macros'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/interface.html#atomic.interface.feature_macros">Feature testing macros</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/usage_examples.html">Usage examples</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html#boost_atomic.usage_examples.example_reference_counters'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/usage_examples.html#boost_atomic.usage_examples.example_reference_counters">Reference
+      counting</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html#boost_atomic.usage_examples.example_spinlock'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/usage_examples.html#boost_atomic.usage_examples.example_spinlock">Spinlock</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html#boost_atomic.usage_examples.singleton'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/usage_examples.html#boost_atomic.usage_examples.singleton">Singleton with
+      double-checked locking pattern</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html#boost_atomic.usage_examples.example_ringbuffer'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/usage_examples.html#boost_atomic.usage_examples.example_ringbuffer">Wait-free
+      ring buffer</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html#boost_atomic.usage_examples.mp_queue'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/usage_examples.html#boost_atomic.usage_examples.mp_queue">Wait-free multi-producer
+      queue</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/history.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/history.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/limitations.html">Limitations</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/porting.html">Porting</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html#atomic.porting.unit_tests'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/porting.html#atomic.porting.unit_tests">Unit tests</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html#atomic.porting.tested_compilers'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/porting.html#atomic.porting.tested_compilers">Tested compilers</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/io_context.html#atomic.porting.acknowledgements'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/porting.html#atomic.porting.acknowledgements">Acknowledgements</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="atomic.introduction"></a><a class="link" href="atomic.html#atomic.introduction" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction" title="Introduction">Introduction</a>
+</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="atomic.html#atomic.introduction.introduction_presenting" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction.introduction_presenting">Presenting
+      Boost.Atomic</a></span></dt>
+<dt><span class="section"><a href="atomic.html#atomic.introduction.introduction_purpose" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction.introduction_purpose">Purpose</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="atomic.introduction.introduction_presenting"></a><a class="link" href="atomic.html#atomic.introduction.introduction_presenting" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction.introduction_presenting" title="Presenting Boost.Atomic">Presenting
+      Boost.Atomic</a>
+</h3></div></div></div>
+<p>
+        <span class="bold"><strong>Boost.Atomic</strong></span> is a library that provides
+        <code class="literal">atomic</code> data types and operations on these data types,
+        as well as memory ordering constraints required for coordinating multiple
+        threads through atomic variables. It implements the interface as defined
+        by the C++11 standard, but makes this feature available for platforms lacking
+        system/compiler support for this particular C++11 feature.
+      </p>
+<p>
+        Users of this library should already be familiar with concurrency in general,
+        as well as elementary concepts such as "mutual exclusion".
+      </p>
+<p>
+        The implementation makes use of processor-specific instructions where possible
+        (via inline assembler, platform libraries or compiler intrinsics), and falls
+        back to "emulating" atomic operations through locking.
+      </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="atomic.introduction.introduction_purpose"></a><a class="link" href="atomic.html#atomic.introduction.introduction_purpose" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic.html#atomic.introduction.introduction_purpose" title="Purpose">Purpose</a>
+</h3></div></div></div>
+<p>
+        Operations on "ordinary" variables are not guaranteed to be atomic.
+        This means that with <code class="literal">int n=0</code> initially, two threads concurrently
+        executing
+      </p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">function</span><span class="special">()</span>
+<span class="special">{</span>
+  <span class="identifier">n</span> <span class="special">++;</span>
+<span class="special">}</span>
+</pre>
+<p>
+        might result in <code class="literal">n==1</code> instead of 2: Each thread will read
+        the old value into a processor register, increment it and write the result
+        back. Both threads may therefore write <code class="literal">1</code>, unaware that
+        the other thread is doing likewise.
+      </p>
+<p>
+        Declaring <code class="literal">atomic&lt;int&gt; n=0</code> instead, the same operation
+        on this variable will always result in <code class="literal">n==2</code> as each operation
+        on this variable is <span class="emphasis"><em>atomic</em></span>: This means that each operation
+        behaves as if it were strictly sequentialized with respect to the other.
+      </p>
+<p>
+        Atomic variables are useful for two purposes:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            as a means for coordinating multiple threads via custom coordination
+            protocols
+          </li>
+<li class="listitem">
+            as faster alternatives to "locked" access to simple variables
+          </li>
+</ul></div>
+<p>
+        Take a look at the <a class="link" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/value.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/usage_examples.html" title="Usage examples">examples</a>
+        section for common patterns.
+      </p>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: December 22, 2016 at 12:37:17 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/signals2/index.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/signals2/index.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/boost_asio/index.html"><img src="../../../1_56_0/libs/msm/prev.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html"><img src="../../../1_56_0/libs/msm/up.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/index.html"><img src="../../../1_56_0/libs/msm/home.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/smart_ptr/logging_api.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/atomic/thread_coordination.html"><img src="../../../1_56_0/libs/msm/next.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

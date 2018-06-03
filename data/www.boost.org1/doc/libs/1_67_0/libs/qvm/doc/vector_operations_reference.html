@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+	
+	vector operations - 1.67.0
+	
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+QVM: Quaternions, Vectors, Matrices
+Vector Operations
+include <boost/qvm/vec_operations.hpp>
+namespace boost
+{
+    namespace qvm
+    {
+        //*** Vector operations ***
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        A & assign( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<R>::value && is_vec<A>::value &&
+        //  vec_traits<R>::dim==vec_traits<A>::dim
+        template <class R,class A>
+        R convert_to( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        A & operator-=( A & a, B const & b );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <class A>
+        typename deduce_vec<A>::type
+        operator-( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        typename deduce_vec2<A,B,vec_traits<A>::dim>::type
+        operator-( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        A & operator+=( A & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        typename deduce_vec2<A,B,vec_traits<A>::dim>::type
+        operator+( A const & a, B const & b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        A & operator/=( A & a, B b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        typename deduce_vec<A>::type
+        operator/( A const & a, B b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A,class B>
+        A & operator*=( A & a, B b );        
+        
+        //Only enabled if: is_vec<A>::value && is_scalar<B>::value
+        template <class A>
+        typename deduce_vec<A>::type
+        operator*( A const & a, B b );        
+        
+        //Only enabled if: is_scalar<A>::value && is_vec<B>::value
+        template <class A>
+        typename deduce_vec<B>::type
+        operator*( A a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        bool operator==( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        bool operator!=( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B,class Cmp>
+        bool cmp( A const & a, B const & b, Cmp pred );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        typename vec_traits<A>::scalar_type
+        mag_sqr( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        typename vec_traits<A>::scalar_type
+        mag( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        typename deduce_vec<A>::type
+        normalized( A const & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        void normalize( A & a );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==vec_traits<B>::dim
+        template <class A,class B>
+        typename deduce_scalar<A,B>::type
+        dot( A const & a, B const & b );        
+        
+        //Only enabled if:
+        //  is_vec<A>::value && is_vec<B>::value &&
+        //  vec_traits<A>::dim==3 && vec_traits<B>::dim==3
+        template <class A,class B>
+        typename deduce_vec2<A,B,3>::type
+        cross( A const & a, B const & b );        
+        
+        template <class T,int S>
+        -unspecified-return-type- zero_vec();        
+        
+        //Only enabled if:
+        //  is_vec<A>::value
+        template <class A>
+        void set_zero( A & a );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <class A>
+        -unspecified-return-type- vref( A & a );        
+        
+        //Only enabled if: is_vec<A>::value
+        template <class Scalar,class A>
+        -unspecified-return_type- scalar_cast( A const & a );
+    }
+}
+This is a list of all vector operations implemented by Boost QVM -- click on functions for individual documentation. General notes:
+ All functions use SFINAE/enable_if. They are available for any C++ type but only if it has been registered through the vec_traits template.
+ When objects are returned by value their type is deduced either by the deduce_vec template (for unary functions) or the deduce_vec2 template (for binary functions).
+ The type of scalar arguments is deduced independently from the type of the vector argument, so they are not required to match. Scalar arguments must convert implicitly to the vector scalar type.
+See also: Boost QVM | Synopsis
+Copyright (c) 2008-2018 by Emil Dotchevski and Reverge Studios, Inc.
+Distributed under the Boost Software License, Version 1.0.

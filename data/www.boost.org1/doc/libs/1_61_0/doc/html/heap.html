@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 14. Boost.Heap - 1.61.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 14. Boost.Heap
+Tim Blechmann
+Copyright  2010, 2011 Tim Blechmann
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Introduction & Motivation
+Concepts & Interface
+Basic Priority Queue Interface
+Priority Queue Iterators
+Comparing Priority Queues &
+      Equivalence
+Merging Priority Queues
+Mutability
+Stability
+Data Structures
+Data
+      Structure Configuration
+Reference
+Header <boost/heap/binomial_heap.hpp>
+Header <boost/heap/d_ary_heap.hpp>
+Header <boost/heap/fibonacci_heap.hpp>
+Header <boost/heap/heap_concepts.hpp>
+Header <boost/heap/heap_merge.hpp>
+Header <boost/heap/pairing_heap.hpp>
+Header <boost/heap/policies.hpp>
+Header <boost/heap/priority_queue.hpp>
+Header <boost/heap/skew_heap.hpp>
+Acknowledgements
+Introduction & Motivation
+      boost.heap is an implementation of priority queues. Priority
+      queues are queue data structures, that order their elements by a priority.
+      The STL provides a single template class std::priority_queue,
+      which only provides a limited functionality. To overcome these limitations,
+      boost.heap implements data
+      structures with more functionality and different performance characteristics.
+      Especially, it deals with additional aspects:
+    
+          Mutability: The priority of heap elements
+          can be modified.
+        
+          Iterators: Heaps provide iterators to
+          iterate all elements.
+        
+          Mergable: While all heaps can be merged,
+          some can be merged efficiently.
+        
+          Stability: Heaps can be configured to
+          be stable sorted.
+        
+          Comparison: Heaps can be compared for
+          equivalence.
+        
+Last revised: May 05, 2016 at 21:18:54 GMT

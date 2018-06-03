@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+	<title>frequently asked questions - 1.66.0</title>
+	<link href="reno.css" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/reno.css" type='text/css' rel='stylesheet'/>
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body>  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/libs/exception/doc/frequently_asked_questions.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个与它的启始地址很远的链接。如果你增大启始地址域内深度设置, 该文件将被加入下载队列。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/libs/exception/doc/frequently_asked_questions.html'" tppabs="https://www.boost.org/doc/libs/release/libs/exception/doc/frequently_asked_questions.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+
+<div class="body-0">
+<div class="body-1">
+<div class="body-2">
+<div>
+<div id="boost_logo">
+<a href="../../../../../../index.htm" tppabs="https://www.boost.org/"><img style="border:0" src="../../../boost.png" tppabs="https://www.boost.org/doc/libs/1_66_0/boost.png" alt="Boost" width="277" height="86"/></a>
+</div>
+<h1>Boost Exception</h1>
+</div>
+<!-- Copyright (c) 2006-2009 Emil Dotchevski and Reverge Studios, Inc. -->
+<!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->
+<!-- file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) -->
+<div class="RenoIncludeDIV"><div class="RenoAutoDIV"><h2>Frequently Asked Questions</h2>
+</div>
+<h3>What is the cost of calling boost::throw_exception?</h3>
+<p>The cost is that boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span> is added as a base of the exception emitted by boost::<span class="RenoLink"><a href="throw_exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/throw_exception.html">throw_exception</a></span> (unless the passed type already derives from boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span>.)</p>
+<p>Calling boost::<span class="RenoLink"><a href="throw_exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/throw_exception.html">throw_exception</a></span> does not cause dynamic memory allocations.</p>
+<h3>What is the cost of BOOST_THROW_EXCEPTION?</h3>
+<p>In addition to calling boost::<span class="RenoLink"><a href="throw_exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/throw_exception.html">throw_exception</a></span>, <span class="RenoLink"><a href="BOOST_THROW_EXCEPTION.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a></span> invokes __FILE__, __LINE__ and the <span class="RenoLink"><a href="configuration_macros.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/configuration_macros.html">BOOST_THROW_EXCEPTION_CURRENT_FUNCTION</a></span> macros. The space required to store the information is already included in sizeof(boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span>).</p>
+<p>Calling <span class="RenoLink"><a href="BOOST_THROW_EXCEPTION.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a></span> does not cause dynamic memory allocations.</p>
+<h3>Should I use boost::throw_exception or BOOST_THROW_EXCEPTION or just throw?</h3>
+<p>The benefit of calling boost::<span class="RenoLink"><a href="throw_exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/throw_exception.html">throw_exception</a></span> instead of using throw directly is that it ensures that the emitted exception derives from boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span> and that it is compatible with boost::<span class="RenoLink"><a href="current_exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/current_exception.html">current_exception</a></span>.</p>
+<p>The <span class="RenoLink"><a href="BOOST_THROW_EXCEPTION.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a></span> macro also results in a call to boost::<span class="RenoLink"><a href="throw_exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/throw_exception.html">throw_exception</a></span>, but in addition it records in the exception object the __FILE__ and __LINE__ of the throw, as well as the pretty name of the function that throws. This enables boost::<span class="RenoLink"><a href="diagnostic_information.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/diagnostic_information.html">diagnostic_information</a></span> to compose a more useful, if not user-friendly message.</p>
+<p>Typical use of boost::<span class="RenoLink"><a href="diagnostic_information.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/diagnostic_information.html">diagnostic_information</a></span> is:</p>
+<pre>catch(...)
+    {
+    std::cerr &lt;&lt;
+        "Unexpected exception, diagnostic information follows:\n" &lt;&lt;
+        <span class="RenoLink"><a href="current_exception_diagnostic_information.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/current_exception_diagnostic_information.html">current_exception_diagnostic_information</a></span>();
+    }</pre>
+<p>This is a possible message it may display -- the information in the first line is only available if <span class="RenoLink"><a href="BOOST_THROW_EXCEPTION.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a></span> was used to throw:</p>
+<pre>example_io.cpp(70): Throw in function class boost::shared_ptr&lt;struct _iobuf&gt; __cdecl my_fopen(const char *,const char *)
+Dynamic exception type: class boost::exception_detail::clone_impl&lt;class fopen_error&gt;
+std::exception::what: example_io error
+[struct boost::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/crc.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/crc.html'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/errinfo_api_function.html">errinfo_api_function</a></span>_ *] = fopen
+[struct boost::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/boost_dll.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/boost_dll.html'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/errinfo_errno.html">errinfo_errno</a></span>_ *] = 2, "No such file or directory"
+[struct boost::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/Assignable.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/Assignable.html'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/errinfo_file_name.html">errinfo_file_name</a></span>_ *] = tmp1.txt
+[struct boost::<span class="RenoLink"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/conversion.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/conversion.html'" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/errinfo_file_open_mode.html">errinfo_file_open_mode</a></span>_ *] = rb</pre>
+<p>In some development environments, the first line in that message can be clicked to show the location of the throw in the debugger, so it's easy to set a break point and run again to see the unexpected throw in the context of its call stack.</p>
+<h3>Why doesn't boost::exception derive from std::exception?</h3>
+<p>Despite that <span class="RenoLink"><a href="using_virtual_inheritance_in_exception_types.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/using_virtual_inheritance_in_exception_types.html">virtual inheritance should be used in deriving from base exception types</a></span>, quite often exception types (including the ones defined in the standard library) don't derive from std::exception virtually.</p>
+<p>If boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span> derives from std::exception, using the <span class="RenoLink"><a href="enable_error_info.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/enable_error_info.html">enable_error_info</a></span> function with such user-defined types would introduce dangerous ambiguity which would break all catch(std::exception &amp;) statements.</p>
+<p>Of course, boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span> should not be used to replace std::exception as a base type in exception type hierarchies. Instead, it should be included as a virtual base, in addition to std::exception (which should probably also be derived virtually.)</p>
+<h3>Why is boost::exception abstract?</h3>
+<p>To prevent exception-neutral contexts from erroneously erasing the type of the original exception when adding <span class="RenoLink"><a href="error_info.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/error_info.html">error_info</a></span> to an active exception object:</p>
+<pre>catch( boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span> &amp; e )
+    {
+    e <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception_operator_shl.html">&lt;&lt;</a></span> foo_info(foo);
+    throw e; //Compile error: boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span> is abstract
+    }</pre>
+<p>The correct code is:</p>
+<pre>catch( boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span> &amp; e )
+    {
+    e <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception_operator_shl.html">&lt;&lt;</a></span> foo_info(foo);
+    throw; //Okay, re-throwing the original exception object.
+    }</pre>
+<h3>Why use operator&lt;&lt; overload for adding info to exceptions?</h3>
+<p>Before throwing an object of type that derives from boost::<span class="RenoLink"><a href="exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception.html">exception</a></span>, it is often desirable to add one or more <span class="RenoLink"><a href="error_info.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/error_info.html">error_info</a></span> objects in it. The syntactic sugar provided by <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception_operator_shl.html">operator&lt;&lt;</a></span> allows this to be done directly in a throw expression:</p>
+<pre>throw error() <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception_operator_shl.html">&lt;&lt;</a></span> foo_info(foo) <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception_operator_shl.html">&lt;&lt;</a></span> bar_info(bar);</pre>
+<h3>Why is operator&lt;&lt; allowed to throw?</h3>
+<p>This question is referring to the following issue. Consider this throw statement example:</p>
+<pre>throw file_open_error() <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception_operator_shl.html">&lt;&lt;</a></span> file_name(fn);</pre>
+<p>The intention here is to throw a file_open_error, however if <span class="RenoLink"><a href="exception_operator_shl.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/exception_operator_shl.html">operator&lt;&lt;</a></span> fails to copy the std::string contained in the file_name <span class="RenoLink"><a href="error_info.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/error_info.html">error_info</a></span> wrapper, a std::bad_alloc could propagate instead. This behavior seems undesirable to some programmers.</p>
+<p>Bjarne Stroustrup, The C++ Programming Language, 3rd Edition, page 371:</p>
+<blockquote><p><i>"Throwing an exception requires an object to throw.  A C++ implementation is required to have enough spare memory to be able to throw bad_alloc in case of memory exhaustion.  However, it is possible that throwing some other exception will cause memory exhaustion."</i></p></blockquote>
+<p>Therefore, the language itself does not guarantee that an attempt to throw an exception is guaranteed to throw an object of the specified type; propagating a std::bad_alloc seems to be a possibility even outside of the scope of Boost Exception.</p>
+</div><div class="RenoAutoDIV"><div class="RenoHR"><hr/></div>
+See also: <span class="RenoPageList"><a href="boost-exception.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/boost-exception.html">Boost Exception</a>&nbsp;| <a href="motivation.html" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/motivation.html">Motivation</a></span>
+</div>
+<!-- Copyright (c) 2006-2009 Emil Dotchevski and Reverge Studios, Inc. -->
+<!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->
+<!-- file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) -->
+<div id="footer">
+<p>
+<a class="logo" href="javascript:if(confirm('http://jigsaw.w3.org/css-validator/check/referer  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://jigsaw.w3.org/css-validator/check/referer'" tppabs="http://jigsaw.w3.org/css-validator/check/referer"><img class="logo_pic" src="valid-css.png" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/valid-css.png" alt="Valid CSS" height="31" width="88"/></a>
+<a class="logo" href="javascript:if(confirm('http://validator.w3.org/check?uri=referer  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://validator.w3.org/check?uri=referer'" tppabs="http://validator.w3.org/check?uri=referer"><img class="logo_pic" src="valid-xhtml.png" tppabs="https://www.boost.org/doc/libs/1_66_0/libs/exception/doc/valid-xhtml.png" alt="Valid XHTML 1.0" height="31" width="88"/></a>
+<small>Copyright (c) 2006-2009 by Emil Dotchevski and Reverge Studios, Inc.<br/>
+Distributed under the <a href="../../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt">Boost Software License, Version 1.0</a>.</small>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

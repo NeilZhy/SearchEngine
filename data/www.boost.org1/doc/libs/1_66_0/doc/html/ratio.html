@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 34. Boost.Ratio 2.1.0 - 1.66.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 34. Boost.Ratio 2.1.0
+Howard Hinnant
+Beman Dawes
+Vicente J. Botet Escriba
+Copyright  2008 Howard Hinnant
+Copyright  2006, 2008 Beman Dawes
+Copyright  2009-2012 Vicente
+      J. Botet Escriba
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Overview
+Motivation
+Description
+User's Guide
+Getting Started
+Tutorial
+Example
+External Resources
+Reference 
+Header <boost/ratio/config.hpp>
+C++0x Recommendation
+Ratio I/O
+Rational Constant
+Appendices
+Appendix A: History
+Appendix B: Rationale
+Appendix C: Implementation
+      Notes
+Appendix D: FAQ
+Appendix E: Acknowledgements
+Appendix F: Tests
+Appendix G: Tickets
+Appendix H: Future Plans
+Overview
+Motivation
+Description
+      How
+      to Use This Documentation
+    
+      This documentation makes use of the following naming and formatting conventions.
+    
+          Code is in fixed width
+          font and is syntax-highlighted.
+        
+          Replaceable text that you will need to supply is in italics.
+        
+          Free functions are rendered in the code font followed by (), as in free_function().
+        
+          If a name refers to a class template, it is specified like this: class_template<>;
+          that is, it is in code font and its name is followed by <>
+          to indicate that it is a class template.
+        
+          If a name refers to a function-like macro, it is specified like this:
+          MACRO();
+          that is, it is uppercase in code font and its name is followed by () to indicate that it is a function-like
+          macro. Object-like macros appear without the trailing ().
+        
+          Names that refer to concepts in the generic programming
+          sense are specified in CamelCase.
+        
+Note
+        In addition, notes such as this one specify non-essential information that
+        provides additional background or rationale.
+      
+      Finally, you can mentally add the following to any code fragments in this document:
+    
+// Include all of Ratio files
+#include <boost/ratio.hpp>
+using namespace boost;
+Motivation
+        Boost.Ratio aims to implement the compile
+        time ratio facility in C++0x, as proposed in N2661 - A Foundation to Sleep On. That document
+        provides background and motivation for key design decisions and is the source
+        of a good deal of information in this documentation.
+      
+Description
+        The Boost.Ratio library provides:
+      
+            A class template, ratio, for specifying compile
+            time rational constants such as 1/3 of a nanosecond or the number of
+            inches per meter. ratio represents a compile time
+            ratio of compile time constants with support for compile time arithmetic
+            with overflow and division by zero protection.
+          
+            It provides a textual representation of boost::ratio<N, D> in the form of a std::basic_string
+            which can be useful for I/O.
+          
+            Some extension related to the Rational
+            Constant concept enabling the use of ratio<> in the context
+            of Boost.MPL numeric metafunctions.
+          
+Last revised: December 05, 2017 at 23:51:33 GMT

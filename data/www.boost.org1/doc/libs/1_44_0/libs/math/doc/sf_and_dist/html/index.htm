@@ -1,0 +1,364 @@
+
+Math Toolkit - 1.44.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of boost.
+                Click here for the latest Boost documentation.
+Math Toolkit
+John Maddock
+Paul A. Bristow
+Hubert Holin
+Xiaogang Zhang
+Bruno Lalande
+Johan Rde
+Gautam Sewani
+Thijs van den Berg
+Copyright  2006 , 2007, 2008, 2009 John Maddock, Paul A. Bristow,
+      Hubert Holin, Xiaogang Zhang, Bruno Lalande, Johan Rde, Gautam Sewani
+      and Thijs van den Berg
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+ Overview
+ About the Math Toolkit
+ Navigation
+ Directory and
+      File Structure
+ Namespaces
+ Calculation
+      of the Type of the Result
+ Error Handling
+ Compilers
+ Configuration
+      and Policies
+ Thread Safety
+ Performance
+ If and How to Build
+      the Library and its Examples and Tests
+ History and What's
+      New
+ C99 and C++ TR1 C-style
+      Functions
+ Contact Info and
+      Support
+ Statistical Distributions and Functions
+ Statistical Distributions
+      Tutorial
+ Overview of Distributions
+ Headers
+          and Namespaces
+ Distributions
+          are Objects
+ Generic
+          operations common to all distributions are non-member functions
+          Complements are supported too - and when to use them
+          Parameters can be calculated
+ Summary
+ Worked Examples
+          Distribution Construction Example
+ Student's
+          t Distribution Examples
+ Chi Squared
+          Distribution Examples
+ F Distribution
+          Examples
+ Binomial
+          Distribution Examples
+ Negative
+          Binomial Distribution Examples
+ Normal
+          Distribution Examples
+ Non Central
+          Chi Squared Example
+ Error Handling
+          Example
+ Find Location
+          and Scale Examples
+ Comparison
+          with C, R, FORTRAN-style Free Functions
+ Using the
+          Distributions from Within C#
+ Random Variates
+        and Distribution Parameters
+ Discrete Probability
+        Distributions
+ Statistical Distributions
+      Reference
+ Non-Member Properties
+ Distributions
+          Bernoulli Distribution
+ Beta
+          Distribution
+          Binomial Distribution
+ Cauchy-Lorentz
+          Distribution
+          Chi Squared Distribution
+ Exponential
+          Distribution
+ Extreme
+          Value Distribution
+ F Distribution
+ Gamma
+          (and Erlang) Distribution
+          Hypergeometric Distribution
+ Laplace
+          Distribution
+          Logistic Distribution
+          Log Normal Distribution
+          Negative Binomial Distribution
+ Noncentral
+          Beta Distribution
+          Noncentral Chi-Squared Distribution
+ Noncentral
+          F Distribution
+ Noncentral
+          T Distribution
+ Normal
+          (Gaussian) Distribution
+ Pareto
+          Distribution
+ Poisson
+          Distribution
+ Rayleigh
+          Distribution
+          Students t Distribution
+          Triangular Distribution
+ Weibull
+          Distribution
+ Uniform
+          Distribution
+ Distribution
+        Algorithms
+ Extras/Future Directions
+ Special Functions
+ Gamma Functions
+ Gamma
+ Log Gamma
+ Digamma
+ Ratios
+        of Gamma Functions
+ Incomplete Gamma
+        Functions
+ Incomplete
+        Gamma Function Inverses
+ Derivative
+        of the Incomplete Gamma Function
+ Factorials and Binomial
+      Coefficients
+ Factorial
+        Double Factorial
+        Rising Factorial
+        Falling Factorial
+ Binomial
+        Coefficients
+ Beta Functions
+ Beta
+ Incomplete
+        Beta Functions
+ The
+        Incomplete Beta Function Inverses
+ Derivative
+        of the Incomplete Beta Function
+ Error Functions
+ Error
+        Functions
+ Error Function
+        Inverses
+ Polynomials
+ Legendre (and
+        Associated) Polynomials
+ Laguerre (and
+        Associated) Polynomials
+ Hermite Polynomials
+ Spherical Harmonics
+ Bessel Functions
+ Bessel Function
+        Overview
+ Bessel Functions
+        of the First and Second Kinds
+ Modified Bessel
+        Functions of the First and Second Kinds
+ Spherical
+        Bessel Functions of the First and Second Kinds
+ Elliptic Integrals
+ Elliptic
+        Integral Overview
+ Elliptic
+        Integrals - Carlson Form
+ Elliptic Integrals
+        of the First Kind - Legendre Form
+ Elliptic Integrals
+        of the Second Kind - Legendre Form
+ Elliptic Integrals
+        of the Third Kind - Legendre Form
+ Zeta Functions
+ Riemann Zeta Function
+ Exponential Integrals
+ Exponential
+        Integral En
+ Exponential
+        Integral Ei
+ Logs, Powers, Roots and
+      Exponentials
+ log1p
+ expm1
+ cbrt
+ sqrt1pm1
+ powm1
+ hypot
+ Compile Time Power
+        of a Runtime Base
+ Sinus Cardinal and Hyperbolic
+      Sinus Cardinal Functions
+ Sinus Cardinal
+        and Hyperbolic Sinus Cardinal Functions Overview
+sinc_pi
+sinhc_pi
+ Inverse Hyperbolic Functions
+ Inverse
+        Hyperbolic Functions Overview
+ acosh
+ asinh
+ atanh
+ Floating Point Utilities
+ Rounding Truncation and
+      Integer Conversion
+ Rounding Functions
+ Truncation Functions
+ Integer and Fractional
+        Part Splitting (modf)
+ Floating-Point Classification:
+      Infinities and NaN's
+ Sign Manipulation
+      Functions
+ Floating-Point Representation
+      Distance (ULP), and Finding Adjacent Floating-Point Values
+ Finding the
+        Next Representable Value in a Specific Direction (nextafter)
+ Finding
+        the Next Greater Representable Value (float_next)
+ Finding
+        the Next Smaller Representable Value (float_prior)
+ Calculating
+        the Representation Distance Between Two Floating Point Values (ULP) float_distance
+ Advancing
+        a Floating Point Value by a Specific Representation Distance (ULP) float_advance
+ TR1 and C99 external "C"
+    Functions
+ C99 and TR1 C Functions Overview
+ C99 C Functions
+ TR1 C Functions Quick
+      Reference
+ Internal Details and Tools (Experimental)
+ Overview
+ Reused Utilities
+ Numeric
+        Constants
+        Series Evaluation
+ Continued Fraction
+        Evaluation
+ Polynomial
+        and Rational Function Evaluation
+ Root Finding
+        With Derivatives
+ Root Finding
+        Without Derivatives
+ Locating Function
+        Minima
+ Testing and Development
+ Polynomials
+ Minimax Approximations
+        and the Remez Algorithm
+ Relative
+        Error and Testing
+ Graphing,
+        Profiling, and Generating Test Data for Special Functions
+ Use with User-Defined Floating-Point
+    Types
+ Using With NTL - a High-Precision
+      Floating-Point Library
+ Using With MPFR / GMP
+      - a High-Precision Floating-Point Library
+ Conceptual Requirements
+      for Real Number Types
+ Conceptual Requirements
+      for Distribution Types
+ Conceptual Archetypes
+      and Testing
+ Policies
+ Policy Overview
+ Policy Tutorial
+        So Just What is a Policy Anyway?
+        Policies Have Sensible Defaults
+ So
+        How are Policies Used Anyway?
+        Changing the Policy Defaults
+        Setting Policies for Distributions on an Ad Hoc Basis
+        Changing the Policy on an Ad Hoc Basis for the Special Functions
+        Setting Policies at Namespace or Translation Unit Scope
+        Calling User Defined Error Handlers
+        Understanding Quantiles of Discrete Distributions
+ Policy Reference
+        Error Handling Policies
+ Internal
+        Promotion Policies
+ Mathematically
+        Undefined Function Policies
+ Discrete
+        Quantile Policies
+ Precision
+        Policies
+ Iteration
+        Limits Policies
+ Using
+        macros to Change the Policy Defaults
+ Setting
+        Polices at Namespace Scope
+ Policy Class
+        Reference
+ Performance
+ Performance Overview
+ Interpreting these Results
+ Getting the Best Performance
+      from this Library
+ Comparing Compilers
+ Performance Tuning Macros
+ Comparisons to Other
+      Open Source Libraries
+ The Performance Test
+      Application
+ Backgrounders
+ Additional
+      Implementation Notes
+ Relative
+      Error
+ The Lanczos Approximation
+ The Remez Method
+ References
+ Library Status
+ History and What's New
+ Compilers
+ Known Issues, and Todo List
+ Credits and Acknowledgements
+    ISBN 0-9504833-2-X 978-0-9504833-2-0, Classification 519.2-dc22
+  
+    This manual is also available in printer
+    friendly PDF format.
+  
+Last revised: August 08, 2010 at 11:27:41 GMT

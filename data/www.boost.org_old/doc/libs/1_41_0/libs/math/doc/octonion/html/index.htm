@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Boost.Octonions - 1.41.0</title>
+<link rel="stylesheet" href="../../../../../doc/html/boostbook.css" tppabs="https://www.boost.org/doc/libs/1_41_0/doc/html/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot_2006-12-17_0120">
+<link rel="start" href="index.html" title="Boost.Octonions">
+<link rel="next" href="boost_octonions/octonions.html" title="Octonions">
+<link rel="icon" href="/favicon.ico" type="image/ico"><link rel="stylesheet" type="text/css" href="../../../../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ËüÊÇÒ»¸öÓò»òÂ·¾¶Íâ²¿±»ÉèÖÃÎªËüµÄÆôÊ¼µØÖ·µÄµØÖ·¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ËüÊÇÒ»¸öÓò»òÂ·¾¶Íâ²¿±»ÉèÖÃÎªËüµÄÆôÊ¼µØÖ·µÄµØÖ·¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ËüÊÇÒ»¸öÓò»òÂ·¾¶Íâ²¿±»ÉèÖÃÎªËüµÄÆôÊ¼µØÖ·µÄµØÖ·¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="../../../../../../index.htm" tppabs="https://www.boost.org/doc/libs/">This is the documentation for an old version of boost.
+                Click here for the latest Boost documentation.</a></div>
+
+<div class="spirit-nav"><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/unordered/octonions.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/unordered/octonions.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions.html"><img src="../../../../../../1_66_0/libs/program_options/next.png" tppabs="https://www.boost.org/doc/libs/1_41_0/doc/html/images/next.png" alt="Next"></a></div>
+<div class="article" lang="en">
+<div class="titlepage">
+<div>
+<div><h2 class="title">
+<a name="boost_octonions"></a>Boost.Octonions</h2></div>
+<div><div class="authorgroup"><div class="author"><h3 class="author">
+<span class="firstname">Hubert</span> <span class="surname">Holin</span>
+</h3></div></div></div>
+<div><p class="copyright">Copyright © 2001 -2003 Hubert Holin</p></div>
+<div><div class="legalnotice">
+<a name="id445737"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="../../../../../../../../LICENSE_1_0.txt" tppabs="https://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div>
+<hr>
+</div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/unordered/octonions.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/unordered/octonions.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions.html">Octonions</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/266  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/266'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/overview.html">Overview</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/template.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/template.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/header_file.html">Header File</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/synopsis.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/synopsis.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/synopsis.html">Synopsis</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/boost_config.php  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/boost_config.php'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/template_class_octonion.html">Template
+      Class octonion</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/website  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/website'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/octonion_specializations.html">Octonion
+      Specializations</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/sflogo.php?group_id=7586&type=3  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/sflogo.php?group_id=7586&type=3'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/octonion_member_typedefs.html">Octonion
+      Member Typedefs</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/sflogo.php?group_id=7586&type=4  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/sflogo.php?group_id=7586&type=4'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/octonion_member_functions.html">Octonion
+      Member Functions</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/tables.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/tables.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/non_mem.html"> Octonion Non-Member
+      Operators</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/run.py  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/run.py'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/octonion_value_operations.html">Octonion
+      Value Operations</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/oct_create.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/oct_create.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/oct_create.html"> Octonion Creation
+      Functions</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/smart_ptr.htm  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/smart_ptr.htm'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/octonions_transcendentals.html">Octonions
+      Transcendentals</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/lexical_cast.htm  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/lexical_cast.htm'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/test_program.html">Test Program</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/acknowledgements.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/acknowledgements.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/acknowledgements.html">Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/history.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/history.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/history.html">History</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/uuid/common_factor.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/uuid/common_factor.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions/to_do.html">To Do</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<p>
+    This manual is also available in <a href="javascript:if(confirm('http://svn.boost.org/boost-announce/2011/05/test_org_boost_global_fixture.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ËüÊÇÒ»¸öÓò»òÂ·¾¶Íâ²¿±»ÉèÖÃÎªËüµÄÆôÊ¼µØÖ·µÄµØÖ·¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='http://svn.boost.org/boost-announce/2011/05/test_org_boost_global_fixture.html'" tppabs="http://svn.boost.org/svn/boost/sandbox/pdf/math/release/octonion.pdf" target="_top">printer
+    friendly PDF format</a>.
+  </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: December 29, 2006 at 11:08:32 +0000</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_66_0/libs/unordered/octonions.html  \n\n¸ÃÎÄ¼þÎÞ·¨ÓÃ Teleport Ultra ÏÂÔØ, ÒòÎª ²»¿ÉÓÃ, »ò·ÅÆúÁËÏÂÔØ, »òÏîÄ¿¼´½«Í£Ö¹¡£  \n\nÄãÏëÔÚ·þÎñÆ÷ÉÏ´ò¿ªËü?'))window.location='https://www.boost.org/doc/libs/1_66_0/libs/unordered/octonions.html'" tppabs="https://www.boost.org/doc/libs/1_41_0/libs/math/doc/octonion/html/boost_octonions/octonions.html"><img src="../../../../../../1_66_0/libs/program_options/next.png" tppabs="https://www.boost.org/doc/libs/1_41_0/doc/html/images/next.png" alt="Next"></a></div>
+</body>
+</html>

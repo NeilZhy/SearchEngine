@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 48. The BoostBook Documentation Format - 1.67.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+Chapter 48. The BoostBook Documentation Format
+Douglas Gregor
+Copyright  2003-2005 Douglas Gregor
+Distributed under the Boost Software License, Version 1.0.
+      (See accompanying file LICENSE_1_0.txt or copy at
+      http://www.boost.org/LICENSE_1_0.txt).
+      
+Table of Contents
+Introduction
+Getting Started
+Automatic setup for Unix-like systems
+Manual setup for all systems
+Running BoostBook
+Troubleshooting
+Documenting libraries
+Defining a BoostBook library
+From HTML to BoostBook
+Sectioning in BoostBook
+Bringing Together a BoostBook Document
+Linking in BoostBook
+Reference
+Introduction
+The BoostBook documentation format is an extension of DocBook, an SGML- or
+    XML-based format for describing documentation. BoostBook augments
+    DocBook with semantic markup that aids in the documentation of C++
+    libraries, specifically the Boost C++ libraries, by
+    providing the ability to express and refer to C++ constructs such
+    as namespaces, classes, overloaded functions, templates, and
+    specializations.
+    BoostBook offers additional features more specific to its use for
+    documenting the Boost C++
+    libraries. These features are intended to eliminate or
+    reduce the need for duplication of information and to aid in
+    documenting portions of Boost that might otherwise not be
+    documented. Examples of Boost-centric features include:
+      
+Testsuites:
+          Testsuites in Boost are created by writing an appropriate
+          Jamfile and including that Jamfile in
+          status/Jamfile. If the testsuites are
+          documented (as
+          in the MultiArray library), the documentation is
+          maintained separately from the testcase Jamfile, leading to
+          duplication of information and the possibility of having the
+          documentation out of sync with the Jamfile. BoostBook
+          contains elements that describe a testsuite for both
+          purposes: the BoostBook stylesheets can generate
+          documentation for the testcases and also generate an
+          appropriate Jamfile to integrate the testcases with the
+          regression testing system.
+Example programs:
+          Example programs in documentation need to be duplicated in
+          testcases to ensure that the examples compile and execute
+          correctly. Keeping the two copies in sync is a tedious and
+          error-prone task. For instance, the following code snippet
+          persisted for six months:
+std::cout << f(5, 3) >> std::endl;
+The BoostBook format allows testcases to be generated
+          by weaving together program fragments from example programs
+          in the documentation. This capability is integrated with
+          testsuite generation so that example programs are normal
+          tests in BoostBook.
+    

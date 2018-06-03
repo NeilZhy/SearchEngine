@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Chapter&#160;4.&#160;Boost.Align - 1.63.0</title>
+<link rel="stylesheet" href="../../../1_56_0/libs/math/doc/html/boostbook.css" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
+<link rel="prev" href="boost/algorithm/knuth_morris__idp551064576.html" title="Function template knuth_morris_pratt_search">
+<link rel="next" href="align/rationale.html" title="Rationale">
+<link rel="icon" href="/favicon.ico" type="image/ico"/><link rel="stylesheet" type="text/css" href="../../../../../style-v2/section-basic.css" tppabs="https://www.boost.org/style-v2/section-basic.css"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/></head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">  <div id="boost-common-heading-doc">
+    <div class="heading-inner">
+  <div class="heading-placard"></div>
+
+  <h1 class="heading-title">
+  <a href="../../../../../index.htm" tppabs="https://www.boost.org/">
+  <img src="../../../../../gfx/space.png" tppabs="https://www.boost.org/gfx/space.png" alt= "Boost C++ Libraries" class="heading-logo" />
+  <span class="heading-boost">Boost</span>
+  <span class="heading-cpplibraries">C++ Libraries</span>
+  </a></h1>
+
+  <p class="heading-quote">
+  <q>...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.</q> <span class="heading-attribution">&mdash; <a href=
+  "javascript:if(confirm('http://www.gotw.ca/  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://www.gotw.ca/'" tppabs="http://www.gotw.ca/" class="external">Herb Sutter</a> and <a href=
+  "javascript:if(confirm('http://en.wikipedia.org/wiki/Andrei_Alexandrescu  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://en.wikipedia.org/wiki/Andrei_Alexandrescu'" tppabs="http://en.wikipedia.org/wiki/Andrei_Alexandrescu" class="external">Andrei
+  Alexandrescu</a>, <a href=
+  "javascript:if(confirm('http://safari.awprofessional.com/?XmlId=0321113586  \n\n该文件无法用 Teleport Ultra 下载, 因为 它是一个域或路径外部被设置为它的启始地址的地址。  \n\n你想在服务器上打开它?'))window.location='http://safari.awprofessional.com/?XmlId=0321113586'" tppabs="http://safari.awprofessional.com/?XmlId=0321113586" class="external">C++
+  Coding Standards</a></span></p>
+</div>
+
+  </div>
+
+  <div id="boost-common-heading-doc-spacer"></div>
+<div class="boost-common-header-notice"><a class="boost-common-header-inner" href="javascript:if(confirm('https://www.boost.org/doc/libs/release/doc/html/align.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/release/doc/html/align.html'" tppabs="https://www.boost.org/doc/libs/release/doc/html/align.html">This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.</a></div>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/range/7025  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/range/7025'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/boost/algorithm/knuth_morris__idp551064576.html"><img src="../../../1_56_0/libs/msm/prev.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html"><img src="../../../1_56_0/libs/msm/up.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/index.html"><img src="../../../1_56_0/libs/msm/home.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/783  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/783'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/rationale.html"><img src="../../../1_56_0/libs/msm/next.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="chapter">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="align"></a>Chapter&#160;4.&#160;Boost.Align</h2></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Glen</span> <span class="surname">Fernandes</span>
+</h3></div></div>
+<div><p class="copyright">Copyright &#169; 2014-2016 Glen Joseph Fernandes</p></div>
+<div><div class="legalnotice">
+<a name="align.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0.
+      </p>
+</div></div>
+</div></div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc">
+<dt><span class="section"><a href="align.html#align.introduction" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align.html#align.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/783  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/783'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/rationale.html">Rationale</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html">Tutorial</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.align'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.align">align</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.aligned_alloc'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.aligned_alloc">aligned_alloc and aligned_free</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.aligned_allocator'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.aligned_allocator">aligned_allocator</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.aligned_allocator_adaptor'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.aligned_allocator_adaptor">aligned_allocator_adaptor</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.aligned_delete'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.aligned_delete">aligned_delete</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.alignment_of'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.alignment_of">alignment_of</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.assume_aligned'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.assume_aligned">assume_aligned</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/tutorial.html#align.tutorial.is_aligned'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/tutorial.html#align.tutorial.is_aligned">is_aligned</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/767'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/examples.html">Examples</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/767#align.examples.aligned_ptr'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/examples.html#align.examples.aligned_ptr">aligned_ptr and make_aligned</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/767  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/767#align.examples.aligned_vector'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/examples.html#align.examples.aligned_vector">aligned_vector</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html">Reference</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.align'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.align">align</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.align_down'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.align_down">align_down</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.align_up'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.align_up">align_up</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.aligned_alloc'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.aligned_alloc">aligned_alloc and aligned_free</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.aligned_allocator'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.aligned_allocator">aligned_allocator</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.aligned_allocator_adaptor'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.aligned_allocator_adaptor">aligned_allocator_adaptor</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.aligned_delete'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.aligned_delete">aligned_delete</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.alignment_of'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.alignment_of">alignment_of</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.assume_aligned'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.assume_aligned">assume_aligned</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/reference.html#align.reference.is_aligned'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/reference.html#align.reference.is_aligned">is_aligned</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/qcmain.aspx?d=83851  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/qcmain.aspx?d=83851'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/vocabulary.html">Vocabulary</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/qcmain.aspx?d=84279  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/qcmain.aspx?d=84279'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/compatibility.html">Compatibility</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/7894  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/7894'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/acknowledgments.html">Acknowledgments</a></span></dt>
+<dt><span class="section"><a href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/history.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/history.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/history.html">History</a></span></dt>
+</dl>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="align.introduction"></a><a class="link" href="align.html#align.introduction" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align.html#align.introduction" title="Introduction">Introduction</a>
+</h2></div></div></div>
+<p>
+      This library provides an alignment function, aligned allocation and deallocation
+      functions, an aligned allocator, an aligned allocator adaptor, an aligned deleter,
+      a type trait to query alignment requirements, a macro to hint pointer alignment,
+      and a function to verify pointer value alignment.
+    </p>
+<div class="table">
+<a name="align.introduction.the_boost_align_library"></a><p class="title"><b>Table&#160;4.1.&#160;The Boost.Align Library</b></p>
+<div class="table-contents"><table class="table" summary="The Boost.Align Library">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+              <p>
+                Component
+              </p>
+            </th>
+<th>
+              <p>
+                Description
+              </p>
+            </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">align</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Pointer alignment function
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">align_up</span></code>, <code class="computeroutput"><span class="identifier">align_down</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Pointer and integral alignment functions
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">aligned_alloc</span></code>, <code class="computeroutput"><span class="identifier">aligned_free</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Aligned allocation and deallocation functions
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">aligned_allocator</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Alignment aware allocator
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">aligned_allocator_adaptor</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Alignment aware allocator adaptor
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">aligned_delete</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Deleter for deallocation of aligned allocations
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">alignment_of</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Trait to query alignment requirement of a type
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">assume_aligned</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Macro for static pointer alignment hint
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">is_aligned</span></code>
+              </p>
+            </td>
+<td>
+              <p>
+                Pointer and integral alignment checking
+              </p>
+            </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: December 22, 2016 at 12:37:16 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/range/7025  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/range/7025'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/boost/algorithm/knuth_morris__idp551064576.html"><img src="../../../1_56_0/libs/msm/prev.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/libraries.html"><img src="../../../1_56_0/libs/msm/up.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/index.html"><img src="../../../1_56_0/libs/msm/home.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="javascript:if(confirm('https://www.boost.org/doc/libs/1_52_0/libs/ratio/783  \n\n该文件无法用 Teleport Ultra 下载, 因为 不可用, 或放弃了下载, 或项目即将停止。  \n\n你想在服务器上打开它?'))window.location='https://www.boost.org/doc/libs/1_52_0/libs/ratio/783'" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/html/align/rationale.html"><img src="../../../1_56_0/libs/msm/next.png" tppabs="https://www.boost.org/doc/libs/1_63_0/doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

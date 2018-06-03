@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+Chapter 5. Boost.Array - 1.62.0
+  
+    
+  
+  
+  
+  
+  Boost
+  C++ Libraries
+  
+  
+  ...one of the most highly
+  regarded and expertly designed C++ library projects in the
+  world.  Herb Sutter and Andrei
+  Alexandrescu, C++
+  Coding Standards
+  
+  
+This is the documentation for an old version of Boost.
+                Click here to view this page for the latest version.
+Chapter 5. Boost.Array
+Nicolai Josuttis
+Copyright  2001-2004 Nicolai M. Josuttis
+Distributed under the Boost Software License, Version 1.0.
+      (See accompanying file LICENSE_1_0.txt or copy at 
+      http://www.boost.org/LICENSE_1_0.txt)
+      
+Table of Contents
+Introduction
+Reference
+Header <boost/array.hpp>
+Design Rationale
+For more information...
+Acknowledgements
+Introduction
+The C++ Standard Template Library STL as part of the C++
+    Standard Library provides a framework for processing algorithms on
+    different kind of containers. However, ordinary arrays don't
+    provide the interface of STL containers (although, they provide
+    the iterator interface of STL containers).
+As replacement for ordinary arrays, the STL provides class
+    std::vector.  However,
+    std::vector<> provides
+    the semantics of dynamic arrays. Thus, it manages data to be able
+    to change the number of elements. This results in some overhead in
+    case only arrays with static size are needed.
+In his book, Generic Programming and the
+    STL, Matthew H. Austern introduces a useful wrapper
+    class for ordinary arrays with static size, called
+    block.  It is safer and has no worse performance than
+    ordinary arrays. In The C++ Programming
+    Language, 3rd edition, Bjarne Stroustrup introduces a
+    similar class, called c_array, which I (Nicolai Josuttis) present
+    slightly modified in my book The C++ Standard Library -
+    A Tutorial and Reference, called
+    carray. This is the essence of these approaches
+    spiced with many feedback from boost.
+After considering different names, we decided to name this
+    class simply array.
+Note that this class is suggested to be part of the next
+    Technical Report, which will extend the C++ Standard (see
+    http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1548.htm).
+Update: std::array is (as of C++11) part of the C++ standard.
+    The differences between boost::array and std::array are minimal.
+    If you are using C++11, you should consider using std::array instead of boost::array.
+    
+Class array fulfills most
+    but not all of the requirements of "reversible containers" (see
+    Section 23.1, [lib.container.requirements] of the C++
+    Standard). The reasons array is not an reversible STL container is
+    because:
+      
+No constructors are provided.
+Elements may have an undetermined initial value (see the section called Design Rationale).
+swap() has no constant complexity.
+size() is always constant, based on the second template argument of the type.
+The container provides no allocator support.
+    
+It doesn't fulfill the requirements of a "sequence" (see Section 23.1.1, [lib.sequence.reqmts] of the C++ Standard), except that:
+      
+front() and back() are provided.
+operator[] and at() are provided.
+    
