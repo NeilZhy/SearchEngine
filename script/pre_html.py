@@ -57,7 +57,8 @@ def enum_dir(input_path, file_list):
         if os.path.isdir(fullpath):
             enum_dir(fullpath, file_list)
         else:
-            if os.path.splitext(fullpath)[1] != '.html':
+            #if os.path.splitext(fullpath)[1] != '.html':
+            if (os.path.splitext(fullpath)[1] != '.html' and os.path.splitext(fullpath)[1] != '.htm'):
                 continue
             file_list.append(fullpath)
     return

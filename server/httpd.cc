@@ -12,6 +12,7 @@
 #include<string>
 #include<vector>
 #include<sstream>
+#include<ctemplate/template.h>
 
 using namespace std;
 using namespace htmlcxx;
@@ -443,6 +444,9 @@ void *handler_request(void *arg)
         //
         // 将要访问一个查询的时候，首先检查本地有没有这个文件
         // 如果有直接返回，如果没有使用 爬虫爬取数据，将生成的网页放在指定的目录下面
+        
+
+         int flag = 1; 
 		if(cgi)
 		{
 		    query_string+=5;	//这里query_string是一个指针，维护着url
@@ -473,24 +477,36 @@ void *handler_request(void *arg)
                 printf("path :   %s\n",path);
                 path[0] = '\0';
                 strcat(path, "/root/git/SearchEngine/html.html");
-                pindex->get_docid(word);
-		        //if(connetser(query_string))
-                //{
-                //    path[21] = '\0';
-                //    strcat(path,"empty.html");
-                //    printf("\n\n\npath    %s\n\n\n",path);
-                //}
-                //path[0] = '\0';
-                //strcat(path,"wwwroot/haha.html");
+                vector<string> url = pindex->get_docid(word);
+
+                //将结果写入到socket中，返回即可
+                //使用ctemplate函数处理
+                drop_header(sock);  //!!!!!!!!      
+                const char *echo_line="HTTP/1.0 200 OK\r\n";
+                send(sock,echo_line,strlen(echo_line),0);
+                const char *null_line="\r\n";
+                send(sock,null_line,strlen(null_line),0);
+
+                ctemplate::TemplateDictionary dict(" ");
+                dict.SetValue("url",url[0]);
+                std::string output;
+                ctemplate::ExpandTemplate("./wwwroot/template/temp.html", ctemplate::DO_NOT_STRIP, &dict, &output);
+                send(sock,output.c_str(),output.size(),0);
+                cout<<output<<endl;
+                flag = 0;
             }
 		}
         //printf("method : %s\n url :%s \n path : %s\n cgi : %d\nquery_string:%s\n    ",method,url,path,cgi,query_string);
-        drop_header(sock);  //!!!!!!!!      
-        stat(path,&st);  //这里设置的目的，是为了是st和最近的文件进行绑定，以便获取文件的长度
-        echo_www(sock,path,st.st_size);  //GET
+        if(flag)
+        {
+            drop_header(sock);  //!!!!!!!!      
+            stat(path,&st);  //这里设置的目的，是为了是st和最近的文件进行绑定，以便获取文件的长度
+            echo_www(sock,path,st.st_size);  //GET
+        }
      }
- 
- 
+
+
+
  end:
      printf("quit client ...\n");
      close(sock);
