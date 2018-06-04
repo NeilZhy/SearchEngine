@@ -32,7 +32,12 @@ int main(int argc,char *argv[])
        return 1;
    }
 
-
+   //WordSegmentation  jieba;
+   //vector<string> word = jieba("你好 hi how old are you，你今天早上吃饭了吗");
+   //for(auto i:word)
+   //{
+   //    cout<<i<<endl;
+   //}
 
    struct sock_index args;
 

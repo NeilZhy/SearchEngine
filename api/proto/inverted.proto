@@ -3,7 +3,7 @@ package inverm;
 message Int
 {
     required int32   docid = 1;
-    required bytes url = 2;
+    required int32 times = 2;
 }
 
 message invered_index {

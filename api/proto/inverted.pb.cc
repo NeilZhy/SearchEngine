@@ -111,9 +111,9 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::inverm::Int, docid_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::inverm::Int, url_),
-  1,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::inverm::Int, times_),
   0,
+  1,
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::inverm::invered_index, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::inverm::invered_index, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -165,14 +165,14 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\016inverted.proto\022\006inverm\"!\n\003Int\022\r\n\005docid"
-      "\030\001 \002(\005\022\013\n\003url\030\002 \002(\014\"\?\n\rinvered_index\022\013\n\003"
-      "key\030\001 \002(\014\022!\n\014docid_vector\030\002 \003(\0132\013.inverm"
-      ".Int\"4\n\014invered_hash\022$\n\005index\030\001 \003(\0132\025.in"
-      "verm.invered_index"
+      "\n\016inverted.proto\022\006inverm\"#\n\003Int\022\r\n\005docid"
+      "\030\001 \002(\005\022\r\n\005times\030\002 \002(\005\"\?\n\rinvered_index\022\013"
+      "\n\003key\030\001 \002(\014\022!\n\014docid_vector\030\002 \003(\0132\013.inve"
+      "rm.Int\"4\n\014invered_hash\022$\n\005index\030\001 \003(\0132\025."
+      "inverm.invered_index"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 178);
+      descriptor, 180);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "inverted.proto", &protobuf_RegisterTypes);
 }
@@ -196,7 +196,7 @@ void Int::InitAsDefaultInstance() {
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Int::kDocidFieldNumber;
-const int Int::kUrlFieldNumber;
+const int Int::kTimesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Int::Int()
@@ -213,18 +213,17 @@ Int::Int(const Int& from)
       _has_bits_(from._has_bits_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  url_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.has_url()) {
-    url_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.url_);
-  }
-  docid_ = from.docid_;
+  ::memcpy(&docid_, &from.docid_,
+    static_cast<size_t>(reinterpret_cast<char*>(&times_) -
+    reinterpret_cast<char*>(&docid_)) + sizeof(times_));
   // @@protoc_insertion_point(copy_constructor:inverm.Int)
 }
 
 void Int::SharedCtor() {
   _cached_size_ = 0;
-  url_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  docid_ = 0;
+  ::memset(&docid_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&times_) -
+      reinterpret_cast<char*>(&docid_)) + sizeof(times_));
 }
 
 Int::~Int() {
@@ -233,7 +232,6 @@ Int::~Int() {
 }
 
 void Int::SharedDtor() {
-  url_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void Int::SetCachedSize(int size) const {
@@ -266,11 +264,11 @@ void Int::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(!url_.IsDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited()));
-    (*url_.UnsafeRawStringPointer())->clear();
+  if (cached_has_bits & 3u) {
+    ::memset(&docid_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&times_) -
+        reinterpret_cast<char*>(&docid_)) + sizeof(times_));
   }
-  docid_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
@@ -299,12 +297,14 @@ bool Int::MergePartialFromCodedStream(
         break;
       }
 
-      // required bytes url = 2;
+      // required int32 times = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_url()));
+            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
+          set_has_times();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &times_)));
         } else {
           goto handle_unusual;
         }
@@ -339,14 +339,13 @@ void Int::SerializeWithCachedSizes(
 
   cached_has_bits = _has_bits_[0];
   // required int32 docid = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->docid(), output);
   }
 
-  // required bytes url = 2;
-  if (cached_has_bits & 0x00000001u) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      2, this->url(), output);
+  // required int32 times = 2;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->times(), output);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -365,15 +364,13 @@ void Int::SerializeWithCachedSizes(
 
   cached_has_bits = _has_bits_[0];
   // required int32 docid = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->docid(), target);
   }
 
-  // required bytes url = 2;
-  if (cached_has_bits & 0x00000001u) {
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
-        2, this->url(), target);
+  // required int32 times = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->times(), target);
   }
 
   if (_internal_metadata_.have_unknown_fields()) {
@@ -388,18 +385,18 @@ size_t Int::RequiredFieldsByteSizeFallback() const {
 // @@protoc_insertion_point(required_fields_byte_size_fallback_start:inverm.Int)
   size_t total_size = 0;
 
-  if (has_url()) {
-    // required bytes url = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->url());
-  }
-
   if (has_docid()) {
     // required int32 docid = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->docid());
+  }
+
+  if (has_times()) {
+    // required int32 times = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->times());
   }
 
   return total_size;
@@ -414,15 +411,15 @@ size_t Int::ByteSizeLong() const {
         _internal_metadata_.unknown_fields());
   }
   if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required bytes url = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->url());
-
     // required int32 docid = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->docid());
+
+    // required int32 times = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->times());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -459,11 +456,10 @@ void Int::MergeFrom(const Int& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 3u) {
     if (cached_has_bits & 0x00000001u) {
-      set_has_url();
-      url_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.url_);
+      docid_ = from.docid_;
     }
     if (cached_has_bits & 0x00000002u) {
-      docid_ = from.docid_;
+      times_ = from.times_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -494,8 +490,8 @@ void Int::Swap(Int* other) {
 }
 void Int::InternalSwap(Int* other) {
   using std::swap;
-  url_.Swap(&other->url_);
   swap(docid_, other->docid_);
+  swap(times_, other->times_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
