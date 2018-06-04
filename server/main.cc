@@ -43,7 +43,7 @@ int main(int argc,char *argv[])
 
    InvertedIndex index;
    index.make_url_to_vector("/root/git/SearchEngine/data/www.boost.org");
-   index.forward_index();
+   index.creat_inverted_index();
    cout<<endl;
 
    //cout<<"请输入单词"<<endl;

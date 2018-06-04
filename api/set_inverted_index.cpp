@@ -88,6 +88,7 @@ int InvertedIndex::forward_index()
     //在for循环中，每次解析一篇文章
     //第一个while中，每次获取一个文章中的一行字符串进行jieba分词，获取一个分词的列表
     //第二个while循环中，是将分词的结果放在了哈希表中
+    int n = 0;
     for(int i=0;i<_file_path.size();i++)   //这里是类的成员变量，在调用forward_index之前，一定要先处理文件，将文件的的url和文件的绝对路径 放在了vector中
     {
         std::ifstream in(_file_path[i]);
@@ -116,8 +117,11 @@ int InvertedIndex::forward_index()
         {
             std::cout <<"no such file" << std::endl;
         }
+        n++;
     }
 
+    cout<<"             总共的文件数是       "<<n<<endl;
+    n = 0;
 
     docinfo info;   //倒排索引中，value的值，记录docid和该单词出现的次数
     //进行倒排索引  关键词 -- 文章标号 哈希表中存储
@@ -126,6 +130,7 @@ int InvertedIndex::forward_index()
     auto it_forward = forward_hash.begin();
     while(it_forward != forward_hash.end())
     {
+        n++;
         auto it_word_vector = (it_forward->second).begin();  //it__word_vector是正排索引中，对应的vector<string>迭代器
         while(it_word_vector != (it_forward->second).end())
         {
@@ -160,13 +165,15 @@ int InvertedIndex::forward_index()
         ++it_forward;
     }
 
-
+    cout<<"          建立哈希的值是  "<<n<<endl;
+    n = 0;
 
     //根据倒排索引的结果，进行序列化，然后写入到文件中
     inverm::invered_hash invered_hash;
     auto it_inver = _inverted_index.begin();
     while(it_inver != _inverted_index.end())
     {
+        n++;
         auto* index = invered_hash.add_index();
         index->set_key(it_inver->first);
         auto it_vector = (it_inver->second).begin();
@@ -179,6 +186,8 @@ int InvertedIndex::forward_index()
         }
         it_inver++;
     }
+
+    cout<<"             序列化的个数是       "<<n<<endl;
 
     ofstream file_inver("/root/git/SearchEngine/api/proto/index/index.pro.db", ios::binary);
     if(file_inver)
@@ -214,11 +223,43 @@ int InvertedIndex::forward_index()
 }
 
 //反序列化
-//读取文件，将结果保存在类对象的成员变量哈表中，这里暂时是自创建一个哈希，目的是比较结果，看看是否一致
+//将结果保存了类的对象的成员变量中
+//这里将序列化程序单独的运行，然后启动服务的时候，才会调用反序列化，直接读取文件就可
 
 void InvertedIndex::creat_inverted_index()
 {
+    docinfo info;
     inverm::invered_hash hash;
+    string path = "/root/git/SearchEngine/api/proto/index/index.pro.db";
+    ifstream file(path.c_str(), ios::binary);
+    string content;
+
+
+    file.seekg(0, file.end);
+    int length = file.tellg();
+    file.seekg(0, file.beg);
+    content.resize(length + 1);
+    file.read(const_cast<char*>(content.data()), length);
+    file.close();
+
+    if(hash.ParseFromString(content))
+    {
+        cerr<<"Failed to parse address bool"<<endl;
+    }
+
+    for(int i = 0;i<hash.index_size();++i)
+    {
+        auto msg = hash.index(i);
+        for(int j = 0;j<msg.docid_vector_size();++j)
+        {
+            info.docid = (msg.docid_vector(j)).docid();
+            info.times = (msg.docid_vector(j)).times();
+            _inverted_index[msg.key()].push_back(info);
+        }
+    }
+
+    cout<<"      反序列的word是"<<hash.index_size()<<endl;
+
 }
 
 vector<string> InvertedIndex::get_docid(const string& word)
@@ -232,10 +273,5 @@ vector<string> InvertedIndex::get_docid(const string& word)
     }
     return stringurl;
 }
-
-
-
-
-
 
 

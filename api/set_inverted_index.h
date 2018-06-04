@@ -11,7 +11,6 @@
 #include "boost/regex.hpp"
 #include "cppjieba/Jieba.hpp"
 
-#include "proto/forward.pb.h"
 #include "proto/inverted.pb.h"
 
 
