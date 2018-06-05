@@ -11,7 +11,6 @@
 #include "boost/regex.hpp"
 #include "cppjieba/Jieba.hpp"
 
-#include "proto/forward.pb.h"
 #include "proto/inverted.pb.h"
 
 
@@ -26,6 +25,17 @@ const char* const USER_DICT_PATH = "/usr/local/src/cppjieba/dict/user.dict.utf8"
 const char* const IDF_PATH = "/usr/local/src/cppjieba/dict/idf.utf8";
 const char* const STOP_WORD_PATH = "/usr/local/src/cppjieba/dict/stop_words.utf8";
 
+//倒排索引中，value结构体，用于记录文章编号，和该单词在文章 中出现的次数
+struct docinfo
+{
+    public:
+    docinfo()
+        :docid(-1)
+         ,times(1)
+    {}
+    int docid;
+    int times;
+};
 
 
 //cppjieba
@@ -51,14 +61,15 @@ class InvertedIndex
     public:
         InvertedIndex();
         void make_url_to_vector(string path);
-        int forward_index();
+        int forward_index();  //实际上是进行倒排索引,将倒排的结果进行序列化，写入到文件中
         vector<string> get_docid(const string& word);
+        void creat_inverted_index();   //进行反序列化，构建倒排索引
 
 
     private:
         vector<string> _url;                                //用户保存url
         vector<string> _file_path;                          //用于保存文件路径
-        unordered_map<string, vector<int>> _inverted_index; //用于存在倒排索引 单词 -> docid数组
+        unordered_map<string, vector<docinfo>> _inverted_index; //用于存在倒排索引 单词 -> docid数组
 };
 
 #endif

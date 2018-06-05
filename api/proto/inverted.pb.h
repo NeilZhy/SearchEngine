@@ -158,21 +158,6 @@ class Int : public ::google::protobuf::Message /* @@protoc_insertion_point(class
 
   // accessors -------------------------------------------------------
 
-  // required bytes url = 2;
-  bool has_url() const;
-  void clear_url();
-  static const int kUrlFieldNumber = 2;
-  const ::std::string& url() const;
-  void set_url(const ::std::string& value);
-  #if LANG_CXX11
-  void set_url(::std::string&& value);
-  #endif
-  void set_url(const char* value);
-  void set_url(const void* value, size_t size);
-  ::std::string* mutable_url();
-  ::std::string* release_url();
-  void set_allocated_url(::std::string* url);
-
   // required int32 docid = 1;
   bool has_docid() const;
   void clear_docid();
@@ -180,12 +165,19 @@ class Int : public ::google::protobuf::Message /* @@protoc_insertion_point(class
   ::google::protobuf::int32 docid() const;
   void set_docid(::google::protobuf::int32 value);
 
+  // required int32 times = 2;
+  bool has_times() const;
+  void clear_times();
+  static const int kTimesFieldNumber = 2;
+  ::google::protobuf::int32 times() const;
+  void set_times(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:inverm.Int)
  private:
   void set_has_docid();
   void clear_has_docid();
-  void set_has_url();
-  void clear_has_url();
+  void set_has_times();
+  void clear_has_times();
 
   // helper for ByteSizeLong()
   size_t RequiredFieldsByteSizeFallback() const;
@@ -193,8 +185,8 @@ class Int : public ::google::protobuf::Message /* @@protoc_insertion_point(class
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr url_;
   ::google::protobuf::int32 docid_;
+  ::google::protobuf::int32 times_;
   friend struct ::protobuf_inverted_2eproto::TableStruct;
   friend void ::protobuf_inverted_2eproto::InitDefaultsIntImpl();
 };
@@ -455,13 +447,13 @@ class invered_hash : public ::google::protobuf::Message /* @@protoc_insertion_po
 
 // required int32 docid = 1;
 inline bool Int::has_docid() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000001u) != 0;
 }
 inline void Int::set_has_docid() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000001u;
 }
 inline void Int::clear_has_docid() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void Int::clear_docid() {
   docid_ = 0;
@@ -477,67 +469,28 @@ inline void Int::set_docid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:inverm.Int.docid)
 }
 
-// required bytes url = 2;
-inline bool Int::has_url() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
+// required int32 times = 2;
+inline bool Int::has_times() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Int::set_has_url() {
-  _has_bits_[0] |= 0x00000001u;
+inline void Int::set_has_times() {
+  _has_bits_[0] |= 0x00000002u;
 }
-inline void Int::clear_has_url() {
-  _has_bits_[0] &= ~0x00000001u;
+inline void Int::clear_has_times() {
+  _has_bits_[0] &= ~0x00000002u;
 }
-inline void Int::clear_url() {
-  url_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_url();
+inline void Int::clear_times() {
+  times_ = 0;
+  clear_has_times();
 }
-inline const ::std::string& Int::url() const {
-  // @@protoc_insertion_point(field_get:inverm.Int.url)
-  return url_.GetNoArena();
+inline ::google::protobuf::int32 Int::times() const {
+  // @@protoc_insertion_point(field_get:inverm.Int.times)
+  return times_;
 }
-inline void Int::set_url(const ::std::string& value) {
-  set_has_url();
-  url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:inverm.Int.url)
-}
-#if LANG_CXX11
-inline void Int::set_url(::std::string&& value) {
-  set_has_url();
-  url_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:inverm.Int.url)
-}
-#endif
-inline void Int::set_url(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  set_has_url();
-  url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:inverm.Int.url)
-}
-inline void Int::set_url(const void* value, size_t size) {
-  set_has_url();
-  url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:inverm.Int.url)
-}
-inline ::std::string* Int::mutable_url() {
-  set_has_url();
-  // @@protoc_insertion_point(field_mutable:inverm.Int.url)
-  return url_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Int::release_url() {
-  // @@protoc_insertion_point(field_release:inverm.Int.url)
-  clear_has_url();
-  return url_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Int::set_allocated_url(::std::string* url) {
-  if (url != NULL) {
-    set_has_url();
-  } else {
-    clear_has_url();
-  }
-  url_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), url);
-  // @@protoc_insertion_point(field_set_allocated:inverm.Int.url)
+inline void Int::set_times(::google::protobuf::int32 value) {
+  set_has_times();
+  times_ = value;
+  // @@protoc_insertion_point(field_set:inverm.Int.times)
 }
 
 // -------------------------------------------------------------------

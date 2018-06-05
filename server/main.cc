@@ -32,13 +32,18 @@ int main(int argc,char *argv[])
        return 1;
    }
 
-
+   //WordSegmentation  jieba;
+   //vector<string> word = jieba("你好 hi how old are you，你今天早上吃饭了吗");
+   //for(auto i:word)
+   //{
+   //    cout<<i<<endl;
+   //}
 
    struct sock_index args;
 
    InvertedIndex index;
    index.make_url_to_vector("/root/git/SearchEngine/data/www.boost.org");
-   index.forward_index();
+   index.creat_inverted_index();
    cout<<endl;
 
    //cout<<"请输入单词"<<endl;
