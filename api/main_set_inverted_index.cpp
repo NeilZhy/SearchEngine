@@ -1,6 +1,8 @@
 #include "./set_inverted_index.h"
 #include<iostream>
+
 using namespace std;
+
 int main()
 {
    InvertedIndex index;

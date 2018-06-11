@@ -1,22 +1,22 @@
 #include "set_inverted_index.h"
 
 
-//class cppjieba
+//cppjieba
 WordSegmentation::WordSegmentation()
     : _jieba(DICT_PATH
             , HMM_PATH
             , USER_DICT_PATH
             , IDF_PATH
-            , STOP_WORD_PATH)//初始化Jieba类对象
+            , STOP_WORD_PATH)
 {
-    cout << "cppjieba init!" << endl;
+    cout << "segmentation success!" << endl;
 }
 
-vector<string> WordSegmentation::operator()(const string str)//返回str的分词结果
+vector<string> WordSegmentation::operator()(const string str)
 {
     vector<string> words;
     vector<string> word;
-    //_jieba.CutAll(str, words);//FullSegment
+    //_jieba.CutAll(str, words);FullSegment
     _jieba.Cut(str, words, true);
     vector<string>::iterator it = words.begin();
     while(it != words.end())
@@ -28,25 +28,27 @@ vector<string> WordSegmentation::operator()(const string str)//返回str的分�
     return word;
 }
 
-int AA::bb()
-{
-    cout<<"aaaaaaaaaa"<<endl;
-}
 
+bool compare_info(const docinfo& a,const docinfo & b)
+{
+    return a.docid > b.docid;
+}
 //class InvertedIndex
 //建立倒排索引
 InvertedIndex::InvertedIndex()
-    {}
+{}
 
 
-//递归处理文件，将文件的url放在了vector中，这里的下标就是docid
+//递归处理文件，保存路径和url
 void InvertedIndex::make_url_to_vector(string path)
 {
-    DIR* dir = opendir(path.c_str());//打开指定目录
-    dirent* p = NULL;//定义遍历指针
-    while((p = readdir(dir)) != NULL)//开始逐个遍历
+    DIR* dir = opendir(path.c_str());
+    dirent* p = NULL;
+    //递归遍历
+    while((p = readdir(dir)) != NULL)
     {
-        if(p->d_type == 8)    //d_type: 8是文件 ，4是目录
+        //d_type: 8是文件 ，4是目录
+        if(p->d_type == 8)
         {
             string file_url = p->d_name;
             _file_path.push_back(path + "/" + file_url);
@@ -61,35 +63,27 @@ void InvertedIndex::make_url_to_vector(string path)
             file_url = path + "/" + file_url;
             _url.push_back(file_url.substr(28));
         }
-        //这里需要注意，linux平台下一个目录中有"."和".."隐藏文件，需要过滤掉
-        else if(p->d_name[0] != '.')//d_name是一个char数组，存放当前遍历到的文件名
+        //过滤linux目录中"."和".."隐藏文件
+        //d_name是一个char数组，存放当前遍历到的文件名
+        else if(p->d_name[0] != '.')
         {
             string file_path = path + "/" + string(p->d_name);
-            //cout<<name<<endl;
             make_url_to_vector(file_path);
         }
     }
-    closedir(dir);//关闭指定目录
+    closedir(dir);
 }
 
 
-//先建立正排索引，再建立倒排索引，然后序列化，将结果保存在文件中
-
-
-
-//处理每一个文件，将结果记录在哈希表中，哈希表中记录的结果包括
-//int forward_index(string file_name,lm::forward_hash& hash,inverm::invered_hash& invered_hash)   //在递归中，将结果保存在哈希表中,然后在递归的外面统一的将序列化的结果放在文件中
+//正排索引，倒排索引，序列化
 int InvertedIndex::forward_index()
 {
-
-    unordered_map<int, vector<string>> forward_hash;  //正排索引，文章编号->该文件的所有的单词
-    WordSegmentation words;   //分词之后排除标点.空格,创建用于分词的对象
+    //正排索引，docid->单词集合
+    unordered_map<int, vector<string>> forward_hash;
+    WordSegmentation words;
     vector<string> word_vector;
-    //在for循环中，每次解析一篇文章
-    //第一个while中，每次获取一个文章中的一行字符串进行jieba分词，获取一个分词的列表
-    //第二个while循环中，是将分词的结果放在了哈希表中
-    int n = 0;
-    for(int i=0;i<_file_path.size();i++)   //这里是类的成员变量，在调用forward_index之前，一定要先处理文件，将文件的的url和文件的绝对路径 放在了vector中
+    //遍历文档，处理每个单词
+    for(int i=0;i<_file_path.size();i++)
     {
         std::ifstream in(_file_path[i]);
         cout<<_file_path[i]<<endl;
@@ -97,63 +91,59 @@ int InvertedIndex::forward_index()
 
         vector<string>::iterator it_word;
 
-        if(in) // 有该文件
+        if(in)
         {
-            while (getline (in, line)) // line中不包括每行的换行符
+            while (getline (in, line))
             {
-                word_vector = words(line);  //调用结巴分词，word_vector中放置的是一个个单词
+                //结巴分词，返回单词vec
+                word_vector = words(line);
                 if(!word_vector.empty())
                 {
                     it_word = word_vector.begin();
                     while(it_word != word_vector.end())
                     {
-                        (forward_hash[i]).push_back(*it_word);    //将分词放入到了哈希表中
+                        (forward_hash[i]).push_back(*it_word);
                         it_word++;
                     }
                 }
             }
         }
-        else // 没有该文件
+        else
         {
             std::cout <<"no such file" << std::endl;
         }
-        n++;
     }
 
-    cout<<"             总共的文件数是       "<<n<<endl;
-    n = 0;
 
-    docinfo info;   //倒排索引中，value的值，记录docid和该单词出现的次数
-    //进行倒排索引  关键词 -- 文章标号 哈希表中存储
-    //第一个while是遍历正排中的所有docid
-    //第二个while是遍历每个docid对应的单词
+    //倒排索引中，value的值，记录docid和单词出现的次数
+    docinfo info;
+    //遍历正排索引，创建倒排索引
+    //单词 -- 文章标号,出现次数
     auto it_forward = forward_hash.begin();
     while(it_forward != forward_hash.end())
     {
-        n++;
-        auto it_word_vector = (it_forward->second).begin();  //it__word_vector是正排索引中，对应的vector<string>迭代器
+        auto it_word_vector = (it_forward->second).begin();
         while(it_word_vector != (it_forward->second).end())
         {
-            //判断当前的string是否存在倒排索引的哈希表中，如果不在就加入，单词作为key，文章标号作为value
-            //当前处理只是将文章的标号加入了，当一个词出现多次的时候，并没有统计出来
-            //需要考虑的情况有，一篇文章中一个单词出现了多次，这个时候只记录一个标号
-            //如果在不同的文章中出现了同一个单词，下面的这个方式是不会加入新的文章标号的
-            //
-            auto it_inverted_exist = _inverted_index.find(*it_word_vector);   //判断当前单词是否存在倒排哈希表中
-            if((it_inverted_exist == _inverted_index.end()))    //当前单词不存在与倒排哈希表中
+            //判断当前单词是否在hash表中
+            auto it_inverted_exist = _inverted_index.find(*it_word_vector);
+            //不存在，新增k-v
+            if((it_inverted_exist == _inverted_index.end()))
             {
-                //不存在，确定对应的哈希word，然后将文章的标号放入到哈希表的value位置
                 info.docid = it_forward->first;
                 (_inverted_index[*it_word_vector]).push_back(info);
             }
-            else  //当前单词已经存在于哈希表中
+            //存在
+            else
             {
-                //如果哈希表中已经存在那个key了，判断这个单词是不是在同一片文章中出现的，如果是同一篇文章中的，就直接在文章编号的地方加1就好
+                //判断单词是否在同一片文章中
+                //不同文档，新增k-v
                 if(it_forward->first != ((it_inverted_exist->second).back()).docid)
                 {
                     info.docid = it_forward->first;
                     (_inverted_index[*it_word_vector]).push_back(info);
                 }
+                //同一文档，次数++
                 else
                 {
                     (it_inverted_exist->second).back().times++;
@@ -165,15 +155,12 @@ int InvertedIndex::forward_index()
         ++it_forward;
     }
 
-    cout<<"          建立哈希的值是  "<<n<<endl;
-    n = 0;
 
-    //根据倒排索引的结果，进行序列化，然后写入到文件中
+    //序列化
     inverm::invered_hash invered_hash;
     auto it_inver = _inverted_index.begin();
     while(it_inver != _inverted_index.end())
     {
-        n++;
         auto* index = invered_hash.add_index();
         index->set_key(it_inver->first);
         auto it_vector = (it_inver->second).begin();
@@ -187,7 +174,6 @@ int InvertedIndex::forward_index()
         it_inver++;
     }
 
-    cout<<"             序列化的个数是       "<<n<<endl;
 
     ofstream file_inver("/root/git/SearchEngine/api/proto/index/index.pro.db", ios::binary);
     if(file_inver)
@@ -195,7 +181,7 @@ int InvertedIndex::forward_index()
         cout<<"序列化success"<<endl;
     }
     string file_str_inver;
-    if (!invered_hash.SerializeToString(&file_str_inver))    //序列化结构体的时候，只需要序列化大的就OK了
+    if (!invered_hash.SerializeToString(&file_str_inver))
     {
         cerr << "Failed to write msg." << endl;
         return -1;
@@ -204,28 +190,10 @@ int InvertedIndex::forward_index()
     file_inver.close();
 
 
-
-    ////for test 查看是否成功将数据放在了哈希中
-    //unordered_map<int, vector<string>>::iterator map_it = forward_hash.begin();
-    //while(map_it != forward_hash.end())
-    //{
-    //    vector<string> vs = (*map_it).second;
-    //    vector<string>::iterator st_it = vs.begin();
-    //    while(st_it != vs.end())
-    //    {
-    //        cout<<(*st_it)<<endl;
-    //        st_it++;
-    //    }
-    //    map_it++;
-    //}
-
     return 0;
 }
 
-//反序列化
-//将结果保存了类的对象的成员变量中
-//这里将序列化程序单独的运行，然后启动服务的时候，才会调用反序列化，直接读取文件就可
-
+//反序列化,倒排hash保存在对象成员变量中
 void InvertedIndex::creat_inverted_index()
 {
     docinfo info;
@@ -258,20 +226,134 @@ void InvertedIndex::creat_inverted_index()
         }
     }
 
-    cout<<"      反序列的word是"<<hash.index_size()<<endl;
-
 }
 
-vector<string> InvertedIndex::get_docid(const string& word)
+//获取url,多个单词结果取交集，按一定规则排序
+vector<int> InvertedIndex::get_docid(const string& word)
 {
-    vector<docinfo> url = _inverted_index[word];
-    vector<string> stringurl;
-    for(int i = 0;i<url.size();i++)
+    WordSegmentation words;
+    vector<vector<docinfo>> url_v_v;
+    vector<docinfo> url;
+    //对参数分词,每个单词对应一个vec放入二维vec中
+    vector<string> word_vector = words(word);
+    for(auto w : word_vector)
     {
-        cout<<_url[url[i].docid]<<endl;
-        stringurl.push_back(_url[url[i].docid]);
+        url = _inverted_index[w];
+        url_v_v.push_back(url);
     }
-    return stringurl;
+
+    //交集集合
+    vector<int> docid;
+    //选择一组倒排项中的每个单词和其他组进行比较
+    //如果每组都有，向交集中加入
+    int flag = 1;
+    for(auto url_comp : url)
+    {
+        for(auto url_v : url_v_v)
+        {
+            if(find(url_v.begin(), url_v.end(), url_comp) == url_v.end())
+            {
+                flag = 0;
+                break;
+            }
+        }
+        if(flag)
+        {
+            docid.push_back(url_comp.docid);
+        }
+        flag = 1;
+    }
+    //排序
+
+
+    return docid;
 }
 
+void InvertedIndex::creat_pages(const string& word, vector<page_struct>& pages)
+{
+    WordSegmentation words;
+    vector<string> word_vector = words(word);
+    vector<int> docid = get_docid(word);
+    //int nums = docid.size();
+    //if(nums <= 0)
+    //{
+    //    //没有匹配到
+    //}
+    //else if(nums < 10)
+    //{
+    //    //只有一个页面
+    //    nums = 1;
+    //}
+    //else
+    //{
+    //    nums = nums / 10;   //一页展示是个记录
+    //    if(nums > 10)
+    //        nums = 10;     //最多展示十页
+    //}
 
+    //记录标题内容路径，写入结构体
+    page_struct page;
+    string title;
+    string content;
+    string url;
+    vector<string> path;
+    //string temp = 0;  //标识文章
+    //string rep = 0;   //标识替换内容
+    //string path_i = "";
+    //string title_i = "";
+    //string url_i = "";
+    //string content_i = "";
+    for(int i = 0;i<docid.size();i++)
+    {
+        //暂时最多展示十页
+        if(i >= 100)
+        {
+            break;
+        }
+        //获取url和path
+        //url.push_back(_url[docid[i]]);
+        path.push_back(_file_path[docid[i]]);
+        //for test
+        //cout<<url[i]<<endl;
+        //根据path获取文章标题和内容
+        ifstream read(path[i].c_str());
+        //todo 通过html页面提取标题
+        getline(read, title);
+        getline(read, title);
+        if(title[title.length() - 1] == '>' || title.length() < 3)
+        {
+            getline(read, title);
+            while(title.length() < 3)
+            {
+                getline(read, title);
+            }
+        }
+        while(getline(read, content))
+        {
+            if(content.find(word_vector[0]) != string::npos)
+            {
+                break;
+            }
+        }
+        page.title = title;
+        page.content = content;
+        page.url = _url[docid[i]];
+        pages.push_back(page);
+        read.close();
+
+        //temp = to_string(i / 10);
+        //rep = to_string(i % 10);
+
+        //path_i = "/root/git/SearchEngine/server/wwwroot/template/" + temp + "temp.html";
+        //ctemplate::TemplateDictionary dict(" ");
+        //dict.SetValue("url",url[0]);
+        //std::string output;
+        //ctemplate::ExpandTemplate("./wwwroot/template/temp.html", ctemplate::DO_NOT_STRIP, &dict, &output);
+
+
+        //ofstream write;
+        //write.open("/root/git/SearchEngine/server/wwwroot/template/temp1.html", ios::app);
+        //write << "hahahahh" << endl;
+        //write.close();
+    }
+}

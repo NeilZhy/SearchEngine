@@ -21,11 +21,11 @@ string replaceALL(string src, const string& target,const string& subs)
 {
     string tmp(src);
     string::size_type pos =tmp.find(target),targetSize =target.size(),resSize =subs.size();  
-    while(pos!=string::npos)//found  
-    {  
-        tmp.replace(pos,targetSize,subs);   
-        pos =tmp.find(target, pos + resSize);   
-    }  
+    while(pos!=string::npos)
+    {
+        tmp.replace(pos,targetSize,subs);
+        pos =tmp.find(target, pos + resSize);
+    }
     return tmp;
 }
 
@@ -45,42 +45,42 @@ void print_log(char *msg,int level)
 #endif
 }
 
- int startup(const char* ip,int port)
- {
-     int sock = socket(AF_INET,SOCK_STREAM,0);
-     if(sock < 0)
-     {
-         print_log(strerror(errno),FATAL);
-         exit(2);
-     }
- 
+int startup(const char* ip,int port)
+{
+    int sock = socket(AF_INET,SOCK_STREAM,0);
+    if(sock < 0)
+    {
+        print_log(strerror(errno),FATAL);
+        exit(2);
+    }
+
     int opt = 1;
-     setsockopt(sock,SOL_SOCKET,SO_REUSEADDR,&opt,sizeof(opt));
- 
-     struct sockaddr_in local;
-     local.sin_family = AF_INET;
-     local.sin_port = htons(port);
-     local.sin_addr.s_addr = inet_addr(ip);
-     if(bind(sock,(struct sockaddr*)&local,sizeof(local))<0)
-     {
-         print_log(strerror(errno),FATAL);
+    setsockopt(sock,SOL_SOCKET,SO_REUSEADDR,&opt,sizeof(opt));
+
+    struct sockaddr_in local;
+    local.sin_family = AF_INET;
+    local.sin_port = htons(port);
+    local.sin_addr.s_addr = inet_addr(ip);
+    if(bind(sock,(struct sockaddr*)&local,sizeof(local))<0)
+    {
+        print_log(strerror(errno),FATAL);
         exit(3);
-     }
-     if(listen(sock,10)<0)
-     {
-         print_log(strerror(errno),FATAL);
-         exit(4);
-     }
-     return sock;
- }
+    }
+    if(listen(sock,10)<0)
+    {
+        print_log(strerror(errno),FATAL);
+        exit(4);
+    }
+    return sock;
+}
 
 static int get_line(int sock,char line[],int size)
- {
+{
      //read 1 char ,one by one
      char c = '\0';
      int len = 0;
      while(c != '\n' && len < size -1)
-     {   
+     {
          int r = recv(sock,&c,1,0);
          if(r > 0)
          {
@@ -97,24 +97,23 @@ static int get_line(int sock,char line[],int size)
                      {
                          c = '\n';
                      }
-           }
+                 }
              }// \r -> \n,\r\n ->\n
-             //c == \n
+               //c == \n
              line[len++] = c;
          }
          else
          {
              c = '\n';
          }
- 
+
      }
      line[len] = '\0';
-     //printf("line : %s\n",line);
      return len;
- }
- 
- static void echo_string(int sock)
- {}
+}
+
+static void echo_string(int sock)
+{}
 
 
 int echo_www(int sock,char* path,int size) //GET
@@ -139,23 +138,23 @@ int echo_www(int sock,char* path,int size) //GET
         echo_string(sock);
         print_log(strerror(errno),FATAL);
         return 9;
-   }
+    }
    close(fd);
 }
 
 
- void drop_header(int sock)
- {
-     char line[1024];
-     int  ret = -1;
-     do
-     {
-         ret = get_line(sock,line,sizeof(line));
-     }while(ret > 0&&strcmp(line,"\n"));
- }
- 
+void drop_header(int sock)
+{
+    char line[1024];
+    int  ret = -1;
+    do
+    {
+        ret = get_line(sock,line,sizeof(line));
+    }while(ret > 0&&strcmp(line,"\n"));
+}
 
-//参数query_str实际就是336
+
+//query_str e.g. 336
 int connetser(char *query_str)
 {
 	int sock = socket(AF_INET,SOCK_STREAM,0);
@@ -170,18 +169,13 @@ int connetser(char *query_str)
     local.sin_port = htons(80);
     local.sin_addr.s_addr=inet_addr("1.85.11.58");
     int a =  connect(sock,(struct sockaddr*)&local,sizeof(local));
-    //if(a == 0)
-    //{
-    //  printf("我们已经爬到了网站上面啦！！！\n");
-    //}
 
 
     char echo_line[420] = "GET /chaxun/bus/busreserch2.asp?keyword=";
     char echo_line2[] = "&submit= HTTP/1.1\r\nHost: www.xianyz.com\r\nUser-Agent: Mozilla/5.0 (X11; Linux i686; rv:52.0 ) Gecko/20100101 Firefox/52.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nCookie: ASPSESSIONIDASSDBCAD=ONPANMLFCHMBOJHPNDBFFBOJK\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n\r\n";
-    strcat(echo_line,query_str);  //传入的参数，是为了这里接到请求报头上面来的
+    strcat(echo_line,query_str);
     strcat(echo_line,echo_line2);
     send(sock,echo_line,strlen(echo_line),0);
-    //printf("正在查询，请稍后\n");
     char buf[5000];
     char arr[5000];
     char *pin = buf;
@@ -210,7 +204,7 @@ int connetser(char *query_str)
 	  int m2 = recv(sock,buf2,4999,0);
       strcat(buf,buf2);
 	}
-    size_t len = strlen(buf); 
+    size_t len = strlen(buf);
     iconv_t cd = iconv_open("utf-8","gb2312");
     if(cd == 0)
     {
@@ -230,33 +224,10 @@ int connetser(char *query_str)
 
 	if(ii>2500)
 	{
-        //FILE* pf = fopen("txt","a+");
-        //fwrite(arr,1,strlen(arr),pf);
-        //string filename = "336.html";
-        //fstream in(filename.c_str());
-        //string html;
-        //if(!in)
-        //{
-        //    cout<<"error"<<endl;
-        //}
-        //string htmltmp;
-        //while(in>>htmltmp)
-        //{
-        //    html += htmltmp;
-        //}
-        //cout<<"  html    "<<html<<endl;
 	    HTML::ParserDom parser;
 	    tree<HTML::Node> dom = parser.parseTree(arr);
         tree<HTML::Node>::iterator it = dom.begin();
-        //tree<HTML::Node>::iterator end = dom.end();
-        //cout<<"dom   "<<endl<<dom<<endl;
-	    //HTML::ParserDom par;
-	    //tree<HTML::Node> d = par.parseTree(html);
-        //tree<HTML::Node>::iterator ithtml = d.begin();
-        //cout<<d<<endl;
-        //ithtml += 15;
-        ////ithtml->text() = "hahahahhaha";
-        //cout<<"      ithtml      "<<ithtml->text()<<endl;
+
         string prev = "<html><head><meta charset=\"utf-8\"></html><div class=\"container-fluid\"><div class=\"row-fluid\"> <div class=\"span12\"><h3 class=\"text-center\"> 西安公交查询系统</h3><form name=\"input\" action=\"haha.html\" method=\"get\">车次号: <input type=\"text\" name=\"user\"><input type=\"submit\" value=\"查询\">";
         string next = "<p> </p></div></div></div>";
 
@@ -266,8 +237,8 @@ int connetser(char *query_str)
         path += query_str;
         path += ".html";
 	    ofstream fout(path);
-        //fout<<"<html><head><meta charset=\"utf-8\"><title>公交查询系统</title></head><body>"<<it->text()<<"</body></html>";
-        string str = it->text();   //str中的内容就是各个站点
+        //str中的内容就是各个站点
+        string str = it->text();
         str = replaceALL(str,"、"," ");
         string middle;
         string tmp;
@@ -278,7 +249,6 @@ int connetser(char *query_str)
             middle += "<p>";
             middle += tmp;
             middle += "</p>";
-            //mini.push_back(tmp);
         }
         string text = prev + middle + next;
         fout<<text;
@@ -288,9 +258,6 @@ int connetser(char *query_str)
 	}
 	else
 	{
-		cout<<"\n\n\n\n\n\n\n访问的页面不存在\n";
-		//处理其他的事情
-
 	    ofstream fout("./wwwroot/haha.html");
         fout<<"<html><head><meta charset=\"utf-8\"><title>出错</title></head><body><p>对不起，访问的页面不存在</p></body></html>";
 	    fout<<flush;
@@ -302,8 +269,7 @@ int connetser(char *query_str)
 
 void *handler_request(void *arg)
 {
-	//unsigned long sock = (unsigned long)arg;
-    struct sock_index* psi = (struct sock_index*)arg; 
+    struct sock_index* psi = (struct sock_index*)arg;
 	unsigned long sock = psi->sock;
     InvertedIndex* pindex = psi->index;
 #ifdef _DEBUG_
@@ -322,7 +288,7 @@ void *handler_request(void *arg)
        }
      while(1);
 #else
- 
+
      int ret = 0;
      char buf[SIZE];
      char method[SIZE/10];
@@ -331,14 +297,14 @@ void *handler_request(void *arg)
      int i,j;
      int cgi = 0;
      char* query_string = NULL;
- 
+
      if(get_line(sock,buf,sizeof(buf)) <= 0)
      {
          echo_string(sock);//fail
          ret = 5;
          goto end;
 	 }
-	 //buf里面放置的内容就是我的url和方法的信息，就是我的整个请求行
+	 //buf存放请求行
      i = 0; //method -> index
      j = 0; //buf->index
 
@@ -352,7 +318,7 @@ void *handler_request(void *arg)
          j++;
      }
      method[i] = 0;
-	//method里面的内容是方法，这里一般就是GET
+	//method方法GET
 	 if(strcasecmp(method,"GET") &&strcasecmp(method,"POST"))
      {
          echo_string(sock);
@@ -370,7 +336,6 @@ void *handler_request(void *arg)
      }
 
      i = 0;
-     //while(isspace(buf[j])&&j<sizeof(buf)&&i<sizeof(url))
      while(!isspace(buf[j])&&j<sizeof(buf)&&i<sizeof(url))
      {
          url[i] = buf[j];
@@ -378,10 +343,7 @@ void *handler_request(void *arg)
          j++;
      }
      url[i] = 0;
-     //printf("method : %s url :%s\n",method,url);
-     //pan duan shibushi you ? hao   
-     //while循环中做的事情，是将url截断
-     //使query_string指向了336
+     //将url截断，query_string指向336
      query_string = url;
      while(*query_string != '\0')
      {
@@ -394,13 +356,13 @@ void *handler_request(void *arg)
          }
          query_string++;
      }
-     //pinjie genmulu
+     //拼接目录
      sprintf(path,"wwwroot%s",url);
      if(path[strlen(path) - 1] == '/')// '/'
      {
          strcat(path,"index.html");
      }
- 
+
 	 struct stat st;
      if(stat(path,&st) != 0)
      {
@@ -411,57 +373,34 @@ void *handler_request(void *arg)
      }
      else
      {
-         //success
-         //mulu
          if(S_ISDIR(st.st_mode))
          {
              strcat(path,"/index.html");
          }
          else if((st.st_mode & S_IXUSR)||(st.st_mode & S_IXGRP)||(st.st_mode & S_IXOTH))
          {
-             //cheng xu
 			 cgi = 1;
          }
 		 else
          {
-			 //printf("这里不管是不是正确的路径，都进入到这个函数内部了，是什么原因\n");
+			 //printf("程序一直执行到这里\n");
 		 }
-         //ok -> cgi=?,path,query_string,method
-        //上面有一个分心path的程序部分，就是处理那个query的那个部分的地方，我哪里把cgi
-		//写成是1了，就导致了总是进入到下面的内容 中了，所以我这里先把这个if给注释掉了
-		// if(cgi)
-        // {
-        //   //exe_cgi();
-        // }
-        // else
-        // {
-        //     printf("method : %s\n url :%s \n path : %s\n cgi : %d\nquery_string:%s\n    ",method,url,path,cgi,query_string);
-        //    drop_header(sock);  //!!!!!!!!      
-        //    echo_www(sock,path,st.st_size);  //GET
-        // }
-        //
-        //
-        //
-        // 将要访问一个查询的时候，首先检查本地有没有这个文件
-        // 如果有直接返回，如果没有使用 爬虫爬取数据，将生成的网页放在指定的目录下面
-        
 
-         int flag = 1; 
+         int flag = 1;
 		if(cgi)
 		{
-		    query_string+=5;	//这里query_string是一个指针，维护着url
-                                //query_string + 5之后应该获取的就是用户想要查询的车次
+            //query_string + 9,指向查询的关键词
+		    query_string+=9;
             path[8] = '\0';
             strcat(query_string,".html");
             strcat(path,"train_number/");
             strcat(path,query_string);
-            if(!access(path,0)) //判断车次文件夹是否有数据
+            if(!access(path,0))
             {
-                printf("\n\n\n\n\n\n文件存在path %s       query_stri%s\n\n\n\n",path,query_string);
+                printf("文件存在path %s       query_stri%s\n",path,query_string);
             }
             else  //如果没有数据，爬取数据放在目录下面
             {
-                //query_string[3] = '\0';
                 char *p = query_string;
                 while(*p != '\0')
                 {
@@ -469,39 +408,74 @@ void *handler_request(void *arg)
                 }
                 p -= 5;
                 *p = '\0';
-                printf("\n\n\n\n\n%s\n\n\n\n\n",query_string);
 
                 string word = query_string;
-                cout<<word<<endl;
+                string page = word.substr(word.find_last_of("=") + 1);
+                int page_num = atoi(page.c_str());
+                word = word.substr(0,word.find_last_of("&"));
 
-                printf("path :   %s\n",path);
                 path[0] = '\0';
                 strcat(path, "/root/git/SearchEngine/html.html");
-                vector<string> url = pindex->get_docid(word);
+                //for test
+                //这里需要思考一下，需要的返回值是什么
+                vector<page_struct> pages;
+                pindex->creat_pages(word, pages);
 
-                //将结果写入到socket中，返回即可
-                //使用ctemplate函数处理
-                drop_header(sock);  //!!!!!!!!      
+                //结果写入socket
+                //ctemplate处理
+                drop_header(sock);
                 const char *echo_line="HTTP/1.0 200 OK\r\n";
                 send(sock,echo_line,strlen(echo_line),0);
                 const char *null_line="\r\n";
                 send(sock,null_line,strlen(null_line),0);
+                
+                //const char *search_head = "<html><head><meta charset=\"utf-8\"><title>站内搜索引擎</title></head><body><form class=\"form-search\"><input class=\"input-medium search-query\" type=\"text\" /> <button type=\"submit\" class=\"btn\">搜索</button></form>";
+                const char *search_head = "<html><head><meta charset=\"utf-8\"><title>站内搜索引擎</title></head><body><form name=\"input\" action=\"\" method=\"get\"><input type=\"text\" name=\"keywords\"><input type=\"submit\" value=\"搜索\"></form>"; 
+                send(sock,search_head,strlen(search_head),0);
+                //for test 
+                cout<<"pages size"<<pages.size()<<endl;
 
-                ctemplate::TemplateDictionary dict(" ");
-                dict.SetValue("url",url[0]);
-                std::string output;
-                ctemplate::ExpandTemplate("./wwwroot/template/temp.html", ctemplate::DO_NOT_STRIP, &dict, &output);
-                send(sock,output.c_str(),output.size(),0);
-                cout<<output<<endl;
+                for(i = page_num * 10;i < (page_num * 10 + 10);i++)
+                {
+                    if(i >= pages.size())
+                    {
+                        //for test
+                        cout<<"页数大于所求值   "<<pages.size()<<endl;
+                        break;
+                    }
+                    ctemplate::TemplateDictionary dict(" ");
+                    dict.SetValue("url", pages[i].url);
+                    dict.SetValue("title", pages[i].title);
+                    dict.SetValue("content", pages[i].content);
+                    std::string output;
+                    ctemplate::ExpandTemplate("./wwwroot/template/temp.html", ctemplate::DO_NOT_STRIP, &dict, &output);
+                    send(sock,output.c_str(),output.size(),0);
+                }
+                const char *search_tail = "</body></html>";
+                send(sock,search_tail,strlen(search_tail),0);
+                for(i = 0;i<pages.size();i+=10)
+                {
+                    ctemplate::TemplateDictionary dict(" ");
+                    dict.SetValue("word", word);
+                    dict.SetValue("page", to_string(i/10));
+                    dict.SetValue("number", to_string(i/10));
+                    std::string output;
+                    ctemplate::ExpandTemplate("./wwwroot/template/page_temp.html", ctemplate::DO_NOT_STRIP, &dict, &output);
+                    send(sock,output.c_str(),output.size(),0);
+                }
+
                 flag = 0;
             }
 		}
         //printf("method : %s\n url :%s \n path : %s\n cgi : %d\nquery_string:%s\n    ",method,url,path,cgi,query_string);
         if(flag)
         {
-            drop_header(sock);  //!!!!!!!!      
-            stat(path,&st);  //这里设置的目的，是为了是st和最近的文件进行绑定，以便获取文件的长度
-            echo_www(sock,path,st.st_size);  //GET
+            drop_header(sock);
+            //将st和最近的文件绑定，获取文件的长度
+            stat(path,&st);
+            echo_www(sock,path,st.st_size);
+            //for test
+            cout<<"                     "<<path<<endl;
         }
      }
 
@@ -510,7 +484,7 @@ void *handler_request(void *arg)
  end:
      printf("quit client ...\n");
      close(sock);
-	return (void*)ret;
+	 return (void*)ret;
  #endif
 }
 
